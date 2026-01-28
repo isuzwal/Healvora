@@ -1,16 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
 
@@ -59,37 +57,24 @@
 
 :root {
   --radius: 0.625rem;
-
-  
   --background: #FFFFFF;
   --foreground: #191919;
-
- 
   --card: #FFFFFF;
   --card-foreground: #191919;
   --popover: #FFFFFF;
   --popover-foreground: #191919;
-
- 
   --primary: #14967F;
   --primary-foreground: #FFFFFF;
-
   --secondary: #FAD069;
   --secondary-foreground: #191919;
-
   --muted: #F4F4F5;
   --muted-foreground: #A3A3A3;
-
   --accent: #FAD069;
   --accent-foreground: #191919;
-
   --destructive: #E5484D;
-
   --border: #E5E7EB;
   --input: #E5E7EB;
   --ring: #14967F;
-
- 
   --sidebar: #FFFFFF;
   --sidebar-foreground: #191919;
   --sidebar-primary: #14967F;
@@ -98,8 +83,6 @@
   --sidebar-accent-foreground: #191919;
   --sidebar-border: #E5E7EB;
   --sidebar-ring: #14967F;
-
-
   --chart-1: #14967F;
   --chart-2: #FAD069;
   --chart-3: #191919;
@@ -111,30 +94,22 @@
 .dark {
   --background: #191919;
   --foreground: #FFFFFF;
-
   --card: #1F1F1F;
   --card-foreground: #FFFFFF;
   --popover: #1F1F1F;
   --popover-foreground: #FFFFFF;
-
   --primary: #14967F;
   --primary-foreground: #FFFFFF;
-
   --secondary: #FAD069;
   --secondary-foreground: #191919;
-
   --muted: #262626;
   --muted-foreground: #A3A3A3;
-
   --accent: #262626;
   --accent-foreground: #FFFFFF;
-
   --destructive: #E5484D;
-
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.15);
   --ring: #14967F;
-
   --sidebar: #1F1F1F;
   --sidebar-foreground: #FFFFFF;
   --sidebar-primary: #14967F;
@@ -143,7 +118,6 @@
   --sidebar-accent-foreground: #FFFFFF;
   --sidebar-border: rgba(255, 255, 255, 0.1);
   --sidebar-ring: #14967F;
-
   --chart-1: #14967F;
   --chart-2: #FAD069;
   --chart-3: #FFFFFF;
