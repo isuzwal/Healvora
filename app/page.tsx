@@ -1,10 +1,11 @@
+import { HeroSection } from "@/components/hero-section-view";
 import { NavBara } from "@/components/navbar-view";
-import { Screen } from "@/components/screen-view";
 
 export default function Home() {
   return (
-    <Screen>
+    <div className="">
       <NavBara />
-    </Screen>
+      <HeroSection />
+    </div>
   );
 }

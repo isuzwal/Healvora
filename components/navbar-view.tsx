@@ -12,7 +12,7 @@ export const NavBara = () => {
   };
 
   return (
-    <div className="w-full  font-sans  flex justify-between items-center p-2">
+    <div className="w-full px-4  sticky top-0  rounded-t-md  backdrop-blur-2xl z-30 font-sans  flex justify-between items-center p-2">
       <div>
         {/* <span>Logo</span> */}
         <Link href="/" className="font-semibold  md:text-[24px] text-[20px]">
@@ -22,13 +22,13 @@ export const NavBara = () => {
       <div className="flex gap-4 font-medium  items-center">
         <Link
           href={"/login"}
-          className="text-[14px] px-5 py-0.5 rounded-[6px]  border border-neutral-100 bg-neutral-100 hover:bg-neutral-50 cursor-pointer  dark:hover:bg-neutral-200 hover:text-neutral-600 dark:border-primary-foreground  text-neutral-950 dark:bg-primary-foreground dark:hover:border-primary-foreground flex items-center  duration-300 ease-in-out transition-all   "
+          className="text-[14px] px-5 py-1 rounded-[6px]  border border-neutral-100 bg-neutral-100 hover:bg-neutral-50 cursor-pointer  dark:hover:bg-neutral-200 hover:text-neutral-600 dark:border-primary-foreground  text-neutral-950 dark:bg-primary-foreground dark:hover:border-primary-foreground flex items-center  duration-300 ease-in-out transition-all   "
         >
           Login
         </Link>
         <Link
           href={"/register"}
-          className="px-5 py-0.5 text-[14px] cursor-pointer  rounded-[6px]  flex items-center duration-300 ease-in-out transition-all bg-primary border border-primary hover:border-primary/80 hover:text-neutral-200 text-neutral-100 dark:hover:text-neutral-200   hover:bg-primary/80"
+          className="px-5 py-1 text-[14px] cursor-pointer  rounded-[6px]  flex items-center duration-300 ease-in-out transition-all bg-primary border border-primary hover:border-primary/80 hover:text-neutral-200 text-neutral-100 dark:hover:text-neutral-200   hover:bg-primary/80"
         >
           Register
         </Link>
