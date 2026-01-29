@@ -2,6 +2,7 @@
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 export const NavBara = () => {
   const { theme, setTheme } = useTheme();
@@ -31,16 +32,32 @@ export const NavBara = () => {
         >
           Register
         </Link>
-        <button
-          onClick={handleTheme}
-          className=" group hover:bg-neutral-100 dark:hover:border-neutral-900 dark:hover:bg-neutral-900 rounded-lg w-8 flex justify-center px-2 py-1"
-        >
-          {theme === "dark" ? (
-            <Sun className="size-6 group-hover:text-neutral-400" />
-          ) : (
-            <Moon className="size-6 group-hover:text-neutral-700" />
-          )}
-          {/* <svg
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={handleTheme}
+              className=" group hover:bg-neutral-100 dark:hover:border-neutral-900 dark:hover:bg-neutral-900 rounded-lg w-8 flex justify-center px-2 py-1"
+            >
+              {theme === "dark" ? (
+                <Sun className="size-6 group-hover:text-neutral-400" />
+              ) : (
+                <Moon className="size-6 group-hover:text-neutral-700" />
+              )}
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <span className="flex items-center font-medium font-sans text-[12px] ">
+              Toggle Mode
+            </span>
+          </TooltipContent>
+        </Tooltip>
+      </div>
+    </div>
+  );
+};
+
+{
+  /* <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -58,9 +75,5 @@ export const NavBara = () => {
             <path d="M12 9l4.65 -4.65"></path>
             <path d="M12 14.3l7.37 -7.37"></path>
             <path d="M12 19.6l8.85 -8.85"></path>
-          </svg> */}
-        </button>
-      </div>
-    </div>
-  );
-};
+          </svg> */
+}

@@ -1,4 +1,4 @@
-import { UserRegisterPage } from "@/components/user-rgister-view";
+import { UserRegisterPage } from "@/components/user-register-view";
 
 export default function page() {
   return <UserRegisterPage />;
