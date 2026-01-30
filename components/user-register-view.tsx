@@ -1,22 +1,21 @@
 "use client";
+
 import { useForm, Controller } from "react-hook-form";
 import { Card } from "./ui/card";
-
-import { toast } from "sonner";
 import { Input } from "./ui/input";
+import { Field, FieldError, FieldGroup, FieldLabel } from "./ui/field";
 import { useState } from "react";
 import { Eye, EyeClosed, Loader } from "lucide-react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "@/lib/forms-schema";
 import { z } from "zod";
-import { Field, FieldError, FieldGroup, FieldLabel } from "./ui/field";
 
 export const UserRegisterPage = () => {
-  const [Isshow, setShow] = useState<boolean>(false);
-  const [IsLoading, setLoading] = useState<boolean>(false);
+  const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const form = useForm({
+  const form = useForm<z.output<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
       name: "",
@@ -24,136 +23,138 @@ export const UserRegisterPage = () => {
       password: "",
     },
   });
-  // api call function
+
   const onSubmit = async (data: z.output<typeof RegisterSchema>) => {
-    console.log("Demo Data", data);
+    setLoading(true);
+    console.log(data);
+    setTimeout(() => setLoading(false), 1200);
   };
+
   return (
-    <div className="flex justify-center items-center w-full min-h-screen ">
-      <Card className="w-full max-w-[26rem]  px-2">
-        <form
-          id="form-rhf-register"
-          onSubmit={form.handleSubmit(onSubmit)}
-          className=" flex flex-col gap-2"
-        >
-          <FieldGroup>
-            <Controller
-              name="name"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-nvalid={fieldState.invalid} className=" gap-1">
-                  <FieldLabel
-                    htmlFor="form-rhf-register-username"
-                    className="text-neutral-300"
-                  >
-                    Username
-                  </FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-rhf-register-username"
-                    aria-invalid={fieldState.invalid}
-                    className=""
-                  />
-                  {fieldState.invalid && (
-                    <FieldError
-                      className=" leading-snug font-sans text-[12px] font-medium"
-                      errors={[fieldState.error]}
-                    />
-                  )}
-                </Field>
-              )}
-            />
-          </FieldGroup>
-          <FieldGroup>
-            <Controller
-              name="email"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-nvalid={fieldState.invalid} className=" gap-1">
-                  <FieldLabel htmlFor="form-rhf-register-email">
-                    Email
-                  </FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-rhf-register-email"
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError
-                      className=" leading-snug font-sans text-[12px] font-medium"
-                      errors={[fieldState.error]}
-                    />
-                  )}
-                </Field>
-              )}
-            />
-          </FieldGroup>
-          <FieldGroup>
-            <Controller
-              name="password"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-nvalid={fieldState.invalid} className="gap-1">
-                  <FieldLabel
-                    htmlFor="form-rhf-register-Password"
-                    className="text-neutral-300"
-                  >
-                    Password
-                  </FieldLabel>
-                  <div className=" relative">
-                    <Input
-                      {...field}
-                      type={Isshow ? "text" : "password"}
-                      id="form-rhf-register-Password"
-                      aria-invalid={fieldState.invalid}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShow((v) => !v)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-200"
-                      aria-label={Isshow ? "Hide password" : "Show password"}
-                    >
-                      {Isshow ? <Eye size={18} /> : <EyeClosed size={18} />}
-                    </button>
-                  </div>
-                  {fieldState.invalid && (
-                    <FieldError
-                      className=" leading-snug font-sans text-[12px] font-medium"
-                      errors={[fieldState.error]}
-                    />
-                  )}
-                </Field>
-              )}
-            />
-          </FieldGroup>
-          <div className=" px-1 w-full text-[14px] font-sans text-neutral-400 font-medium">
-            <p>
-              Already have account ?{" "}
-              <Link
-                href={"/login"}
-                className="text-primary cursor-pointer underline"
-              >
-                Login
-              </Link>
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-neutral-50 to-neutral-100 px-4">
+      <Card className="w-full max-w-md rounded-2xl border border-neutral-200/60 bg-white/80 backdrop-blur shadow-lg">
+        <div className="p-6 sm:p-8">
+          <div className="mb-6 text-center">
+            <h1 className="text-3xl font-semibold tracking-tight text-neutral-900">
+              Create your account
+            </h1>
+            <p className="mt-2 text-sm text-neutral-600">
+              Get started with{" "}
+              <span className="font-medium text-primary">Healvora</span> today
             </p>
           </div>
-        </form>
 
-        <button
-          disabled={IsLoading}
-          type="submit"
-          form="form-rhf-register"
-          className="w-full px-5 py-1.5  flex justify-center items-center bg-primary text-white font-sans font-semibold text-base border border-primary cursor-pointer rounded-md "
-        >
-          {IsLoading ? (
-            <span className="flex w-full justify-center items-center gap-2 ">
-              Creating your account{" "}
-              <Loader className="animate-spin  text-neutral-300 size-4.5 mt-0.5" />
-            </span>
-          ) : (
-            <span>Create your account</span>
-          )}
-        </button>
+          <form
+            id="register-form"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4"
+          >
+            <FieldGroup>
+              <Controller
+                name="name"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid} className="gap-1">
+                    <FieldLabel>Full name</FieldLabel>
+                    <Input
+                      {...field}
+                      placeholder="John Doe"
+                      className="h-10 rounded-md placeholder:text-neutral-400 border-neutral-300 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+            </FieldGroup>
+
+            <FieldGroup>
+              <Controller
+                name="email"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid} className="gap-1">
+                    <FieldLabel>Email address</FieldLabel>
+                    <Input
+                      {...field}
+                      type="email"
+                      placeholder="you@healvora.com"
+                      className="h-10 rounded-md border-neutral-300 focus:border-primary placeholder:text-neutral-400 focus:ring-2 focus:ring-primary/20"
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+            </FieldGroup>
+
+            <FieldGroup>
+              <Controller
+                name="password"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid} className="gap-1">
+                    <FieldLabel>Password</FieldLabel>
+                    <div className="relative">
+                      <Input
+                        {...field}
+                        type={show ? "text" : "password"}
+                        placeholder="••••••••"
+                        className="h-10 pr-10 placeholder:text-neutral-400 rounded-md border-neutral-300 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShow((v) => !v)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-700"
+                      >
+                        {show ? <Eye size={18} /> : <EyeClosed size={18} />}
+                      </button>
+                    </div>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+            </FieldGroup>
+
+            <p className="text-sm text-neutral-600">
+              Already have an account?{" "}
+              <Link href="/login" className="text-primary hover:underline">
+                Sign in
+              </Link>
+            </p>
+          </form>
+
+          <button
+            type="submit"
+            form="register-form"
+            disabled={loading}
+            className="mt-6 flex h-11 w-full items-center justify-center gap-2 rounded-md bg-primary text-white font-medium transition hover:bg-primary/90 disabled:opacity-70"
+          >
+            {loading ? (
+              <>
+                Creating account
+                <Loader className="h-4 w-4 animate-spin" />
+              </>
+            ) : (
+              "Create account"
+            )}
+          </button>
+
+          <p className="mt-6 text-center text-xs text-neutral-500">
+            By creating an account, you agree to our{" "}
+            <Link href="/terms" className="text-primary hover:underline">
+              Terms
+            </Link>{" "}
+            &{" "}
+            <Link href="/privacy" className="text-primary hover:underline">
+              Privacy Policy
+            </Link>
+          </p>
+        </div>
       </Card>
     </div>
   );

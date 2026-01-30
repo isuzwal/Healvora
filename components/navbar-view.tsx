@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const NavBara = () => {
   return (
-    <div className="w-full px-2 md:px-6   sticky top-0    backdrop-blur-2xl z-30 font-sans  flex justify-between items-center p-2">
+    <div className="w-full px-2 md:px-6   sticky top-0     bg-white  z-30 font-sans  flex justify-between items-center p-2">
       <Link href={"/"} className="flex gap-1 items-center ">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -13,9 +13,9 @@ export const NavBara = () => {
           viewBox="0 0 24 24"
           fill="white"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           className="lucide lucide-squares-exclude-icon lucide-squares-exclude text-white border border-primary rounded-md bg-primary/90  p-0.5"
         >
           <path d="M16 12v2a2 2 0 0 1-2 2H9a1 1 0 0 0-1 1v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h0" />

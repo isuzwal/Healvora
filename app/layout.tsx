@@ -21,9 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={arimo.variable}>
-      <body className={cn("antialiased font-sans bg-background   ")}>
-        {children}
-      </body>
+      <body className={cn("antialiased font-sans     ")}>{children}</body>
     </html>
   );
 }
