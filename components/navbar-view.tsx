@@ -1,56 +1,38 @@
 "use client";
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+
 import Link from "next/link";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 export const NavBara = () => {
-  const { theme, setTheme } = useTheme();
-
-  const handleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
-
   return (
-    <div className="w-full px-4  sticky top-0  rounded-t-md  backdrop-blur-2xl z-30 font-sans  flex justify-between items-center p-2">
-      <div>
-        {/* <span>Logo</span> */}
-        <Link href="/" className="font-semibold  md:text-[24px] text-[20px]">
-          Healvora
-        </Link>
-      </div>
-      <div className="flex gap-4 font-medium  items-center">
-        <Link
-          href={"/login"}
-          className="text-[14px] px-5 py-1 rounded-[6px]  border border-neutral-100 bg-neutral-100 hover:bg-neutral-50 cursor-pointer  dark:hover:bg-neutral-200 hover:text-neutral-600 dark:border-primary-foreground  text-neutral-950 dark:bg-primary-foreground dark:hover:border-primary-foreground flex items-center  duration-300 ease-in-out transition-all   "
+    <div className="w-full px-2 md:px-6   sticky top-0    backdrop-blur-2xl z-30 font-sans  flex justify-between items-center p-2">
+      <Link href={"/"} className="flex gap-1 items-center ">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="white"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          className="lucide lucide-squares-exclude-icon lucide-squares-exclude text-white border border-primary rounded-md bg-primary/90  p-0.5"
         >
-          Login
-        </Link>
+          <path d="M16 12v2a2 2 0 0 1-2 2H9a1 1 0 0 0-1 1v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h0" />
+          <path d="M4 16a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3a1 1 0 0 1-1 1h-5a2 2 0 0 0-2 2v2" />
+        </svg>
+        <p className="font-semibold  md:text-[24px] text-[20px] text-neutral-900">
+          Healvora
+        </p>
+      </Link>
+
+      <div className="flex font-serif gap-4 font-medium  items-center">
         <Link
           href={"/register"}
-          className="px-5 py-1 text-[14px] cursor-pointer  rounded-[6px]  flex items-center duration-300 ease-in-out transition-all bg-primary border border-primary hover:border-primary/80 hover:text-neutral-200 text-neutral-100 dark:hover:text-neutral-200   hover:bg-primary/80"
+          className="px-4 py-1.5 text-[14px]   text-white cursor-pointer  rounded-[9px] shadow-[inset_0_1px_1px_rgba(180,250,235,0.5),inset_0_-1px_2px_rgba(180,250,235,0.5)] flex items-center duration-300 ease-in-out transition-all hover:bg-primary/80  bg-primary border border-green-300 font-sans font-medium"
         >
-          Register
+          Get Started
         </Link>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={handleTheme}
-              className=" group hover:bg-neutral-100 dark:hover:border-neutral-900 dark:hover:bg-neutral-900 rounded-lg w-8 flex justify-center px-2 py-1"
-            >
-              {theme === "dark" ? (
-                <Sun className="size-6 group-hover:text-neutral-400" />
-              ) : (
-                <Moon className="size-6 group-hover:text-neutral-700" />
-              )}
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <span className="flex items-center font-medium font-sans text-[12px] ">
-              Toggle Mode
-            </span>
-          </TooltipContent>
-        </Tooltip>
       </div>
     </div>
   );
