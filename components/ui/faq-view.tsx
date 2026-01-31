@@ -8,12 +8,12 @@ import {
 export const FAQSection = () => {
   return (
     <div className=" py-10 sm:py-20  mt-8 sm:mt-16  w-full">
-      <div className="flex flex-col gap-2  w-full justify-center items-center ">
-        <h1 className="text-neutral-800 font-bold font-sans  sm:text-xl text-[16px]">
+      <div className="flex flex-col gap-1  w-full justify-center items-center ">
+        <h1 className="text-neutral-700 font-bold font-sans  sm:text-xl text-[16px]">
           FAQs
         </h1>
-        <p className="text-2xl sm:text-4xl text-neutral-900 font-sans font-semibold text-center">
-          Your questions, answered here
+        <p className="text-2xl sm:text-4xl text-neutral-800 font-sans font-semibold text-center">
+          Your questions, answered here ?
         </p>
       </div>
       <div className="px-2 sm:px-4  py-6 max-w-4xl mx-auto w-full ">
@@ -28,7 +28,7 @@ export const FAQSection = () => {
               value="item-1 "
               className="  border-b-[1.5px] border-neutral-300 "
             >
-              <AccordionTrigger className=" cursor-pointer text-[16px] font-sans font-semibold text-neutral-700  ">
+              <AccordionTrigger className=" cursor-pointer text-[16px] font-sans font-medium text-neutral-800  ">
                 What is Healvora AI?
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance">
@@ -45,7 +45,7 @@ export const FAQSection = () => {
               value="item-2"
               className="  border-b-[1.5px] border-neutral-300 "
             >
-              <AccordionTrigger className="text-[16px]  cursor-pointer font-sans font-semibold  text-neutral-700">
+              <AccordionTrigger className="text-[16px]  cursor-pointer font-sans font-medium  text-neutral-800">
                 How does Healvora provide 24/7 support?
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance">
@@ -61,7 +61,7 @@ export const FAQSection = () => {
               value="item-3"
               className="  border-b-[1.5px] border-neutral-300 "
             >
-              <AccordionTrigger className="text-[16px]  text-neutral-700  cursor-pointer font-sans font-semibold ">
+              <AccordionTrigger className="text-[16px]  text-neutral-800  cursor-pointer font-sans font-medium ">
                 Can Healvora help me find the right doctor?
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance">
@@ -76,7 +76,7 @@ export const FAQSection = () => {
               value="item-4"
               className="  border-b-[1.5px] border-neutral-300 "
             >
-              <AccordionTrigger className="text-[16px]   text-neutral-700  cursor-pointer  font-sans font-semibold ">
+              <AccordionTrigger className="text-[16px]   text-neutral-800  cursor-pointer  font-sans font-medium ">
                 How does appointment booking work?
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance">
@@ -91,7 +91,7 @@ export const FAQSection = () => {
               value="item-5"
               className="  border-b-[1.5px] border-neutral-300 "
             >
-              <AccordionTrigger className="text-[16px]   text-neutral-700   cursor-pointer  font-sans font-semibold ">
+              <AccordionTrigger className="text-[16px]   text-neutral-800   cursor-pointer  font-sans font-medium ">
                 Does Healvora replace real doctors?
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance">
@@ -108,7 +108,7 @@ export const FAQSection = () => {
               value="item-6"
               className="  border-b-[1.5px] border-neutral-300 "
             >
-              <AccordionTrigger className="text-[16px]   text-neutral-700  cursor-pointer  font-sans font-semibold ">
+              <AccordionTrigger className="text-[16px]   text-neutral-800  cursor-pointer  font-sans font-medium ">
                 Is my medical data safe on Healvora?
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance">
@@ -124,7 +124,7 @@ export const FAQSection = () => {
               value="item-7"
               className="  border-b-[1.5px] border-neutral-300 "
             >
-              <AccordionTrigger className="text-[16px]   text-neutral-700  cursor-pointer  font-sans font-semibold ">
+              <AccordionTrigger className="text-[16px]   text-neutral-800  cursor-pointer  font-sans font-medium ">
                 Can Healvora suggest preventive care and health tips?
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance">

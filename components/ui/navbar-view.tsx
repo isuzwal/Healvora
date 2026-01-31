@@ -29,7 +29,7 @@ export const NavBara = () => {
       <div className="flex font-serif gap-4 font-medium  items-center">
         <Link
           href={"/register"}
-          className="px-4 py-1.5 text-[14px]   text-white cursor-pointer  rounded-[9px] shadow-[inset_0_1px_1px_rgba(180,250,235,0.5),inset_0_-1px_2px_rgba(180,250,235,0.5)] flex items-center duration-300 ease-in-out transition-all hover:bg-primary/80  bg-primary border border-green-300 font-sans font-medium"
+          className="px-4 py-1 text-[14px]   text-white cursor-pointer  rounded-[9px] shadow-[inset_0_1px_1px_rgba(180,250,235,0.5),inset_0_-1px_2px_rgba(180,250,235,0.5)] flex items-center duration-300 ease-in-out transition-all hover:bg-primary/80  bg-primary border border-green-300 font-sans font-medium"
         >
           Get Started
         </Link>

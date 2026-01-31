@@ -22,15 +22,46 @@ export const HeroSection = () => {
             your fmaily&apos;s well-begin at every stage of life
           </p>
         </div>
-        <div className="flex  flex-col sm:flex-row mt-4 gap-4  max-w-lg w-full justify-center items-center">
-          <button className="flex  justify-center group text-sm items-center  cursor-pointer gap-1.5 rounded-4xl px-6 py-1.5  font-medium hover:bg-primary/60 dark:hover:text-neutral-300 duration-300 ease-in-out transition-all  text-neutral-100 bg-primary border border-primary">
+        <div className="flex   flex-col sm:flex-row mt-4 gap-4  max-w-2xl w-full justify-center items-center">
+          <button className="flex  justify-center group text-sm items-center  cursor-pointer gap-1.5 rounded-lg px-6 py-1.5  font-medium dark:hover:text-neutral-300 duration-300 ease-in-out transition-all  text-neutral-100 bg-primary border border-primary/70 hover:bg-primary/80">
             Book Appointment{" "}
-            <ArrowRight className=" group-hover:translate-x-2 duration-300 mt-0.5 ease-in-out transition-all  size-4" />
+            <ArrowRight className=" group-hover:translate-x-2 duration-300  ease-in-out transition-all  size-4.5" />
           </button>
-          <button className="flex  justify-center group text-sm items-center  cursor-pointer gap-1.5 rounded-4xl px-6 py-1.5  font-medium   duration-300 ease-in-out transition-all  text-neutral-600 bg-secondary  border border-neutral-200 shadow-[inset_0_1px_2px_rgba(240,240,240,1),inset_0_-1px_2px_rgba(255,255,255,0.4)]  hover:text-neutral-400">
-            Explore Serices
-            <ArrowRight className=" group-hover:translate-x-2 duration-300 mt-0.5 ease-in-out transition-all  size-4" />
-          </button>
+          <div className="flex  justify-center    max-w-[20rem] w-full">
+            <div className="relative flex max-w-22  w-full  items-center ">
+              <div className=" absolute z-30 left-0 w-7 h-7    overflow-hidden flex justify-center items-center rounded-full ">
+                <Image
+                  src={"/images/first.png"}
+                  fill
+                  loading="lazy"
+                  alt="first-pic"
+                  className="object-cover border border-neutral-200  shadow w-full h-full rounded-full"
+                />
+              </div>
+              <div className="w-7 h-7  overflow-hidden absolute z-20 left-6 flex justify-center items-center rounded-full ">
+                <Image
+                  src={"/images/lady.png"}
+                  fill
+                  loading="lazy"
+                  alt="first-pic"
+                  className="object-cover border border-neutral-200  shadow w-full h-full rounded-full"
+                />
+              </div>
+
+              <div className="w-7 h-7 absolute z-10 right-3  overflow-hidden flex justify-center items-center rounded-full ">
+                <Image
+                  src={"/images/third.png"}
+                  fill
+                  loading="lazy"
+                  alt="first-pic"
+                  className="object-cover   border border-neutral-200   shadow w-full h-full rounded-full"
+                />
+              </div>
+            </div>
+            <p className="flex w-full gap-0.5   items-center text-[14px] font-sans font-medium text-neutral-950">
+              <strong>200+ </strong>Appoinments Sucessfully
+            </p>
+          </div>
         </div>
       </div>
       <div className="w-full p-1.5  mt-4  sm:mt-6 flex justify-center items-center  py-16 ">

@@ -5,7 +5,7 @@ import { Input } from "./input";
 export const Footer = () => {
   const fullyear = new Date().getFullYear();
   return (
-    <footer className=" py-16 w-full min-h-screen ">
+    <footer className=" py-16 w-full  ">
       <div className="w-full flex justify-center items-center flex-col p-1 gap-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"

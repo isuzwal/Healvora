@@ -1,9 +1,9 @@
 "use client";
 
 import { useForm, Controller } from "react-hook-form";
-import { Card } from "./ui/card";
-import { Input } from "./ui/input";
-import { Field, FieldError, FieldGroup, FieldLabel } from "./ui/field";
+import { Card } from "./card";
+import { Input } from "./input";
+import { Field, FieldError, FieldGroup, FieldLabel } from "./field";
 import { useState } from "react";
 import { Eye, EyeClosed, Loader } from "lucide-react";
 import Link from "next/link";
@@ -28,7 +28,7 @@ export const UserLoginPage = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-neutral-50 to-neutral-100 px-4">
-      <Card className="w-full max-w-md rounded-2xl border border-neutral-200/60 bg-white/80 backdrop-blur shadow-lg">
+      <Card className="w-full max-w-md rounded-2xl border border-neutral-200/60 bg-white/80 backdrop-blur shadow">
         <div className="p-6 sm:p-8">
           <div className="mb-6 text-center">
             <h1 className="text-3xl font-semibold tracking-tight text-neutral-900">
