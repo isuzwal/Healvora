@@ -1,7 +1,9 @@
-import { HeroSection } from "@/components/hero-section-view";
-import { NavBara } from "@/components/navbar-view";
+import { HeroSection } from "@/components/ui/hero-section-view";
+import { NavBara } from "@/components/ui/navbar-view";
 import { AboutSection } from "@/components/ui/about-section-view";
 import { Screen } from "@/components/ui/conatiner-view";
+import { FAQSection } from "@/components/ui/faq-view";
+import { Footer } from "@/components/ui/footer-view";
 
 export default function Home() {
   return (
@@ -9,6 +11,8 @@ export default function Home() {
       <NavBara />
       <HeroSection />
       {/* <AboutSection /> */}
+      <FAQSection />
+      <Footer />
     </Screen>
   );
 }
