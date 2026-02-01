@@ -1,13 +1,50 @@
+"use client";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Input } from "./input";
-
+import { motion, Variants } from "motion/react";
 export const Footer = () => {
   const fullyear = new Date().getFullYear();
+  const containerVariants: Variants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.5,
+        delayChildren: 0.8,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 10,
+      filter: "blur(10px)",
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        delay: 0.3,
+        duration: 0.3,
+        ease: "easeOut",
+      },
+    },
+  };
   return (
     <footer className=" py-16 w-full  ">
-      <div className="w-full flex justify-center items-center flex-col p-1 gap-4">
-        <svg
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="w-full flex justify-center items-center flex-col p-1 gap-4"
+      >
+        <motion.svg
+          variants={itemVariants}
+          whileInView={"show"}
+          initial="hidden"
+          viewport={{ once: true, amount: 0.2 }}
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -21,17 +58,34 @@ export const Footer = () => {
         >
           <path d="M16 12v2a2 2 0 0 1-2 2H9a1 1 0 0 0-1 1v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h0" />
           <path d="M4 16a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3a1 1 0 0 1-1 1h-5a2 2 0 0 0-2 2v2" />
-        </svg>
-        <div className="flex flex-col gap-2  justify-center items-center">
-          <h1 className="text-xl sm:text-3xl text-center font-sans font-semibold text-neutral-800">
+        </motion.svg>
+        <motion.div className="flex flex-col gap-2  justify-center items-center">
+          <motion.h1
+            variants={itemVariants}
+            whileInView={"show"}
+            initial="hidden"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-xl sm:text-3xl text-center font-sans font-semibold text-neutral-800"
+          >
             Be part of the Healvora AI{" "}
-          </h1>
-          <p className="text-[12px] sm:text-[14px] max-w-xl text-neutral-500 text-center">
+          </motion.h1>
+          <motion.p
+            variants={itemVariants}
+            whileInView={"show"}
+            initial="hidden"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-[12px] sm:text-[14px] max-w-xl text-neutral-500 text-center"
+          >
             Your health deserves attention anytime, anywhere. Healvora AI
             connects you with intelligent care and real human support when it
             matters most.
-          </p>
-          <div className="flex mt-4 font-serif gap-4 font-medium  items-center">
+          </motion.p>
+          <motion.div
+            variants={itemVariants}
+            whileInView={"show"}
+            initial="hidden"
+            className="flex mt-4 font-serif gap-4 font-medium  items-center"
+          >
             <Link
               href={"/register"}
               className="px-4 py-1.5 text-[14px]   justify-center  gap-3  group text-white cursor-pointer  rounded-[9px] shadow-[inset_0_1px_1px_rgba(180,250,235,0.5),inset_0_-1px_2px_rgba(180,250,235,0.5)] flex items-center duration-300 ease-in-out transition-all hover:bg-primary/80  bg-primary border border-green-300 font-sans font-medium"
@@ -39,11 +93,21 @@ export const Footer = () => {
               Get Started{" "}
               <ArrowRight className=" group-hover:translate-x-1 duration-300 ease-in-out transition-all size-4.5" />
             </Link>
-          </div>
-        </div>
-      </div>
-      <div className="w-full max-w-5xl mx-auto   mt-8 p-1 ">
-        <div className=" py-4  flex flex-col sm:flex-row gap-2 border-neutral-500">
+          </motion.div>
+        </motion.div>
+      </motion.div>
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="w-full max-w-5xl mx-auto   mt-8 p-1 "
+      >
+        <motion.div
+          variants={itemVariants}
+          whileInView={"show"}
+          initial="hidden"
+          className=" py-4  flex flex-col sm:flex-row gap-2 border-neutral-500"
+        >
           <div className="  flex flex-col gap-1 justify-start">
             <h3 className="text-[16px] text-center sm:text-start font-sans font-semibold text-neutral-800 tracking-tight">
               Never miss an upadate
@@ -72,8 +136,13 @@ export const Footer = () => {
               </button>
             </div>
           </div>
-        </div>
-        <div className="w-full   py-2 mt-4  gap-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  ">
+        </motion.div>
+        <motion.div
+          variants={itemVariants}
+          whileInView={"show"}
+          initial="hidden"
+          className="w-full   py-2 mt-4  gap-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  "
+        >
           <div className="flex  flex-col gap-2  justify-center  items-center ">
             <h3 className="text-sm  text-start max-w-48 w-full font-semibold font-sans text-neutral-800">
               Product
@@ -199,8 +268,13 @@ export const Footer = () => {
               </Link>
             </div>
           </div>
-        </div>
-        <div className="py-2 w-full border-t border-neutral-300  mt-4 sm:mt-10">
+        </motion.div>
+        <motion.div
+          variants={itemVariants}
+          whileInView={"show"}
+          initial="hidden"
+          className="py-2 w-full border-t border-neutral-300  mt-4 sm:mt-10"
+        >
           <div className="flex flex-col sm:flex-row gap-2 justify-between w-full items-center p-1">
             <p className=" flex gap-1  text-neutral-700 items-end justify-center">
               <span className="text-secondary-foreground/80">©</span>
@@ -223,8 +297,8 @@ export const Footer = () => {
               </Link>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </footer>
   );
 };

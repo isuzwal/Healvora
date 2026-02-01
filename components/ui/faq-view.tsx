@@ -1,3 +1,5 @@
+"use client";
+import { Variants, motion } from "motion/react";
 import {
   Accordion,
   AccordionContent,
@@ -6,18 +8,73 @@ import {
 } from "./accordion";
 
 export const FAQSection = () => {
+  const containerVariants: Variants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.5,
+        delayChildren: 0.8,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 10,
+      filter: "blur(10px)",
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        delay: 0.3,
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+  };
   return (
     <div className=" py-10 sm:py-20  mt-8 sm:mt-16  w-full">
-      <div className="flex flex-col gap-1  w-full justify-center items-center ">
-        <h1 className="text-neutral-700 font-bold font-sans  sm:text-xl text-[16px]">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="flex flex-col gap-1  w-full justify-center items-center "
+      >
+        <motion.h1
+          whileInView={"show"}
+          initial="hidden"
+          variants={itemVariants}
+          viewport={{ once: true, amount: 0.2 }}
+          className="text-neutral-700 font-bold font-sans  sm:text-xl text-[16px]"
+        >
           FAQs
-        </h1>
-        <p className="text-2xl sm:text-4xl text-neutral-800 font-sans font-semibold text-center">
+        </motion.h1>
+        <motion.p
+          whileInView={"show"}
+          initial="hidden"
+          variants={itemVariants}
+          viewport={{ once: true, amount: 0.2 }}
+          className="text-2xl sm:text-4xl text-neutral-800 font-sans font-semibold text-center"
+        >
           Your questions, answered here ?
-        </p>
-      </div>
-      <div className="px-2 sm:px-4  py-6 max-w-4xl mx-auto w-full ">
-        <div className="px-1 sm:px-2 bg-white border-neutral-200 border rounded-md shadow-xs mt-2 ">
+        </motion.p>
+      </motion.div>
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="px-2 sm:px-4  py-6 max-w-4xl mx-auto w-full "
+      >
+        <motion.div
+          variants={itemVariants}
+          whileInView={"show"}
+          initial="hidden"
+          viewport={{ once: true, amount: 0.2 }}
+          className="px-1 sm:px-2 bg-white border-neutral-200 border rounded-md shadow-xs mt-2 "
+        >
           <Accordion
             type="single"
             collapsible
@@ -137,8 +194,8 @@ export const FAQSection = () => {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
