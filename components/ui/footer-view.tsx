@@ -211,7 +211,7 @@ export const Footer = () => {
             </h3>
             <div className="max-w-48 items-start w-full justify-start flex flex-col gap-2">
               <Link
-                href="#"
+                href="/privacy-policy"
                 className="text-[14px] font-medium hover:text-neutral-400 duration-300 ease-in-out transition-all text-neutral-700 font-sans"
               >
                 Privacy Policy

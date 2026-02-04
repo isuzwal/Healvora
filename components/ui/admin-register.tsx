@@ -8,24 +8,25 @@ import { useState } from "react";
 import { Eye, EyeClosed, Loader } from "lucide-react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterSchema } from "@/lib/forms-schema";
+import { AdminSchemaRegister } from "@/lib/forms-schema";
 import { z } from "zod";
 
-export const UserRegisterPage = () => {
+export const AdminRegisterPage = () => {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const form = useForm<z.output<typeof RegisterSchema>>({
-    resolver: zodResolver(RegisterSchema),
+  const form = useForm<z.output<typeof AdminSchemaRegister>>({
+    resolver: zodResolver(AdminSchemaRegister),
     defaultValues: {
-      name: "",
+      adminName: "",
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = async (data: z.output<typeof RegisterSchema>) => {
+  const onSubmit = async (data: z.output<typeof AdminSchemaRegister>) => {
     setLoading(true);
+    // api-call
     console.log(data);
     setTimeout(() => setLoading(false), 1200);
   };
@@ -36,12 +37,8 @@ export const UserRegisterPage = () => {
         <div className="p-6 sm:p-8">
           <div className="mb-6 text-center">
             <h1 className="text-3xl font-semibold tracking-tight text-neutral-900">
-              Create your account
+              Create Admin Account
             </h1>
-            <p className="mt-2 text-sm text-neutral-600">
-              Get started with{" "}
-              <span className="font-medium text-primary">Healvora</span> today
-            </p>
           </div>
 
           <form
@@ -51,7 +48,7 @@ export const UserRegisterPage = () => {
           >
             <FieldGroup>
               <Controller
-                name="name"
+                name="adminName"
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid} className="gap-1">
@@ -122,7 +119,10 @@ export const UserRegisterPage = () => {
 
             <p className="text-sm text-neutral-600">
               Already have an account?{" "}
-              <Link href="/login" className="text-primary hover:underline">
+              <Link
+                href="/admin-login"
+                className="text-primary hover:underline"
+              >
                 Sign in
               </Link>
             </p>
@@ -136,11 +136,11 @@ export const UserRegisterPage = () => {
           >
             {loading ? (
               <>
-                Creating account
+                Creating account as Admin
                 <Loader className="h-4 w-4 animate-spin" />
               </>
             ) : (
-              "Create account"
+              "Create account as Admin"
             )}
           </button>
 

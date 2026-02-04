@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
-import "@/style/globals.css";
+import "./globals.css";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className={cn("antialiased font-sans     ")}>{children}</body>
+      <body className={cn("antialiased font-sans")}>{children}</body>
     </html>
   );
 }
