@@ -115,9 +115,9 @@ export const AboutSection = () => {
 
             <motion.div
               variants={item}
-              className="w-full py-8 rounded-xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-600 shadow-emerald-500/30 flex justify-center items-center"
+              className="w-full py-8  block sm:hidden lg:block  rounded-xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-600 shadow-emerald-500/30 flex justify-center items-center"
             >
-              <div className="flex flex-col gap-2 items-center">
+              <div className="flex flex-col gap-2  items-center">
                 <span className="w-12 h-12 bg-white flex justify-center items-center rounded-full border border-neutral-100">
                   <Flower className="size-8 text-green-400" />
                 </span>

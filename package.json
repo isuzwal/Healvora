@@ -17,6 +17,7 @@
     "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-tooltip": "^1.2.8",
+    "@tabler/icons-react": "^3.36.1",
     "@tailwindcss/typography": "^0.5.19",
     "@types/mdx": "^2.0.13",
     "class-variance-authority": "^0.7.1",
@@ -29,6 +30,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.71.1",
+    "recharts": "^2.15.4",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "zod": "^4.3.6"
