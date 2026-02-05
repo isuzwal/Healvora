@@ -25,7 +25,7 @@ export function NavMain({
           <SidebarMenuItem className="flex items-center gap-2">
             <SidebarMenuButton
               tooltip="Dashboard"
-              className="bg-primary/80  rounded-xl py-5 px-4 hover:text-white items-center flex  text-secondary font-medium text-[18px] hover:bg-primary/90  active:bg-primary/90  min-w-8 duration-200 ease-linear"
+              className="bg-primary/80  rounded-lg py-5 px-4 hover:text-white items-center flex  text-secondary font-medium text-[18px] hover:bg-primary/90  active:bg-primary/90  min-w-8 duration-200 ease-linear"
             >
               <LayoutDashboardIcon />
               <span>Dashboard</span>
@@ -37,12 +37,10 @@ export function NavMain({
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 tooltip={item.title}
-                className="cursor-pointer"
+                className="cursor-pointer flex  items-center py-4.5 text-[15px] font-medium "
               >
                 {item.icon}
-                <span className="text-neutral-800 font-sans font-medium">
-                  {item.title}
-                </span>
+                <span className="">{item.title}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

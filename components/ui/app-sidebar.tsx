@@ -2,7 +2,6 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -11,8 +10,9 @@ import {
 
 import { SideBarFooterUser } from "./footer-user";
 
-import { Users, CalendarDays, Form, LayoutDashboard } from "lucide-react";
+import { Users, CalendarDays, Form, BriefcaseMedical } from "lucide-react";
 import { NavMain } from "./nav-main";
+import { IconCreditCard } from "@tabler/icons-react";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const data = {
@@ -36,11 +36,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: "/compliance",
         icon: <Form />,
       },
+      {
+        title: "Doctor Lists",
+        url: "/doctor-list",
+        icon: <BriefcaseMedical />,
+      },
+      {
+        title: "Billing",
+        url: "/payments",
+        icon: <IconCreditCard />,
+      },
     ],
   };
 
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="offcanvas" {...props} className="border rounded-md ">
       <SidebarHeader className=" p-0">
         <SidebarMenu className="p-2">
           <SidebarMenuItem>
@@ -72,7 +82,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent className="border">
+      <SidebarContent className="">
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter className="p-2">
