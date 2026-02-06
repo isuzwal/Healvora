@@ -9,7 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Calendar1, CalendarDays, Users } from "lucide-react";
+import {
+  Calendar1,
+  CalendarDays,
+  CreditCard,
+  HeartHandshake,
+  Users,
+} from "lucide-react";
 
 export function SectionCards() {
   return (
@@ -24,7 +30,7 @@ export function SectionCards() {
         <Card className="@container/card rounded-2xl py-4">
           <CardHeader>
             <CardDescription className=" flex   items-center  gap-1.5 font-sans font-medium text-neutral-700 text-sm p-0">
-              <span className="w-6 h-6 border-[1.5px] bg-slate-100 border-slate-200 text-emerald-400 rounded-md flex items-center justify-center">
+              <span className="w-6 h-6 border-[1.5px] bg-green-100 border-green-100 text-emerald-400 rounded-md flex items-center justify-center">
                 <Users className="size-4" />
               </span>{" "}
               Total Patients
@@ -35,7 +41,7 @@ export function SectionCards() {
             <CardAction>
               <Badge
                 variant="outline"
-                className="border text-emerald-300 border-slate-200 bg-neutral-100 rounded-2xl  font-medium text-[12px]  font-sans"
+                className="border text-emerald-400  border-green-200 rounded-2xl  font-medium text-[12px]  font-sans"
               >
                 <IconTrendingUp className="text-emerald-400" />
                 +12.5%
@@ -52,7 +58,7 @@ export function SectionCards() {
         <Card className="@container/card rounded-2xl py-4">
           <CardHeader>
             <CardDescription className=" flex   items-center  gap-1.5 font-sans font-medium text-neutral-700 text-sm p-0">
-              <span className="w-6 h-6 bg-slate-100 border-slate-200 text-yellow-300 border-[1.5px] rounded-md  flex justify-center items-center">
+              <span className="w-6 h-6 bg-yellow-50 border-yellow-100 text-yellow-300 border-[1.5px] rounded-md  flex justify-center items-center">
                 <CalendarDays className="size-4" />
               </span>
               Toatal Appointment
@@ -63,7 +69,7 @@ export function SectionCards() {
             <CardAction>
               <Badge
                 variant="outline"
-                className="border text-emerald-300 border-slate-200 bg-neutral-100 rounded-2xl  font-medium text-[12px]  font-sans"
+                className="border text-yellow-400 border-yellow-200  rounded-2xl  font-medium text-[12px]  font-sans"
               >
                 <IconTrendingUp />
                 10%
@@ -78,45 +84,57 @@ export function SectionCards() {
         </Card>
         <Card className="@container/card">
           <CardHeader>
-            <CardDescription>Active Accounts</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              45,678
+            <CardDescription className="flex gap-1">
+              <span className="w-6 h-6 rounded-md bg-emerald-100  border-emerald-100 flex justify-center items-center border bg-">
+                <CreditCard className="size-4 text-emerald-300" />
+              </span>
+              Total Income
+            </CardDescription>
+            <CardTitle className="text-2xl   font-semibold tabular-nums @[250px]/card:text-3xl">
+              $43,000
             </CardTitle>
             <CardAction>
-              <Badge variant="outline">
-                <IconTrendingUp />
-                +12.5%
-              </Badge>
-            </CardAction>
-          </CardHeader>
-          <CardFooter className="flex-col items-start gap-1.5 text-sm">
-            <div className="line-clamp-1 flex gap-2 font-medium">
-              Strong user retention <IconTrendingUp className="size-4" />
-            </div>
-            <div className="text-muted-foreground">
-              Engagement exceed targets
-            </div>
-          </CardFooter>
-        </Card>
-        <Card className="@container/card">
-          <CardHeader>
-            <CardDescription>Total Treatements</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              443
-            </CardTitle>
-            <CardAction>
-              <Badge variant="outline">
-                <IconTrendingUp />
+              <Badge
+                variant="outline"
+                className="border border-emerald-200 text-emerald-400"
+              >
+                <IconTrendingUp className="text-emerald-400" />
                 +4.5%
               </Badge>
             </CardAction>
           </CardHeader>
           <CardFooter className="flex-col items-start gap-1.5 text-sm">
             <div className="line-clamp-1 flex gap-2 font-medium">
-              Steady performance increase <IconTrendingUp className="size-4" />
+              Grow your income in 7 days
+              <IconTrendingUp className="size-4 text-emerald-400" />
             </div>
-            <div className="text-muted-foreground">
-              Meets growth projections
+          </CardFooter>
+        </Card>
+        <Card className="@container/card">
+          <CardHeader>
+            <CardDescription className="flex gap-1">
+              <span className="w-6 h-6 rounded-md bg-blue-300  border-blue-300 flex justify-center items-center border bg-">
+                <HeartHandshake className="size-4 text-white" />
+              </span>
+              Total Treatements
+            </CardDescription>
+            <CardTitle className="text-2xl   font-semibold tabular-nums @[250px]/card:text-3xl">
+              443
+            </CardTitle>
+            <CardAction>
+              <Badge
+                variant="outline"
+                className="border border-blue-300 text-blue-400"
+              >
+                <IconTrendingUp className="text-blue-400" />
+                +4.5%
+              </Badge>
+            </CardAction>
+          </CardHeader>
+          <CardFooter className="flex-col items-start gap-1.5 text-sm">
+            <div className="line-clamp-1 flex gap-2 font-medium">
+              Increase treatmens in just 7 days
+              <IconTrendingUp className="size-4" />
             </div>
           </CardFooter>
         </Card>
