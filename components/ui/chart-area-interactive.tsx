@@ -26,7 +26,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { ChartNoAxesCombined, Dot } from "lucide-react";
+import { ChartNoAxesCombined, Dot, Timer } from "lucide-react";
+import Image from "next/image";
 
 export const description = "An interactive area chart";
 
@@ -163,8 +164,8 @@ export function ChartAreaInteractive() {
   });
 
   return (
-    <div className="grid grid-cols-1  lg:grid-cols-2  w-full">
-      <Card className="@container/card">
+    <div className="grid grid-cols-1  lg:grid-cols-3  gap-2 w-full p-0 ">
+      <Card className="@container/card  col-span-2">
         <CardHeader className=" w-full flex justify-between">
           <CardDescription className="flex gap-1 items-center">
             <span className="w-6 h-6 border-slate-200 bg-slate-100 rounded-md flex items-center justify-center">
@@ -173,7 +174,6 @@ export function ChartAreaInteractive() {
             <span className="hidden text-[18px] font-medium text-neutral-950 tracking-tight @[540px]/card:block">
               Adminssion & Discharge Trends
             </span>
-            <span className="@[540px]/card:hidden">Last 3 months</span>
           </CardDescription>
           <div className="flex gap-2 items-center">
             <span className="  flex gap-1.5 items-center  text-[12px]  font-sans font-medium">
@@ -265,7 +265,201 @@ export function ChartAreaInteractive() {
           </ChartContainer>
         </CardContent>
       </Card>
-      <div className=" col-span-1  border">Hello</div>
+      {/*Right side */}
+      <div className="w-full border bg-secondary shadow-xs border-neutral-100 rounded-xl p-2">
+        <CardTitle className="flex gap-1.5 items-center jus w-full  p-1">
+          <span className="w-6 h-6 border flex justify-center items-center bg-neutral-100   border-slate-200 rounded-md">
+            <Timer className="size-4 text-neutral-700" />
+          </span>
+          <h1 className="text-base  font-sans font-semibold">
+            Doctor&apos;s Timetable
+          </h1>
+        </CardTitle>
+        <div className=" mt-2 grid grid-cols-1 gap-2  sm:grid-cols-3 ">
+          <div className=" py-2  px-2 rounded-xl border bg-green-100/30 border-green-100/30 shadow-xs">
+            <h1 className="text-[14px] text-neutral-700 font-semibold font-sans">
+              Available
+            </h1>
+            <div>
+              <p className="flex gap-1.5 items-center mt-2">
+                <strong className="text-lg  text-emerald-600">23</strong>
+                <span className="text-[12px] font-medium text-neutral-500">
+                  Total
+                </span>
+              </p>
+            </div>
+          </div>
+          <div className=" py-2  px-2 rounded-xl border bg-red-100/30 border-red-100/30 shadow-xs">
+            <h1 className="text-[14px] text-neutral-700 font-semibold font-sans">
+              Unavailable
+            </h1>
+            <div>
+              <p className="flex gap-1.5 items-center mt-2">
+                <strong className="text-lg  text-red-400">35</strong>
+                <span className="text-[14px] font-medium text-neutral-500">
+                  Total
+                </span>
+              </p>
+            </div>
+          </div>
+          <div className=" py-2  px-2 rounded-xl border bg-orange-100/30  border-orange-100/30 shadow-xs">
+            <h1 className="text-[14px] text-neutral-700 font-semibold font-sans">
+              Leave
+            </h1>
+            <div>
+              <p className="flex gap-1.5 items-center mt-2">
+                <strong className="text-lg  text-orange-500">18</strong>
+                <span className="text-[14px] font-medium text-neutral-500">
+                  Total
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="  w-full mt-2 py-2 px-2  ">
+          <h1 className="text-md font-semibold font-sans">List of Doctor</h1>
+          <div className=" overflow-y-auto max-h-52 no-scrollbar  w-full   ">
+            <div className="w-full flex  justify-between items-center  p-2">
+              <div className="flex items-center gap-1.5  ">
+                <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
+                  <Image
+                    src="/images/first.png"
+                    alt="Doctor"
+                    fill
+                    loading="lazy"
+                    className="object-cover w-full h-full rounded-full"
+                  />
+                </div>
+                <div className="flex flex-col  items-start justify-start mt-1.5 ">
+                  <span className="text-[14px]  font-sans font-semibold">
+                    John Anderson
+                  </span>
+                  <p className="text-neutral-600 font-sans font-light text-[12px]">
+                    Anesthesiogly
+                  </p>
+                </div>
+              </div>
+              <div className="px-2.5 py-0.5 border border-emerald-200 rounded-2xl flex gap-1 items-center  w-18 bg-emerald-300 justify-center h-auto ">
+                <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
+                  <span className="w-1 h-1 rounded-md bg-white" />
+                  Available
+                </p>
+              </div>
+            </div>
+            <div className="h-px bg-neutral-100 w-full" />
+            <div className="w-full flex  justify-between items-center  p-2">
+              <div className="flex items-center gap-1.5  ">
+                <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
+                  <Image
+                    src="/images/first.png"
+                    alt="Doctor"
+                    fill
+                    loading="lazy"
+                    className="object-cover w-full h-full rounded-full"
+                  />
+                </div>
+                <div className="flex flex-col  items-start justify-start mt-1.5 ">
+                  <span className="text-[14px]  font-sans font-semibold">
+                    John Anderson
+                  </span>
+                  <p className="text-neutral-600 font-sans font-light text-[12px]">
+                    Anesthesiogly
+                  </p>
+                </div>
+              </div>
+              <div className="px-2.5 py-0.5 border border-emerald-200 rounded-2xl flex gap-1 items-center  w-18 bg-emerald-300 justify-center h-auto ">
+                <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
+                  <span className="w-1 h-1 rounded-md bg-white" />
+                  Available
+                </p>
+              </div>
+            </div>
+            <div className="h-px bg-neutral-200/80 w-full" />
+            <div className="w-full flex  justify-between items-center  p-2">
+              <div className="flex items-center gap-1.5  ">
+                <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
+                  <Image
+                    src="/images/first.png"
+                    alt="Doctor"
+                    fill
+                    loading="lazy"
+                    className="object-cover w-full h-full rounded-full"
+                  />
+                </div>
+                <div className="flex flex-col  items-start justify-start mt-1.5 ">
+                  <span className="text-[14px]  font-sans font-semibold">
+                    John Anderson
+                  </span>
+                  <p className="text-neutral-600 font-sans font-light text-[12px]">
+                    Anesthesiogly
+                  </p>
+                </div>
+              </div>
+              <div className="px-2.5 py-0.5 border border-emerald-200 rounded-2xl flex gap-1 items-center  w-18 bg-emerald-300 justify-center h-auto ">
+                <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
+                  <span className="w-1 h-1 rounded-md bg-white" />
+                  Available
+                </p>
+              </div>
+            </div>
+            <div className="w-full flex  justify-between items-center  p-2">
+              <div className="flex items-center gap-1.5  ">
+                <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
+                  <Image
+                    src="/images/first.png"
+                    alt="Doctor"
+                    fill
+                    loading="lazy"
+                    className="object-cover w-full h-full rounded-full"
+                  />
+                </div>
+                <div className="flex flex-col  items-start justify-start mt-1.5 ">
+                  <span className="text-[14px]  font-sans font-semibold">
+                    John Anderson
+                  </span>
+                  <p className="text-neutral-600 font-sans font-light text-[12px]">
+                    Anesthesiogly
+                  </p>
+                </div>
+              </div>
+              <div className="px-2.5 py-0.5 border border-emerald-200 rounded-2xl flex gap-1 items-center  w-18 bg-emerald-300 justify-center h-auto ">
+                <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
+                  <span className="w-1 h-1 rounded-md bg-white" />
+                  Available
+                </p>
+              </div>
+            </div>
+            <div className="h-px bg-neutral-100 w-full" />
+            <div className="w-full flex  justify-between items-center  p-2">
+              <div className="flex items-center gap-1.5  ">
+                <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
+                  <Image
+                    src="/images/first.png"
+                    alt="Doctor"
+                    fill
+                    loading="lazy"
+                    className="object-cover w-full h-full rounded-full"
+                  />
+                </div>
+                <div className="flex flex-col  items-start justify-start mt-1.5 ">
+                  <span className="text-[14px]  font-sans font-semibold">
+                    John Anderson
+                  </span>
+                  <p className="text-neutral-600 font-sans font-light text-[12px]">
+                    Anesthesiogly
+                  </p>
+                </div>
+              </div>
+              <div className="px-2.5 py-0.5 border border-emerald-200 rounded-2xl flex gap-1 items-center  w-18 bg-emerald-300 justify-center h-auto ">
+                <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
+                  <span className="w-1 h-1 rounded-md bg-white" />
+                  Available
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

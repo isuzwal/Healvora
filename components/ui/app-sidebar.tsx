@@ -23,34 +23,34 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     navMain: [
       {
         title: "Patients",
-        url: "/patients-list",
+        url: "/dashboard/patients-list",
         icon: <Users />,
       },
       {
         title: "Appointments",
-        url: "/appointments",
+        url: "/dashboard/appointments",
         icon: <CalendarDays />,
       },
       {
         title: "Compliance",
-        url: "/compliance",
+        url: "/dashboard/compliance",
         icon: <Form />,
       },
       {
         title: "Doctor Lists",
-        url: "/doctor-list",
+        url: "/dashboard/doctor-list",
         icon: <BriefcaseMedical />,
       },
       {
         title: "Billing",
-        url: "/payments",
+        url: "/dashboard/payments",
         icon: <IconCreditCard />,
       },
     ],
   };
 
   return (
-    <Sidebar collapsible="offcanvas" {...props} className="border rounded-md ">
+    <Sidebar collapsible="offcanvas" {...props} className="">
       <SidebarHeader className=" p-0">
         <SidebarMenu className="p-2">
           <SidebarMenuItem>
