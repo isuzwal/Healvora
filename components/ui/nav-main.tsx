@@ -27,7 +27,7 @@ export function NavMain({
         <SidebarMenu className=" mt-2 flex gap-3">
           {items.map((item) => {
             const isActive = pathname === item.url;
-            console.log("Acive link", isActive);
+
             return (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton
