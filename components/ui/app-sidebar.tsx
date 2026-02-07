@@ -10,7 +10,13 @@ import {
 
 import { SideBarFooterUser } from "./footer-user";
 
-import { Users, CalendarDays, Form, BriefcaseMedical } from "lucide-react";
+import {
+  Users,
+  CalendarDays,
+  Form,
+  BriefcaseMedical,
+  LayoutDashboardIcon,
+} from "lucide-react";
 import { NavMain } from "./nav-main";
 import { IconCreditCard } from "@tabler/icons-react";
 
@@ -21,6 +27,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       email: "isuzwal@gamil.com",
     },
     navMain: [
+      {
+        title: "Dashboard",
+        url: "/dashboard",
+        icon: <LayoutDashboardIcon />,
+      },
       {
         title: "Patients",
         url: "/dashboard/patients-list",
@@ -50,10 +61,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   };
 
   return (
-    <Sidebar collapsible="offcanvas" {...props} className="">
+    <Sidebar
+      collapsible="offcanvas"
+      {...props}
+      className="p-0 border shadow-xs"
+    >
       <SidebarHeader className=" p-0">
         <SidebarMenu className="p-2">
-          <SidebarMenuItem>
+          <SidebarMenuItem className="">
             <SidebarMenuButton
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
@@ -82,6 +97,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+      <div className=" bg-neutral-300/60 h-px mt-[7px] w-full" />
       <SidebarContent className="">
         <NavMain items={data.navMain} />
       </SidebarContent>
