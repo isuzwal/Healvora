@@ -369,7 +369,7 @@ export function ChartAreaInteractive() {
               </div>
               <div
                 className="px-2.5 py-0.5 border  rounded-2xl flex gap-1 items-center   bg-red-500  border-red-400  shadow-[inset_0_1px_2px_rgba(239,68,68,0.8),inset_0_-1px_3px_rgba(239,68,68,0.8)]
- justify-center h-auto "
+                justify-center h-auto "
               >
                 <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
                   <span className="w-1 h-1 rounded-md bg-white" />

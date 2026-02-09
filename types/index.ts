@@ -15,7 +15,9 @@ export enum Status {
 
 export enum Gender {
   MALE = "male",
-  FEMALE = "female",
+  FEMALE = "female", 
+  OTHER = "other",
+  PREFER_NOT_TO_SAY = "prefer_not_to_say"
 }
 
 // User
@@ -29,12 +31,15 @@ export interface IUser{
 export  interface IDoctor{
     doctorName:string;
     email:string;
+    gender:Gender
+    age:number,
     phone:string;
+    address:string,
     specialization:string;
     qualifications:Qualifications[]
-    experienceYears:number;
+    experienceYears:string;
     department:string;
-    consultationFee:number;
+    consultationFee:string;
     isAvailable:boolean;
 }
 
