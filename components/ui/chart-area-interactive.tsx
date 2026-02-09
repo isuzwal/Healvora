@@ -339,7 +339,7 @@ export function ChartAreaInteractive() {
                   </p>
                 </div>
               </div>
-              <div className="px-2.5 py-0.5 border border-emerald-200 rounded-2xl flex gap-1 items-center  w-18 bg-emerald-300 justify-center h-auto ">
+              <div className="px-2.5 py-0.5 border  rounded-2xl flex gap-1 items-center   bg-primary  border-green-300  shadow-[inset_0_1px_1px_rgba(180,250,235,0.5),inset_0_-1px_2px_rgba(180,250,235,0.5)]  justify-center h-auto ">
                 <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
                   <span className="w-1 h-1 rounded-md bg-white" />
                   Available
@@ -367,10 +367,13 @@ export function ChartAreaInteractive() {
                   </p>
                 </div>
               </div>
-              <div className="px-2.5 py-0.5 border border-emerald-200 rounded-2xl flex gap-1 items-center  w-18 bg-emerald-300 justify-center h-auto ">
+              <div
+                className="px-2.5 py-0.5 border  rounded-2xl flex gap-1 items-center   bg-red-500  border-red-400  shadow-[inset_0_1px_2px_rgba(239,68,68,0.8),inset_0_-1px_3px_rgba(239,68,68,0.8)]
+ justify-center h-auto "
+              >
                 <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
                   <span className="w-1 h-1 rounded-md bg-white" />
-                  Available
+                  Unavailable
                 </p>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
+import { IconTrendingUp } from "@tabler/icons-react";
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -9,13 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Calendar1,
-  CalendarDays,
-  CreditCard,
-  HeartHandshake,
-  Users,
-} from "lucide-react";
+import { CalendarDays, CreditCard, HeartHandshake, Users } from "lucide-react";
 
 export function SectionCards() {
   return (
@@ -113,7 +107,7 @@ export function SectionCards() {
         <Card className="@container/card">
           <CardHeader>
             <CardDescription className="flex gap-1">
-              <span className="w-6 h-6 rounded-md bg-blue-300  border-blue-300 flex justify-center items-center border bg-">
+              <span className="w-6 h-6 rounded-md bg-blue-400  border-blue-300 flex justify-center items-center border bg-">
                 <HeartHandshake className="size-4 text-white" />
               </span>
               Total Treatements

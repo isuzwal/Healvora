@@ -15,7 +15,7 @@ export const UserRegisterPage = () => {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const form = useForm<z.output<typeof RegisterSchema>>({
+  const form = useForm({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
       name: "",

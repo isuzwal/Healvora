@@ -11,7 +11,7 @@ export type PatientType = {
   age: number;
   date: string;
   department: string;
-  status: "pending" | "processing" | "success" | "failed";
+  status: "Pending" | "Success";
 };
 
 export const columns: ColumnDef<PatientType>[] = [
@@ -33,7 +33,7 @@ export const columns: ColumnDef<PatientType>[] = [
   },
   {
     accessorKey: "date",
-    header: "Date",
+    header: "Appointment Date",
   },
   {
     accessorKey: "department",

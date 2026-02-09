@@ -11,7 +11,7 @@ export default function page() {
       age: 22,
       department: "Cardiology",
       date: "2/8/2026",
-      status: "pending",
+      status: "Pending",
     },
     {
       patientId: "1234",
@@ -20,7 +20,7 @@ export default function page() {
       age: 22,
       department: "Cardiology",
       date: "2/8/2026",
-      status: "pending",
+      status: "Pending",
     },
     {
       patientId: "1234",
@@ -29,7 +29,7 @@ export default function page() {
       age: 22,
       department: "Cardiology",
       date: "2/8/2026",
-      status: "pending",
+      status: "Pending",
     },
     {
       patientId: "1234",
@@ -38,7 +38,7 @@ export default function page() {
       age: 22,
       department: "Cardiology",
       date: "2/8/2026",
-      status: "pending",
+      status: "Pending",
     },
     {
       patientId: "1234",
@@ -47,7 +47,7 @@ export default function page() {
       age: 22,
       department: "Cardiology",
       date: "2/8/2026",
-      status: "pending",
+      status: "Pending",
     },
     {
       patientId: "1234",
@@ -56,7 +56,7 @@ export default function page() {
       age: 22,
       department: "Cardiology",
       date: "2/8/2026",
-      status: "pending",
+      status: "Pending",
     },
     {
       patientId: "1234",
@@ -65,7 +65,7 @@ export default function page() {
       age: 22,
       department: "Cardiology",
       date: "2/8/2026",
-      status: "pending",
+      status: "Pending",
     },
   ];
   return (
