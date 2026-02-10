@@ -16,6 +16,8 @@ import {
   Form,
   BriefcaseMedical,
   LayoutDashboardIcon,
+  AlertCircleIcon,
+  TriangleAlert,
 } from "lucide-react";
 import { NavMain } from "./nav-main";
 import { IconCreditCard } from "@tabler/icons-react";
@@ -45,7 +47,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {
         title: "Compliance",
         url: "/dashboard/compliance",
-        icon: <Form />,
+        icon: <TriangleAlert />,
       },
       {
         title: "Doctor Lists",

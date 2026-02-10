@@ -15,7 +15,9 @@ export function SectionCards() {
   return (
     <div>
       <div className="w-full px-4  py-1 flex flex-col justify-start items-start">
-        <h1 className="text-[20px] font-sans font-medium">Dashboard</h1>
+        <h1 className="text-[20px] tracking-tighter  font-sans font-semibold text-neutral-800">
+          Dashboard
+        </h1>
         <p className="text-neutral-600 font-medium text-[14px] text-start">
           Overall of all your detailed of patents and your income
         </p>

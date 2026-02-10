@@ -340,7 +340,7 @@ export function AddDoctorSidebar() {
               ></Controller>
             </Field>
           </div>
-          <div className="flex gap-2 w-full justify-center  items-center p-4">
+          <div className="flex flex-col  sm:flex-row gap-2 w-full justify-center  items-center p-4">
             <button
               disabled={loading}
               className={`px-4  w-full  justify-center  py-1.5 text-[14px] text-white font-medium  flex items-center gap-1 rounded-md 
