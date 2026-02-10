@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/sheet";
 import { DoctorSchema } from "@/lib/forms-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus, XIcon } from "lucide-react";
+import { Loader, Plus, XIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Field, FieldError, FieldLabel } from "./field";
@@ -342,12 +342,17 @@ export function AddDoctorSidebar() {
           </div>
           <div className="flex gap-2 w-full justify-center  items-center p-4">
             <button
-              className="px-4  w-full justify-center  py-1.5 text-[14px] text-white cursor-pointer font-medium  flex items-center gap-1 rounded-md 
-            bg-primary  border-green-200  shadow-[inset_0_1px_1px_rgba(180,250,235,0.5),inset_0_-1px_2px_rgba(180,250,235,0.5)]
-
-          transition hover:bg-primary/80"
+              disabled={loading}
+              className={`px-4  w-full  justify-center  py-1.5 text-[14px] text-white font-medium  flex items-center gap-1 rounded-md 
+            ${loading ? "bg-primary/70 cursor-not-allowed" : "  transition hover:bg-primary/80  bg-primary  cursor-pointer  border-green-200  shadow-[inset_0_1px_1px_rgba(180,250,235,0.5),inset_0_-1px_2px_rgba(180,250,235,0.5)] "}`}
             >
-              Add a Doctor
+              {loading ? (
+                <span className="flex gap-1 items-center justify-center">
+                  Add new Doctor <Loader className="size-4 animate-spin" />
+                </span>
+              ) : (
+                "Add new Doctor"
+              )}
             </button>
 
             <button
