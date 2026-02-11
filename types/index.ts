@@ -57,3 +57,12 @@ export interface Booking{
      status:Status
      problem:string
 }
+export type PatientType = {
+  patientId: string;
+  name: string;
+  gender: "Male" | "Female";
+  age: number;
+  date: string;
+  department: string;
+  status: "Pending" | "Success";
+};
