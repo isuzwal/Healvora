@@ -20,6 +20,7 @@ export enum Gender {
   PREFER_NOT_TO_SAY = "prefer_not_to_say"
 }
 
+
 // User
 export interface IUser{
     username:string;
@@ -27,9 +28,11 @@ export interface IUser{
     password:string;
 }
 
+type  IsAvailable="Available" | "Unavailable"|"Leave"
 // Dcotor From Details
 export  interface IDoctor{
     doctorName:string;
+    image?:string
     email:string;
     gender:Gender
     age:number,
@@ -40,8 +43,9 @@ export  interface IDoctor{
     experienceYears:string;
     department:string;
     consultationFee:string;
-    isAvailable:boolean;
+    isAvailable:IsAvailable;
 }
+export type DoctorBasicInfo=Pick<IDoctor, "doctorName" | "image"  |"department" | "isAvailable" >
 
 
 export interface Booking{

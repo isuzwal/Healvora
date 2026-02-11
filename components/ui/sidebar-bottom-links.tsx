@@ -7,11 +7,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { LayoutDashboardIcon } from "lucide-react";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function NavMain({
+export function SideBarBottomLink({
   items,
 }: {
   items: {
@@ -24,10 +24,14 @@ export function NavMain({
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
+        <div>
+          <h1 className="text-neutral-700 tracking-tighter font-semibold ">
+            Other
+          </h1>
+        </div>
         <SidebarMenu className=" mt-2 flex gap-3">
           {items.map((item) => {
             const isActive = pathname === item.url;
-
             return (
               <SidebarMenuItem key={item.title} className="">
                 <SidebarMenuButton

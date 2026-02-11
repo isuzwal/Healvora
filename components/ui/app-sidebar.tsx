@@ -13,17 +13,18 @@ import { SideBarFooterUser } from "./footer-user";
 import {
   Users,
   CalendarDays,
-  Form,
   BriefcaseMedical,
   LayoutDashboardIcon,
-  AlertCircleIcon,
   TriangleAlert,
+  Video,
+  Brain,
 } from "lucide-react";
 import { NavMain } from "./nav-main";
 import { IconCreditCard } from "@tabler/icons-react";
+import { SideBarBottomLink } from "./sidebar-bottom-links";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const data = {
+  const mainlink = {
     user: {
       name: "isuzwal",
       email: "isuzwal@gamil.com",
@@ -61,7 +62,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
     ],
   };
-
+  const OtherLinks = [
+    {
+      title: "Chat AI",
+      url: "/dashboard/chat",
+      icon: <Brain />,
+    },
+    {
+      title: "Meetings",
+      url: "/dashboard/borad-meeting",
+      icon: <Video />,
+    },
+  ];
   return (
     <Sidebar
       collapsible="offcanvas"
@@ -101,7 +113,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <div className=" bg-neutral-300/60 h-px mt-[7px] w-full" />
       <SidebarContent className="">
-        <NavMain items={data.navMain} />
+        <NavMain items={mainlink.navMain} />
+        <SideBarBottomLink items={OtherLinks} />
       </SidebarContent>
       <SidebarFooter className="p-2">
         <SideBarFooterUser />

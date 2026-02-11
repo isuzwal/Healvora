@@ -95,15 +95,15 @@ export default function page() {
   return (
     <div className="flex h-screen w-full ">
       <div className="font-medium  w-full py-6 px-4">
-        <div className="flex gap-1.5  items-center">
+        <div className="flex gap-1  items-start">
           <span className=" border-[2px] rounded-[8px]  w-8 h-8  bg-red-500 border-red-300  text-white flex justify-center items-center">
             <TriangleAlert className="size-4.5 mb-0.5" />
           </span>
-          <div className="flex p-0  flex-col">
-            <h1 className=" tracking-tighter text-[20px] font-semibold text-neutral-800 font-sans">
+          <div className="flex p-0  flex-col justify-start  leading-5">
+            <h1 className=" tracking-tighter text-[18px] font-semibold text-neutral-800 font-sans">
               Compliances by Patients
             </h1>
-            <p className="text-[12px] text-neutral-700 tracking-tighter text-start">
+            <p className="text-[10px] text-neutral-700 tracking-tighter text-start">
               Monitor patient issues and compliance status
             </p>
           </div>

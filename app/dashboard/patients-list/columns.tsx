@@ -16,10 +16,6 @@ export type PatientType = {
 
 export const columns: ColumnDef<PatientType>[] = [
   {
-    accessorKey: "patientId",
-    header: "Patient ID",
-  },
-  {
     accessorKey: "name",
     header: "Name",
   },
