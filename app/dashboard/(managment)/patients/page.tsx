@@ -172,7 +172,7 @@ export default function Page() {
   ];
 
   const handlenavgiation = (id: string) => {
-    router.push(`/dashboard/patients-list/${id}`);
+    router.push(`/dashboard/patients/${id}`);
   };
   // delete api
   const deletAccount = (id: string) => {

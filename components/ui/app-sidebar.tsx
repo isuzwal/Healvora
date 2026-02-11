@@ -37,7 +37,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
       {
         title: "Patients",
-        url: "/dashboard/patients-list",
+        url: "/dashboard/patients",
         icon: <Users />,
       },
       {
@@ -47,12 +47,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
       {
         title: "Compliance",
-        url: "/dashboard/compliance",
+        url: "/dashboard/compliances",
         icon: <TriangleAlert />,
       },
       {
         title: "Doctor Lists",
-        url: "/dashboard/doctor-list",
+        url: "/dashboard/doctors",
         icon: <BriefcaseMedical />,
       },
       {
@@ -70,7 +70,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     },
     {
       title: "Meetings",
-      url: "/dashboard/borad-meeting",
+      url: "/dashboard/meeting",
       icon: <Video />,
     },
   ];
