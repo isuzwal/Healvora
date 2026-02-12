@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CalendarDays, CreditCard, HeartHandshake, Users } from "lucide-react";
+import { patientdata, totalappointment } from "@/types/demo.data";
 
 export function SectionCards() {
   return (
@@ -32,7 +33,7 @@ export function SectionCards() {
               Total Patients
             </CardDescription>
             <CardTitle className="text-2xl font-semibold  text-neutral-800">
-              1,250
+              {patientdata.length}
             </CardTitle>
             <CardAction>
               <Badge
@@ -57,10 +58,10 @@ export function SectionCards() {
               <span className="w-6 h-6 bg-yellow-50 border-yellow-100 text-yellow-300 border-[1.5px] rounded-md  flex justify-center items-center">
                 <CalendarDays className="size-4" />
               </span>
-              Toatal Appointment
+              Total Appointment
             </CardDescription>
             <CardTitle className="text-2xl flex gap-2 items-center  font-semibold tabular-nums @[250px]/card:text-3xl">
-              200
+              {totalappointment.length}
             </CardTitle>
             <CardAction>
               <Badge
@@ -87,7 +88,7 @@ export function SectionCards() {
               Total Income
             </CardDescription>
             <CardTitle className="text-2xl   font-semibold tabular-nums @[250px]/card:text-3xl">
-              $43,000
+              10,00
             </CardTitle>
             <CardAction>
               <Badge
@@ -115,7 +116,7 @@ export function SectionCards() {
               Total Treatements
             </CardDescription>
             <CardTitle className="text-2xl   font-semibold tabular-nums @[250px]/card:text-3xl">
-              443
+              {totalappointment.length}
             </CardTitle>
             <CardAction>
               <Badge

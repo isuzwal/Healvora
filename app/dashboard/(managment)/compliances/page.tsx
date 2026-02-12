@@ -3,95 +3,9 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import { TriangleAlert } from "lucide-react";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import { compliancesdata } from "@/types/demo.data";
 
-type Status = "Pending" | "Resolve";
-interface DemoData {
-  name: string;
-  date: string;
-  image: string;
-  status: Status;
-}
 export default function page() {
-  const demoData: DemoData[] = [
-    {
-      name: "isuzwal",
-      date: "2/10/2026",
-      image: "/images/first.png",
-      status: "Pending",
-    },
-
-    {
-      name: "Miss",
-      date: "2/12/2026",
-      image: "/images/lady.png",
-      status: "Resolve",
-    },
-    {
-      name: "Johne Doe",
-      date: "1/10/2026",
-      image: "/images/Avatar-1.png",
-      status: "Resolve",
-    },
-
-    {
-      name: "Testing account",
-      date: "2/10/2026",
-      image: "/images/first.png",
-      status: "Pending",
-    },
-    {
-      name: "isuzwal",
-      date: "2/10/2026",
-      image: "/images/first.png",
-      status: "Pending",
-    },
-
-    {
-      name: "Miss",
-      date: "2/12/2026",
-      image: "/images/lady.png",
-      status: "Resolve",
-    },
-    {
-      name: "Johne Doe",
-      date: "1/10/2026",
-      image: "/images/Avatar-1.png",
-      status: "Resolve",
-    },
-
-    {
-      name: "Testing account",
-      date: "2/10/2026",
-      image: "/images/first.png",
-      status: "Pending",
-    },
-    {
-      name: "isuzwal",
-      date: "2/10/2026",
-      image: "/images/first.png",
-      status: "Pending",
-    },
-
-    {
-      name: "Miss",
-      date: "2/12/2026",
-      image: "/images/lady.png",
-      status: "Resolve",
-    },
-    {
-      name: "Johne Doe",
-      date: "1/10/2026",
-      image: "/images/Avatar-1.png",
-      status: "Resolve",
-    },
-
-    {
-      name: "Testing account",
-      date: "2/10/2026",
-      image: "/images/first.png",
-      status: "Pending",
-    },
-  ];
   return (
     <div className="flex h-screen w-full ">
       <div className="font-medium  w-full py-6 px-4">
@@ -110,7 +24,7 @@ export default function page() {
         </div>
         <div className="w-full   py-4 mt-6    rounded-md">
           <div className="w-full  border border-neutral-100  rounded-lg bg-white  ">
-            {demoData.map((data, i) => (
+            {compliancesdata.map((data, i) => (
               <div
                 key={i}
                 className="flex flex-col gap-1  hover:bg-neutral-200 duration-300 ease-in-out transition-all cursor-pointer"

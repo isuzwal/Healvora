@@ -6,7 +6,6 @@ import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
@@ -18,128 +17,58 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { ChartNoAxesCombined, Dot, Timer } from "lucide-react";
+import { useMemo } from "react";
+import { ChartNoAxesCombined, Timer } from "lucide-react";
 import Image from "next/image";
+import {
+  doctordata,
+  isAvailable,
+  Leave,
+  patientdata,
+  UnAvailable,
+} from "@/types/demo.data";
 
 export const description = "An interactive area chart";
 
-const chartData = [
-  { date: "2024-04-01", desktop: 222, mobile: 150 },
-  { date: "2024-04-02", desktop: 97, mobile: 180 },
-  { date: "2024-04-03", desktop: 167, mobile: 120 },
-  { date: "2024-04-04", desktop: 242, mobile: 260 },
-  { date: "2024-04-05", desktop: 373, mobile: 290 },
-  { date: "2024-04-06", desktop: 301, mobile: 340 },
-  { date: "2024-04-07", desktop: 245, mobile: 180 },
-  { date: "2024-04-08", desktop: 409, mobile: 320 },
-  { date: "2024-04-09", desktop: 59, mobile: 110 },
-  { date: "2024-04-10", desktop: 261, mobile: 190 },
-  { date: "2024-04-11", desktop: 327, mobile: 350 },
-  { date: "2024-04-12", desktop: 292, mobile: 210 },
-  { date: "2024-04-13", desktop: 342, mobile: 380 },
-  { date: "2024-04-14", desktop: 137, mobile: 220 },
-  { date: "2024-04-15", desktop: 120, mobile: 170 },
-  { date: "2024-04-16", desktop: 138, mobile: 190 },
-  { date: "2024-04-17", desktop: 446, mobile: 360 },
-  { date: "2024-04-18", desktop: 364, mobile: 410 },
-  { date: "2024-04-19", desktop: 243, mobile: 180 },
-  { date: "2024-04-20", desktop: 89, mobile: 150 },
-  { date: "2024-04-21", desktop: 137, mobile: 200 },
-  { date: "2024-04-22", desktop: 224, mobile: 170 },
-  { date: "2024-04-23", desktop: 138, mobile: 230 },
-  { date: "2024-04-24", desktop: 387, mobile: 290 },
-  { date: "2024-04-25", desktop: 215, mobile: 250 },
-  { date: "2024-04-26", desktop: 75, mobile: 130 },
-  { date: "2024-04-27", desktop: 383, mobile: 420 },
-  { date: "2024-04-28", desktop: 122, mobile: 180 },
-  { date: "2024-04-29", desktop: 315, mobile: 240 },
-  { date: "2024-04-30", desktop: 454, mobile: 380 },
-  { date: "2024-05-01", desktop: 165, mobile: 220 },
-  { date: "2024-05-02", desktop: 293, mobile: 310 },
-  { date: "2024-05-03", desktop: 247, mobile: 190 },
-  { date: "2024-05-04", desktop: 385, mobile: 420 },
-  { date: "2024-05-05", desktop: 481, mobile: 390 },
-  { date: "2024-05-06", desktop: 498, mobile: 520 },
-  { date: "2024-05-07", desktop: 388, mobile: 300 },
-  { date: "2024-05-08", desktop: 149, mobile: 210 },
-  { date: "2024-05-09", desktop: 227, mobile: 180 },
-  { date: "2024-05-10", desktop: 293, mobile: 330 },
-  { date: "2024-05-11", desktop: 335, mobile: 270 },
-  { date: "2024-05-12", desktop: 197, mobile: 240 },
-  { date: "2024-05-13", desktop: 197, mobile: 160 },
-  { date: "2024-05-14", desktop: 448, mobile: 490 },
-  { date: "2024-05-15", desktop: 473, mobile: 380 },
-  { date: "2024-05-16", desktop: 338, mobile: 400 },
-  { date: "2024-05-17", desktop: 499, mobile: 420 },
-  { date: "2024-05-18", desktop: 315, mobile: 350 },
-  { date: "2024-05-19", desktop: 235, mobile: 180 },
-  { date: "2024-05-20", desktop: 177, mobile: 230 },
-  { date: "2024-05-21", desktop: 82, mobile: 140 },
-  { date: "2024-05-22", desktop: 81, mobile: 120 },
-  { date: "2024-05-23", desktop: 252, mobile: 290 },
-  { date: "2024-05-24", desktop: 294, mobile: 220 },
-  { date: "2024-05-25", desktop: 201, mobile: 250 },
-  { date: "2024-05-26", desktop: 213, mobile: 170 },
-  { date: "2024-05-27", desktop: 420, mobile: 460 },
-  { date: "2024-05-28", desktop: 233, mobile: 190 },
-  { date: "2024-05-29", desktop: 78, mobile: 130 },
-  { date: "2024-05-30", desktop: 340, mobile: 280 },
-  { date: "2024-05-31", desktop: 178, mobile: 230 },
-  { date: "2024-06-01", desktop: 178, mobile: 200 },
-  { date: "2024-06-02", desktop: 470, mobile: 410 },
-  { date: "2024-06-03", desktop: 103, mobile: 160 },
-  { date: "2024-06-04", desktop: 439, mobile: 380 },
-  { date: "2024-06-05", desktop: 88, mobile: 140 },
-  { date: "2024-06-06", desktop: 294, mobile: 250 },
-  { date: "2024-06-07", desktop: 323, mobile: 370 },
-  { date: "2024-06-08", desktop: 385, mobile: 320 },
-  { date: "2024-06-09", desktop: 438, mobile: 480 },
-  { date: "2024-06-10", desktop: 155, mobile: 200 },
-  { date: "2024-06-11", desktop: 92, mobile: 150 },
-  { date: "2024-06-12", desktop: 492, mobile: 420 },
-  { date: "2024-06-13", desktop: 81, mobile: 130 },
-  { date: "2024-06-14", desktop: 426, mobile: 380 },
-  { date: "2024-06-15", desktop: 307, mobile: 350 },
-  { date: "2024-06-16", desktop: 371, mobile: 310 },
-  { date: "2024-06-17", desktop: 475, mobile: 520 },
-  { date: "2024-06-18", desktop: 107, mobile: 170 },
-  { date: "2024-06-19", desktop: 341, mobile: 290 },
-  { date: "2024-06-20", desktop: 408, mobile: 450 },
-  { date: "2024-06-21", desktop: 169, mobile: 210 },
-  { date: "2024-06-22", desktop: 317, mobile: 270 },
-  { date: "2024-06-23", desktop: 480, mobile: 530 },
-  { date: "2024-06-24", desktop: 132, mobile: 180 },
-  { date: "2024-06-25", desktop: 141, mobile: 190 },
-  { date: "2024-06-26", desktop: 434, mobile: 380 },
-  { date: "2024-06-27", desktop: 448, mobile: 490 },
-  { date: "2024-06-28", desktop: 149, mobile: 200 },
-  { date: "2024-06-29", desktop: 103, mobile: 160 },
-  { date: "2024-06-30", desktop: 446, mobile: 400 },
-];
-
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  desktop: {
-    label: "Desktop",
-    color: "var(--primary)",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "var(--primary)",
-  },
-} satisfies ChartConfig;
-
 export function ChartAreaInteractive() {
+  const chartData = useMemo(() => {
+    const grouped: Record<
+      string,
+      { date: string; admission: number; discharge: number }
+    > = {};
+
+    patientdata.forEach((patient) => {
+      if (!grouped[patient.date]) {
+        grouped[patient.date] = {
+          date: patient.date,
+          admission: 0,
+          discharge: 0,
+        };
+      }
+
+      // Admission = total patients
+      grouped[patient.date].admission += 1;
+
+      // Discharge = only Success
+      if (patient.status === "Success") {
+        grouped[patient.date].discharge += 1;
+      }
+    });
+
+    return Object.values(grouped);
+  }, []);
+
+  const chartConfig = {
+    admission: {
+      label: "Admission",
+      color: "var(--primary)",
+    },
+    discharge: {
+      label: "Discharge",
+      color: "var(--primary)",
+    },
+  } satisfies ChartConfig;
+
   const isMobile = useIsMobile();
   const [timeRange, setTimeRange] = React.useState("90d");
 
@@ -193,27 +122,28 @@ export function ChartAreaInteractive() {
           >
             <AreaChart data={filteredData}>
               <defs>
-                <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient id="fillAdmission" x1="0" y1="0" x2="0" y2="1">
                   <stop
                     offset="5%"
-                    stopColor="var(--color-desktop)"
-                    stopOpacity={1.0}
-                  />
-                  <stop
-                    offset="95%"
-                    stopColor="var(--color-desktop)"
-                    stopOpacity={0.1}
-                  />
-                </linearGradient>
-                <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                  <stop
-                    offset="5%"
-                    stopColor="var(--color-mobile)"
+                    stopColor="var(--color-admission)"
                     stopOpacity={0.8}
                   />
                   <stop
                     offset="95%"
-                    stopColor="var(--color-mobile)"
+                    stopColor="var(--color-admission)"
+                    stopOpacity={0.1}
+                  />
+                </linearGradient>
+
+                <linearGradient id="fillDischarge" x1="0" y1="0" x2="0" y2="1">
+                  <stop
+                    offset="5%"
+                    stopColor="var(--color-discharge)"
+                    stopOpacity={0.8}
+                  />
+                  <stop
+                    offset="95%"
+                    stopColor="var(--color-discharge)"
                     stopOpacity={0.1}
                   />
                 </linearGradient>
@@ -248,17 +178,18 @@ export function ChartAreaInteractive() {
                 }
               />
               <Area
-                dataKey="mobile"
+                dataKey="admission"
                 type="natural"
-                fill="url(#fillMobile)"
-                stroke="var(--color-mobile)"
+                fill="url(#fillAdmission)"
+                stroke="var(--color-admission)"
                 stackId="a"
               />
+
               <Area
-                dataKey="desktop"
+                dataKey="discharge"
                 type="natural"
-                fill="url(#fillDesktop)"
-                stroke="var(--color-desktop)"
+                fill="url(#fillDischarge)"
+                stroke="var(--color-discharge)"
                 stackId="a"
               />
             </AreaChart>
@@ -282,7 +213,9 @@ export function ChartAreaInteractive() {
             </h1>
             <div>
               <p className="flex gap-1.5 items-center mt-2">
-                <strong className="text-lg  text-emerald-600">23</strong>
+                <strong className="text-lg  text-emerald-600">
+                  {isAvailable.length}
+                </strong>
                 <span className="text-[12px] font-medium text-neutral-500">
                   Total
                 </span>
@@ -295,7 +228,9 @@ export function ChartAreaInteractive() {
             </h1>
             <div>
               <p className="flex gap-1.5 items-center mt-2">
-                <strong className="text-lg  text-red-400">35</strong>
+                <strong className="text-lg  text-red-400">
+                  {UnAvailable.length}
+                </strong>
                 <span className="text-[14px] font-medium text-neutral-500">
                   Total
                 </span>
@@ -308,7 +243,9 @@ export function ChartAreaInteractive() {
             </h1>
             <div>
               <p className="flex gap-1.5 items-center mt-2">
-                <strong className="text-lg  text-orange-500">18</strong>
+                <strong className="text-lg  text-orange-500">
+                  {Leave.length}
+                </strong>
                 <span className="text-[14px] font-medium text-neutral-500">
                   Total
                 </span>
@@ -319,147 +256,45 @@ export function ChartAreaInteractive() {
         <div className="  w-full mt-2 py-2 px-2  ">
           <h1 className="text-md font-semibold font-sans">List of Doctor</h1>
           <div className=" overflow-y-auto max-h-52 no-scrollbar  w-full   ">
-            <div className="w-full flex  justify-between items-center  p-2">
-              <div className="flex items-center gap-1.5  ">
-                <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
-                  <Image
-                    src="/images/first.png"
-                    alt="Doctor"
-                    fill
-                    loading="lazy"
-                    className="object-cover w-full h-full rounded-full"
-                  />
-                </div>
-                <div className="flex flex-col  items-start justify-start mt-1.5 ">
-                  <span className="text-[14px]  font-sans font-semibold">
-                    John Anderson
-                  </span>
-                  <p className="text-neutral-600 font-sans font-light text-[12px]">
-                    Anesthesiogly
-                  </p>
-                </div>
-              </div>
-              <div className="px-2.5 py-0.5 border  rounded-2xl flex gap-1 items-center   bg-primary  border-green-300  shadow-[inset_0_1px_1px_rgba(180,250,235,0.5),inset_0_-1px_2px_rgba(180,250,235,0.5)]  justify-center h-auto ">
-                <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
-                  <span className="w-1 h-1 rounded-md bg-white" />
-                  Available
-                </p>
-              </div>
-            </div>
-            <div className="h-px bg-neutral-100 w-full" />
-            <div className="w-full flex  justify-between items-center  p-2">
-              <div className="flex items-center gap-1.5  ">
-                <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
-                  <Image
-                    src="/images/first.png"
-                    alt="Doctor"
-                    fill
-                    loading="lazy"
-                    className="object-cover w-full h-full rounded-full"
-                  />
-                </div>
-                <div className="flex flex-col  items-start justify-start mt-1.5 ">
-                  <span className="text-[14px]  font-sans font-semibold">
-                    John Anderson
-                  </span>
-                  <p className="text-neutral-600 font-sans font-light text-[12px]">
-                    Anesthesiogly
-                  </p>
-                </div>
-              </div>
+            {doctordata.slice(0, 5).map((doc, i) => (
               <div
-                className="px-2.5 py-0.5 border  rounded-2xl flex gap-1 items-center   bg-red-500  border-red-400  shadow-[inset_0_1px_2px_rgba(239,68,68,0.8),inset_0_-1px_3px_rgba(239,68,68,0.8)]
-                justify-center h-auto "
+                key={i}
+                className="w-full flex  justify-between items-center  p-2"
               >
-                <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
-                  <span className="w-1 h-1 rounded-md bg-white" />
-                  Unavailable
-                </p>
-              </div>
-            </div>
-            <div className="h-px bg-neutral-200/80 w-full" />
-            <div className="w-full flex  justify-between items-center  p-2">
-              <div className="flex items-center gap-1.5  ">
-                <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
-                  <Image
-                    src="/images/first.png"
-                    alt="Doctor"
-                    fill
-                    loading="lazy"
-                    className="object-cover w-full h-full rounded-full"
-                  />
+                <div className="flex items-center gap-1.5  ">
+                  <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
+                    <Image
+                      src={doc.image || " "}
+                      alt="Doctor"
+                      fill
+                      loading="lazy"
+                      className="object-cover w-full h-full rounded-full"
+                    />
+                  </div>
+                  <div className="flex flex-col  items-start justify-start mt-1.5 ">
+                    <span className="text-[14px]  font-sans font-semibold">
+                      {doc.doctorName}
+                    </span>
+                    <p className="text-neutral-600 font-sans font-light text-[12px]">
+                      {doc.department}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-col  items-start justify-start mt-1.5 ">
-                  <span className="text-[14px]  font-sans font-semibold">
-                    John Anderson
+                <div className="flex items-center px-4">
+                  <span
+                    className={`font-medium text-white text-[10px] px-2.5 rounded-lg ${
+                      doc.isAvailable === "Available"
+                        ? "bg-emerald-500 border-emerald-300"
+                        : doc.isAvailable === "Leave"
+                          ? "bg-yellow-400 border-yellow-300"
+                          : "bg-red-500 border-red-400"
+                    }`}
+                  >
+                    {doc.isAvailable}
                   </span>
-                  <p className="text-neutral-600 font-sans font-light text-[12px]">
-                    Anesthesiogly
-                  </p>
                 </div>
               </div>
-              <div className="px-2.5 py-0.5 border border-emerald-200 rounded-2xl flex gap-1 items-center  w-18 bg-emerald-300 justify-center h-auto ">
-                <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
-                  <span className="w-1 h-1 rounded-md bg-white" />
-                  Available
-                </p>
-              </div>
-            </div>
-            <div className="w-full flex  justify-between items-center  p-2">
-              <div className="flex items-center gap-1.5  ">
-                <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
-                  <Image
-                    src="/images/first.png"
-                    alt="Doctor"
-                    fill
-                    loading="lazy"
-                    className="object-cover w-full h-full rounded-full"
-                  />
-                </div>
-                <div className="flex flex-col  items-start justify-start mt-1.5 ">
-                  <span className="text-[14px]  font-sans font-semibold">
-                    John Anderson
-                  </span>
-                  <p className="text-neutral-600 font-sans font-light text-[12px]">
-                    Anesthesiogly
-                  </p>
-                </div>
-              </div>
-              <div className="px-2.5 py-0.5 border border-emerald-200 rounded-2xl flex gap-1 items-center  w-18 bg-emerald-300 justify-center h-auto ">
-                <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
-                  <span className="w-1 h-1 rounded-md bg-white" />
-                  Available
-                </p>
-              </div>
-            </div>
-            <div className="h-px bg-neutral-100 w-full" />
-            <div className="w-full flex  justify-between items-center  p-2">
-              <div className="flex items-center gap-1.5  ">
-                <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
-                  <Image
-                    src="/images/first.png"
-                    alt="Doctor"
-                    fill
-                    loading="lazy"
-                    className="object-cover w-full h-full rounded-full"
-                  />
-                </div>
-                <div className="flex flex-col  items-start justify-start mt-1.5 ">
-                  <span className="text-[14px]  font-sans font-semibold">
-                    John Anderson
-                  </span>
-                  <p className="text-neutral-600 font-sans font-light text-[12px]">
-                    Anesthesiogly
-                  </p>
-                </div>
-              </div>
-              <div className="px-2.5 py-0.5 border border-emerald-200 rounded-2xl flex gap-1 items-center  w-18 bg-emerald-300 justify-center h-auto ">
-                <p className="text-white text-[10px] gap-1 flex items-center font-medium font-sans">
-                  <span className="w-1 h-1 rounded-md bg-white" />
-                  Available
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

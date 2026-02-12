@@ -64,11 +64,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   };
   const OtherLinks = [
     {
-      title: "Chat AI",
-      url: "/dashboard/chat",
-      icon: <Brain />,
-    },
-    {
       title: "Meetings",
       url: "/dashboard/meeting",
       icon: <Video />,

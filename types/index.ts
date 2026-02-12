@@ -60,9 +60,18 @@ export interface Booking{
 export type PatientType = {
   patientId: string;
   name: string;
+  image:string,
   gender: "Male" | "Female";
   age: number;
   date: string;
   department: string;
   status: "Pending" | "Success";
 };
+
+type ComplinacesStatus = "Pending" | "Resolve";
+export interface CompliancesData {
+  name: string;
+  date: string;
+  image: string;
+  status: ComplinacesStatus;
+}

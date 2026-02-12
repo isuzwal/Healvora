@@ -7,169 +7,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { PatientType } from "@/types";
+import { patientdata } from "@/types/demo.data";
+import Image from "next/image";
 import { EllipsisVertical, Filter, List } from "lucide-react";
 
 import { useRouter } from "next/navigation";
 
 export default function Page() {
   const router = useRouter();
-
-  const data: PatientType[] = [
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Pending",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Pending",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Success",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Pending",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Success",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Pending",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Success",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Pending",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Success",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Pending",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Success",
-    },
-    // {
-    //   patientId: "1234",
-    //   name: "isuzwal",
-    //   gender: "Male",
-    //   age: 22,
-    //   department: "Cardiology",
-    //   date: "2/8/2026",
-    //   status: "Pending",
-    // },
-    // {
-    //   patientId: "1234",
-    //   name: "isuzwal",
-    //   gender: "Male",
-    //   age: 22,
-    //   department: "Cardiology",
-    //   date: "2/8/2026",
-    //   status: "Success",
-    // },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Pending",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Success",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Pending",
-    },
-    {
-      patientId: "1234",
-      name: "isuzwal",
-      gender: "Male",
-      age: 22,
-      department: "Cardiology",
-      date: "2/8/2026",
-      status: "Success",
-    },
-  ];
 
   const handlenavgiation = (id: string) => {
     router.push(`/dashboard/patients/${id}`);
@@ -221,13 +66,24 @@ export default function Page() {
               </thead>
 
               <tbody>
-                {data.map((patient) => (
+                {patientdata.map((patient) => (
                   <tr
                     onClick={() => handlenavgiation(patient.patientId)}
                     key={patient.patientId}
-                    className="border-t hover:bg-neutral-200/80 cursor-pointer duration-300  transition-all ease-in-out border-neutral-100 text-[13px] text-neutral-700"
+                    className="border-t  hover:bg-neutral-200/80 cursor-pointer duration-300  transition-all ease-in-out border-neutral-100 text-[13px] text-neutral-700"
                   >
-                    <td className="p-2  text-left ">{patient.name}</td>
+                    <td className="p-2.5 flex gap-1.5 items-center  justify-start text-left ">
+                      <div className=" overflow-hidden relative w-5 h-5 rounded-full flex justify-center items-center">
+                        <Image
+                          src={patient.image}
+                          alt="User-Image"
+                          fill
+                          className="w-full h-full rounded-full"
+                          loading="lazy"
+                        />
+                      </div>
+                      {patient.name}
+                    </td>
                     <td className="p-2 text-center">{patient.department}</td>
                     <td className="p-2 text-center">{patient.date}</td>
                     <td className="p-2 text-center">

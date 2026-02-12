@@ -1,39 +1,12 @@
 import { IconProgress } from "@tabler/icons-react";
 import { BarChart } from "@mui/x-charts/BarChart";
-import { List, TriangleAlert } from "lucide-react";
+import { List } from "lucide-react";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { DoctorBasicInfo } from "@/types";
+
+import { doctordata } from "@/types/demo.data";
 
 export default function page() {
-  const demoData: DoctorBasicInfo[] = [
-    {
-      doctorName: "isuzwal",
-      department: "Anesthesiogly",
-      image: "/images/first.png",
-      isAvailable: "Available",
-    },
-
-    {
-      doctorName: "Miss",
-      department: "Anesthesiogly",
-      image: "/images/lady.png",
-      isAvailable: "Unavailable",
-    },
-    {
-      doctorName: "Johne Doe",
-      department: "Anesthesiogly",
-      image: "/images/Avatar-1.png",
-      isAvailable: "Leave",
-    },
-
-    {
-      doctorName: "Testing account",
-      department: "Anesthesiogly",
-      image: "/images/first.png",
-      isAvailable: "Unavailable",
-    },
-  ];
   return (
     <div className="flex h-screen w-full ">
       <div className="font-medium  w-full py-6 px-4">
@@ -52,7 +25,7 @@ export default function page() {
         </div>
         <div className="w-full   py-4 mt-6    rounded-md">
           <div className="w-full  border border-neutral-100  rounded-lg bg-white  ">
-            {demoData.map((data, i) => (
+            {doctordata.map((data, i) => (
               <div
                 key={i}
                 className="flex flex-col gap-1  hover:bg-neutral-200 duration-300 ease-in-out transition-all cursor-pointer"
