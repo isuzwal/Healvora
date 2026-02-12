@@ -154,12 +154,7 @@ export const Footer = () => {
               >
                 Features
               </Link>
-              <Link
-                href="#"
-                className="text-[14px] font-medium hover:text-neutral-400 duration-300 ease-in-out transition-all text-neutral-700 font-sans"
-              >
-                AI Assistant
-              </Link>
+
               <Link
                 href="#"
                 className="text-[14px] font-medium hover:text-neutral-400 duration-300 ease-in-out transition-all text-neutral-700 font-sans"
@@ -211,28 +206,22 @@ export const Footer = () => {
             </h3>
             <div className="max-w-48 items-start w-full justify-start flex flex-col gap-2">
               <Link
-                href="/privacy-policy"
+                href="/policy"
                 className="text-[14px] font-medium hover:text-neutral-400 duration-300 ease-in-out transition-all text-neutral-700 font-sans"
               >
                 Privacy Policy
               </Link>
               <Link
-                href="#"
+                href="/terms"
                 className="text-[14px] font-medium hover:text-neutral-400 duration-300 ease-in-out transition-all text-neutral-700 font-sans"
               >
                 Terms of Service
               </Link>
               <Link
-                href="#"
+                href="/security"
                 className="text-[14px] font-medium hover:text-neutral-400 duration-300 ease-in-out transition-all text-neutral-700 font-sans"
               >
                 Data Security
-              </Link>
-              <Link
-                href="#"
-                className="text-[14px] font-medium hover:text-neutral-400 duration-300 ease-in-out transition-all text-neutral-700 font-sans"
-              >
-                AI Ethics
               </Link>
             </div>
           </div>
