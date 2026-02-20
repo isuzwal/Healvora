@@ -10,10 +10,13 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AdminLoginScheam, LoginSchema } from "@/lib/forms-schema";
 import { z } from "zod";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export const AdminLoginPage = () => {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm<z.output<typeof AdminLoginScheam>>({
     resolver: zodResolver(LoginSchema),
@@ -22,9 +25,35 @@ export const AdminLoginPage = () => {
 
   const onSubmit = async (data: z.output<typeof AdminLoginScheam>) => {
     setLoading(true);
-    console.log(data);
-    // api-call
-    setTimeout(() => setLoading(false), 1200);
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_BACKEND_API}/api/v1/admin/admin-login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        },
+      );
+      const result = await response.json();
+      if (!response.ok) {
+        toast(result.message || "Fail to login admin account");
+      } else {
+        toast.success("Successfully login to admin account", {
+          className: "bg-green-600 text-white border-none",
+        });
+        router.push("/dashboard");
+        form.reset();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong", {
+        className: "bg-red-600 text-white border-none",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

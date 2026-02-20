@@ -3,7 +3,7 @@ import * as z from "zod"
 
 // User Register
 export const RegisterSchema=z.object({
-    name:z.string().min(3,{
+    username:z.string().min(3,{
         message:"Username must be at least 3 charcters"
     }),
     email:z.string().email({
@@ -142,7 +142,7 @@ export const complainceScheam=z.object({
   message:"Compliance Title  need 3 letter"
  }),
  compliance_iusses:z.string().min(6,{
-  message:"Describe your  problem  "
+  message:"Describe your  problem  please"
  }),
 
 })

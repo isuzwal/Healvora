@@ -10,11 +10,13 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AdminSchemaRegister } from "@/lib/forms-schema";
 import { z } from "zod";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export const AdminRegisterPage = () => {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   const form = useForm<z.output<typeof AdminSchemaRegister>>({
     resolver: zodResolver(AdminSchemaRegister),
     defaultValues: {
@@ -27,8 +29,35 @@ export const AdminRegisterPage = () => {
   const onSubmit = async (data: z.output<typeof AdminSchemaRegister>) => {
     setLoading(true);
     // api-call
-    console.log(data);
-    setTimeout(() => setLoading(false), 1200);
+    try {
+      const response = await fetch(
+        `${process.env.backend_api}/api/v1/admin/admin-register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        },
+      );
+      const result = await response.json();
+      if (!response.ok) {
+        toast(result.message || "Fail to create admin account");
+      } else {
+        toast.success("Admin account created successfully", {
+          className: "bg-green-600 text-white border-none",
+        });
+        router.push("/admin-login");
+        form.reset();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong", {
+        className: "bg-red-600 text-white border-none",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

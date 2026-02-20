@@ -10,15 +10,18 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "@/lib/forms-schema";
 import { z } from "zod";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export const UserRegisterPage = () => {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      name: "",
+      username: "",
       email: "",
       password: "",
     },
@@ -26,8 +29,35 @@ export const UserRegisterPage = () => {
 
   const onSubmit = async (data: z.output<typeof RegisterSchema>) => {
     setLoading(true);
-    console.log(data);
-    setTimeout(() => setLoading(false), 1200);
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_BACKEND_API}/api/v1/user/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        },
+      );
+      const result = await response.json();
+      if (!response.ok) {
+        toast(result.message || "Fail to create account");
+      } else {
+        toast.success("Account created successfully", {
+          className: "bg-green-600 text-white border-none",
+        });
+        router.push("/login");
+        form.reset();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong", {
+        className: "bg-red-600 text-white border-none",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -51,7 +81,7 @@ export const UserRegisterPage = () => {
           >
             <FieldGroup>
               <Controller
-                name="name"
+                name="username"
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid} className="gap-1">
