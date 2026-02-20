@@ -31,7 +31,7 @@ export const AdminRegisterPage = () => {
     // api-call
     try {
       const response = await fetch(
-        `${process.env.backend_api}/api/v1/admin/admin-register`,
+        `${process.env.NEXT_BACKEND_API}/api/v1/admin/admin-register`,
         {
           method: "POST",
           headers: {
