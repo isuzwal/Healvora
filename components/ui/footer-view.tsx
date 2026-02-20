@@ -250,10 +250,10 @@ export const Footer = () => {
                 Live Chat
               </Link>
               <Link
-                href="#"
+                href="/compliance"
                 className="text-[14px] font-medium hover:text-neutral-400 duration-300 ease-in-out transition-all text-neutral-700 font-sans"
               >
-                Report a Bug
+                Compliance
               </Link>
             </div>
           </div>

@@ -70,8 +70,10 @@ export type PatientType = {
 
 type ComplinacesStatus = "Pending" | "Resolve";
 export interface CompliancesData {
-  name: string;
-  date: string;
-  image: string;
-  status: ComplinacesStatus;
+compliance_title:string;
+compliance_iusses:string;
+complaince_status?: ComplinacesStatus;
 }
+
+
+  

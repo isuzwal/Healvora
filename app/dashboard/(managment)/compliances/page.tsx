@@ -1,9 +1,8 @@
-import { IconProgress } from "@tabler/icons-react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { TriangleAlert } from "lucide-react";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { compliancesdata } from "@/types/demo.data";
+// import { compliancesdata } from "@/types/demo.data";
 
 export default function page() {
   return (
@@ -23,7 +22,7 @@ export default function page() {
           </div>
         </div>
         <div className="w-full   py-4 mt-6    rounded-md">
-          <div className="w-full  border border-neutral-100  rounded-lg bg-white  ">
+          {/* <div className="w-full  border border-neutral-100  rounded-lg bg-white  ">
             {compliancesdata.map((data, i) => (
               <div
                 key={i}
@@ -61,7 +60,7 @@ export default function page() {
                 <Separator className="mt-0.5" />
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
         {/* <button className="px-3 py-1 text-sm  justify-center  gap-1  group text-white cursor-pointer  rounded-md shadow-[inset_0_1px_1px_rgba(180,250,235,0.5),inset_0_-1px_2px_rgba(180,250,235,0.5)] flex items-center duration-300 ease-in-out transition-all hover:bg-primary/80  bg-primary border border-green-300  font-medium">
           Currently in Development{" "}

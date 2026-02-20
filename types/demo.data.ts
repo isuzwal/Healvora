@@ -224,52 +224,52 @@ export const patientdata: PatientType[] = [
 ];
 
   // Compliances data
- export const compliancesdata: CompliancesData[] = [
-  {
-    name: "Aarav Sharma",
-    date: "2/01/2026",
-    image: "/images/first.png",
-    status: "Resolve",
-  },
-  {
-    name: "Saanvi Patel",
-    date: "2/03/2026",
-    image: "/images/lady.png",
-    status: "Resolve",
-  },
-  {
-    name: "Rohan Verma",
-    date: "2/05/2026",
-    image: "/images/Avatar-1.png",
-    status: "Resolve",
-  },
-  {
-    name: "Ananya Singh",
-    date: "2/07/2026",
-    image: "/images/first.png",
-    status: "Resolve",
-  },
+//  export const compliancesdata: CompliancesData[] = [
+//   {
+//     name: "Aarav Sharma",
+//     date: "2/01/2026",
+//     image: "/images/first.png",
+//     status: "Resolve",
+//   },
+//   {
+//     name: "Saanvi Patel",
+//     date: "2/03/2026",
+//     image: "/images/lady.png",
+//     status: "Resolve",
+//   },
+//   {
+//     name: "Rohan Verma",
+//     date: "2/05/2026",
+//     image: "/images/Avatar-1.png",
+//     status: "Resolve",
+//   },
+//   {
+//     name: "Ananya Singh",
+//     date: "2/07/2026",
+//     image: "/images/first.png",
+//     status: "Resolve",
+//   },
 
-  // Pending (3)
-  {
-    name: "Kabir Thapa",
-    date: "2/08/2026",
-    image: "/images/lady.png",
-    status: "Pending",
-  },
-  {
-    name: "Meera Joshi",
-    date: "2/09/2026",
-    image: "/images/Avatar-1.png",
-    status: "Pending",
-  },
-  {
-    name: "Ishaan Adhikari",
-    date: "2/11/2026",
-    image: "/images/first.png",
-    status: "Pending",
-  },
-];
+//   // Pending (3)
+//   {
+//     name: "Kabir Thapa",
+//     date: "2/08/2026",
+//     image: "/images/lady.png",
+//     status: "Pending",
+//   },
+//   {
+//     name: "Meera Joshi",
+//     date: "2/09/2026",
+//     image: "/images/Avatar-1.png",
+//     status: "Pending",
+//   },
+//   {
+//     name: "Ishaan Adhikari",
+//     date: "2/11/2026",
+//     image: "/images/first.png",
+//     status: "Pending",
+//   },
+// ];
 
   // filter out the sucess list
   export const totalappointment=patientdata.filter((pat)=>pat.status==="Success");
