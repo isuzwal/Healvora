@@ -43,7 +43,7 @@ export const AdminLoginPage = () => {
         toast.success("Successfully login to admin account", {
           className: "bg-green-600 text-white border-none",
         });
-        router.push("/dashboard");
+        router.push("/admin/dashboard");
         form.reset();
       }
     } catch (error) {

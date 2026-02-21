@@ -273,7 +273,23 @@ export const patientdata: PatientType[] = [
 
   // filter out the sucess list
   export const totalappointment=patientdata.filter((pat)=>pat.status==="Success");
+  export const pendingPatienst=patientdata.filter((pat)=>pat.status==="Pending")
  // filter out for the doctor avaible 
  export const isAvailable=doctordata.filter((doc)=>doc.isAvailable==="Available")
  export const UnAvailable=doctordata.filter((doc)=>doc.isAvailable==="Unavailable")
  export const Leave=doctordata.filter((doc)=>doc.isAvailable==="Leave")
+
+ const totalPatients = patientdata.length;
+
+  const successPatients = patientdata.filter(
+  (pat) => pat.status === "Success"
+).length;
+
+ const pendingPatients = patientdata.filter(
+  (pat) => pat.status === "Pending"
+).length;
+export const successPercentageFormatted =
+  ((successPatients / totalPatients) * 100).toFixed(2);
+
+export const pendingPercentageFormatted =
+  ((pendingPatients / totalPatients) * 100).toFixed(2);

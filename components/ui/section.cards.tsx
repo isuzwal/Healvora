@@ -10,7 +10,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CalendarDays, CreditCard, HeartHandshake, Users } from "lucide-react";
-import { patientdata, totalappointment } from "@/types/demo.data";
+import {
+  patientdata,
+  successPercentageFormatted,
+  totalappointment,
+} from "@/types/demo.data";
 
 export function SectionCards() {
   return (
@@ -41,7 +45,7 @@ export function SectionCards() {
                 className="border text-emerald-400  border-green-200 rounded-2xl  font-medium text-[12px]  font-sans"
               >
                 <IconTrendingUp className="text-emerald-400" />
-                +12.5%
+                {patientdata.length}%
               </Badge>
             </CardAction>
           </CardHeader>
@@ -69,7 +73,7 @@ export function SectionCards() {
                 className="border text-yellow-400 border-yellow-200  rounded-2xl  font-medium text-[12px]  font-sans"
               >
                 <IconTrendingUp />
-                10%
+                {successPercentageFormatted}%
               </Badge>
             </CardAction>
           </CardHeader>
@@ -124,7 +128,7 @@ export function SectionCards() {
                 className="border border-blue-300 text-blue-400"
               >
                 <IconTrendingUp className="text-blue-400" />
-                +4.5%
+                {successPercentageFormatted}%
               </Badge>
             </CardAction>
           </CardHeader>

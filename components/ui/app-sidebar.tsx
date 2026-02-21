@@ -22,6 +22,7 @@ import {
 import { NavMain } from "./nav-main";
 import { IconCreditCard } from "@tabler/icons-react";
 import { SideBarBottomLink } from "./sidebar-bottom-links";
+import Link from "next/link";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const mainlink = {
@@ -32,32 +33,32 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     navMain: [
       {
         title: "Dashboard",
-        url: "/dashboard",
+        url: "/admin/dashboard",
         icon: <LayoutDashboardIcon />,
       },
       {
         title: "Patients",
-        url: "/dashboard/patients",
+        url: "/admin/dashboard/patients",
         icon: <Users />,
       },
       {
         title: "Appointments",
-        url: "/dashboard/appointments",
+        url: "/admin/dashboard/appointments",
         icon: <CalendarDays />,
       },
       {
         title: "Compliance",
-        url: "/dashboard/compliances",
+        url: "/admin/dashboard/compliances",
         icon: <TriangleAlert />,
       },
       {
         title: "Doctor Lists",
-        url: "/dashboard/doctors",
+        url: "/admin/dashboard/doctors",
         icon: <BriefcaseMedical />,
       },
       {
         title: "Billing",
-        url: "/dashboard/payments",
+        url: "/admin/dashboard/payments",
         icon: <IconCreditCard />,
       },
     ],
@@ -65,7 +66,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const OtherLinks = [
     {
       title: "Meetings",
-      url: "/dashboard/meeting",
+      url: "/admin/dashboard/meeting",
       icon: <Video />,
     },
   ];
@@ -82,7 +83,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="/dashboard" className="flex gap-2 items-center">
+              <Link href="/admin/dashboard" className="flex gap-2 items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -101,7 +102,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <h1 className="text-base font-semibold font-sans text-neutral-800">
                   Healvora
                 </h1>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
