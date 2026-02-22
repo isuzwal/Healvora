@@ -12,6 +12,7 @@ import { AdminLoginScheam, LoginSchema } from "@/lib/forms-schema";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { BACKENDAPI } from "@/types/url";
 
 export const AdminLoginPage = () => {
   const [show, setShow] = useState(false);
@@ -26,20 +27,20 @@ export const AdminLoginPage = () => {
   const onSubmit = async (data: z.output<typeof AdminLoginScheam>) => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `${process.env.NEXT_BACKEND_API}/api/v1/admin/admin-login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+      const response = await fetch(`${BACKENDAPI}/api/v1/admin/admin-login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(data),
+      });
       const result = await response.json();
       if (!response.ok) {
         toast(result.message || "Fail to login admin account");
       } else {
+        if (result.token) {
+          localStorage.setItem("admin_token", result.token);
+        }
         toast.success("Successfully login to admin account", {
           className: "bg-green-600 text-white border-none",
         });

@@ -12,6 +12,7 @@ import { RegisterSchema } from "@/lib/forms-schema";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { BACKENDAPI } from "@/types/url";
 
 export const UserRegisterPage = () => {
   const [show, setShow] = useState(false);
@@ -30,16 +31,13 @@ export const UserRegisterPage = () => {
   const onSubmit = async (data: z.output<typeof RegisterSchema>) => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `${process.env.NEXT_BACKEND_API}/api/v1/user/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+      const response = await fetch(`${BACKENDAPI}/api/v1/user/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(data),
+      });
       const result = await response.json();
       if (!response.ok) {
         toast(result.message || "Fail to create account");

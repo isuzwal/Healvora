@@ -12,6 +12,7 @@ import { LoginSchema } from "@/lib/forms-schema";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { BACKENDAPI } from "@/types/url";
 
 export const UserLoginPage = () => {
   const [show, setShow] = useState(false);
@@ -25,20 +26,21 @@ export const UserLoginPage = () => {
   const onSubmit = async (data: z.output<typeof LoginSchema>) => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `${process.env.NEXT_BACKEND_API}/api/v1/user/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+      const response = await fetch(`${BACKENDAPI}/api/v1/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(data),
+      });
       const result = await response.json();
+      console.log("Result", result.token);
       if (!response.ok) {
         toast(result.message || "Fail to login !");
       } else {
+        if (result.token) {
+          localStorage.setItem("user_token", result.token);
+        }
         toast.success("Login successfully", {
           className: "bg-green-600 text-white border-none",
         });

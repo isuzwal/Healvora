@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/sheet";
 import { DoctorSchema } from "@/lib/forms-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader, Plus, XIcon } from "lucide-react";
+import { Loader, Plus, Upload, XIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Field, FieldError, FieldLabel } from "./field";
@@ -31,6 +31,7 @@ export function AddDoctorSidebar() {
     resolver: zodResolver(DoctorSchema),
     defaultValues: {
       doctorName: "",
+      doctor_image: "",
       email: "",
       phone: "",
       age: 0,
@@ -41,6 +42,8 @@ export function AddDoctorSidebar() {
       department: "",
       consultationFee: "",
       experienceYears: "",
+      bio: "",
+      language_spoken: [],
       isAvailable: true,
     },
   });
@@ -317,7 +320,53 @@ export function AddDoctorSidebar() {
               ></Controller>
             </Field>
           </div>
-          <div className="w-full grid-cols-1   grid">
+          <div className="w-full grid-cols-1  sm:grid-cols-2 grid">
+            <Field className=" p-2">
+              <Controller
+                name="language_spoken"
+                control={doctorform.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid} className="gap-0.5">
+                    <FieldLabel className="text-neutral-800 font-sans tracking-tighter">
+                      Spoken Language
+                    </FieldLabel>
+                    <Input
+                      type="text"
+                      {...field}
+                      placeholder=" Write spoken languages "
+                      className="h-8    placeholder:text-neutral-600 placeholder:text-[12px] placeholder:tracking-tighter placeholder:font-sans  rounded-lg border-neutral-300 focus:outline-0 focus:ring-0 "
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              ></Controller>
+            </Field>
+            <Field className=" p-2">
+              <Controller
+                name="experienceYears"
+                control={doctorform.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid} className="gap-0.5">
+                    <FieldLabel className="text-neutral-800 font-sans tracking-tighter">
+                      Qualifications
+                    </FieldLabel>
+                    <Input
+                      type="text"
+                      {...field}
+                      placeholder="Enter  your experiences"
+                      className="h-8    placeholder:text-neutral-600 placeholder:text-[12px] placeholder:tracking-tighter placeholder:font-sans  rounded-lg border-neutral-300 focus:outline-0 focus:ring-0 "
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              ></Controller>
+            </Field>
+          </div>
+          <div className="w-full grid-cols-1  sm:grid-cols-2 grid">
             <Field className=" p-2">
               <Controller
                 name="specialization"
@@ -332,6 +381,58 @@ export function AddDoctorSidebar() {
                       placeholder="Write your specialization "
                       className="h-8    placeholder:text-neutral-600 placeholder:text-[12px] placeholder:tracking-tighter placeholder:font-sans  rounded-lg border-neutral-300 focus:outline-0 focus:ring-0 "
                     />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              ></Controller>
+            </Field>
+
+            <Field className=" p-2">
+              <Controller
+                name="bio"
+                control={doctorform.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid} className="gap-0.5">
+                    <FieldLabel className="text-neutral-800 font-sans tracking-tighter">
+                      Doctor Bio
+                    </FieldLabel>
+                    <Textarea
+                      {...field}
+                      placeholder="Write short bio  "
+                      className="h-8    placeholder:text-neutral-600 placeholder:text-[12px] placeholder:tracking-tighter placeholder:font-sans  rounded-lg border-neutral-300 focus:outline-0 focus:ring-0 "
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              ></Controller>
+            </Field>
+          </div>
+          <div className="w-full grid-cols-1   grid">
+            <Field className=" p-2">
+              <Controller
+                name="doctor_image"
+                control={doctorform.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid} className="gap-0.5">
+                    <FieldLabel className="text-neutral-800 font-sans tracking-tighter">
+                      Upload Doctor Image
+                    </FieldLabel>
+                    <label className="w-full group group-hover:bg-slate-50 duration-300 transition-all ease-in-out bg-slate-200 border-slate-100 relative rounded-xl border cursor-pointer h-16 flex justify-center items-center">
+                      <Input
+                        type="file"
+                        {...field}
+                        placeholder="Write your specialization   "
+                        className="h-full  hidden  placeholder:text-neutral-600 placeholder:text-[12px] placeholder:tracking-tighter placeholder:font-sans  rounded-lg border-neutral-300 focus:outline-0 focus:ring-0 "
+                      />
+                      <span className=" absolute  group-hover:text-neutral-300 duration-300 ease-in-out transition-all text-neutral-700 text-sm flex gap-2 items-center ">
+                        Upload Image{" "}
+                        <Upload className="size-4 text-neutral-700 group-hover:text-neutral-300 duration-300 ease-in-out transition-all" />
+                      </span>
+                    </label>
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
                     )}

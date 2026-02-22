@@ -12,6 +12,7 @@ import { AdminSchemaRegister } from "@/lib/forms-schema";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { BACKENDAPI } from "@/types/url";
 
 export const AdminRegisterPage = () => {
   const [show, setShow] = useState(false);
@@ -31,7 +32,7 @@ export const AdminRegisterPage = () => {
     // api-call
     try {
       const response = await fetch(
-        `${process.env.NEXT_BACKEND_API}/api/v1/admin/admin-register`,
+        `${BACKENDAPI}/api/v1/admin/admin-register`,
         {
           method: "POST",
           headers: {

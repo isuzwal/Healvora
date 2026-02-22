@@ -34,7 +34,7 @@ export default function page() {
                   <div className="flex items-center gap-1.5 m-1">
                     <div className="rounded-full relative overflow-hidden h-6 w-6 shadow boder-2 border-slate-200">
                       <Image
-                        src={data?.image || " "}
+                        src={data?.doctor_image || " "}
                         fill
                         loading="lazy"
                         alt="Profile-Image"

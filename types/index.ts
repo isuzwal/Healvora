@@ -20,7 +20,10 @@ export enum Gender {
   PREFER_NOT_TO_SAY = "prefer_not_to_say"
 }
 
-
+export enum LanguageSpoken {
+  ENGLISH = "English",
+  HINDI = "Hindi"
+}
 // User
 export interface IUser{
     username:string;
@@ -32,7 +35,7 @@ type  IsAvailable="Available" | "Unavailable"|"Leave"
 // Dcotor From Details
 export  interface IDoctor{
     doctorName:string;
-    image?:string
+    doctor_image?:string
     email:string;
     gender:Gender
     age:number,
@@ -43,9 +46,11 @@ export  interface IDoctor{
     experienceYears:string;
     department:string;
     consultationFee:string;
+    bio?:string;
+    language_spoken:LanguageSpoken[];
     isAvailable:IsAvailable;
 }
-export type DoctorBasicInfo=Pick<IDoctor, "doctorName" | "image"  |"department" | "isAvailable" >
+export type DoctorBasicInfo=Pick<IDoctor, "doctorName" | "doctor_image"  |"department" | "isAvailable" >
 
 
 export interface Booking{

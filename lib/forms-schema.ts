@@ -1,4 +1,4 @@
-import {  Gender, Qualifications } from "@/types"
+import {  Gender, LanguageSpoken, Qualifications } from "@/types"
 import * as z from "zod"
 
 // User Register
@@ -109,6 +109,7 @@ export const DoctorSchema=z.object({
   doctorName:z.string().min(3,{
     message:"Doctor name is requird"
   }),
+  doctor_image:z.string(),
   email:z.string().email({
      message:"Please enter a valid email address"
   }),
@@ -128,7 +129,11 @@ export const DoctorSchema=z.object({
   }),
   qualifications: z.array(z.nativeEnum(Qualifications)),
   department:z.string(),
- consultationFee: z.string()
+  bio:z.string().min(3,{
+    message:"Please write bio "
+  }),
+  language_spoken:z.array(z.nativeEnum(LanguageSpoken)),
+  consultationFee: z.string()
     .min(0, "Enter consultation fee")
     .max(120, "Enter consultation fee"),
      isAvailable: z.coerce.boolean().default(true),
