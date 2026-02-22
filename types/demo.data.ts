@@ -24,7 +24,7 @@ export const patientdata: PatientType[] = [
   {
     patientId: "P1003",
     name: "Rohan Verma",
-      image: "/images/doctor-3.png",
+    image: "/images/doctor-3.png",
     gender: "Male",
     age: 35,
     department: "Orthopedics",
@@ -34,7 +34,7 @@ export const patientdata: PatientType[] = [
   {
     patientId: "P1004",
     name: "Ananya Singh",
-      image: "/images/first.png",
+    image: "/images/first.png",
     gender: "Female",
     age: 30,
     department: "Dermatology",
@@ -44,7 +44,7 @@ export const patientdata: PatientType[] = [
   {
     patientId: "P1005",
     name: "Kabir Thapa",
-      image: "/images/doctor-3.png",
+    image: "/images/doctor-3.png",
     gender: "Male",
     age: 41,
     department: "General Surgery",
@@ -54,7 +54,7 @@ export const patientdata: PatientType[] = [
   {
     patientId: "P1006",
     name: "Meera Joshi",
-      image: "/images/lady.png",
+    image: "/images/lady.png",
     gender: "Female",
     age: 27,
     department: "Gynecology",
@@ -64,7 +64,7 @@ export const patientdata: PatientType[] = [
   {
     patientId: "P1007",
     name: "Ishaan Adhikari",
-      image: "/images/third.png",
+    image: "/images/third.png",
     gender: "Male",
     age: 33,
     department: "ENT",
@@ -158,50 +158,50 @@ export const patientdata: PatientType[] = [
   {
     doctorName: "Dr. Aayush Sharma",
     department: "Cardiology",
-    image: "/images/third.png",
+    doctor_image: "/images/third.png",
     isAvailable: "Available",
   },
    {
     doctorName: "Dr. Kabir Joshi",
     department: "Oncology",
-    image: "/images/first.png",
+    doctor_image: "/images/first.png",
     isAvailable: "Unavailable",
   },
   {
     doctorName: "Dr. Priya Mehta",
     department: "Neurology",
-    image: "/images/lady.png",
+    doctor_image: "/images/lady.png",
     isAvailable: "Available",
   },
   {
     doctorName: "Dr. Rohan Verma",
     department: "Orthopedics",
-     image: "/images/first.png",
+     doctor_image: "/images/first.png",
     isAvailable: "Available",
   },
    {
     doctorName: "Dr. Suman Koirala",
     department: "General Surgery",
-    image: "/images/doctor-3.png",
+    doctor_image: "/images/doctor-3.png",
     isAvailable: "Leave",
   },
   {
     doctorName: "Dr. Sneha Kapoor",
     department: "Pediatrics",
-    image: "/images/doctor-3.png",
+    doctor_image: "/images/doctor-3.png",
     isAvailable: "Available",
   },
   
   {
     doctorName: "Dr. Arjun Singh",
     department: "Dermatology",
-    image: "/images/first.png",
+    doctor_image: "/images/first.png",
     isAvailable: "Available",
   },
   {
     doctorName: "Dr. Nisha Thapa",
     department: "Gynecology",
-       image: "/images/lady.png",
+       doctor_image: "/images/lady.png",
     isAvailable: "Available",
   },
 
@@ -210,13 +210,13 @@ export const patientdata: PatientType[] = [
   {
     doctorName: "Dr. Meera Rai",
     department: "ENT (Otolaryngology)",
-    image: "/images/lady.png",
+    doctor_image: "/images/lady.png",
     isAvailable: "Unavailable",
   },
   {
     doctorName: "Dr. Vikram Adhikari",
     department: "Psychiatry",
-  image: "/images/third.png",
+  doctor_image: "/images/third.png",
     isAvailable: "Unavailable",
   },
 
@@ -228,25 +228,25 @@ export const patientdata: PatientType[] = [
 //   {
 //     name: "Aarav Sharma",
 //     date: "2/01/2026",
-//     image: "/images/first.png",
+//     doctor_image: "/doctor_images/first.png",
 //     status: "Resolve",
 //   },
 //   {
 //     name: "Saanvi Patel",
 //     date: "2/03/2026",
-//     image: "/images/lady.png",
+//     doctor_image: "/doctor_images/lady.png",
 //     status: "Resolve",
 //   },
 //   {
 //     name: "Rohan Verma",
 //     date: "2/05/2026",
-//     image: "/images/Avatar-1.png",
+//     doctor_image: "/doctor_images/Avatar-1.png",
 //     status: "Resolve",
 //   },
 //   {
 //     name: "Ananya Singh",
 //     date: "2/07/2026",
-//     image: "/images/first.png",
+//     doctor_image: "/doctor_images/first.png",
 //     status: "Resolve",
 //   },
 
@@ -254,19 +254,19 @@ export const patientdata: PatientType[] = [
 //   {
 //     name: "Kabir Thapa",
 //     date: "2/08/2026",
-//     image: "/images/lady.png",
+//     doctor_image: "/doctor_images/lady.png",
 //     status: "Pending",
 //   },
 //   {
 //     name: "Meera Joshi",
 //     date: "2/09/2026",
-//     image: "/images/Avatar-1.png",
+//     doctor_image: "/doctor_images/Avatar-1.png",
 //     status: "Pending",
 //   },
 //   {
 //     name: "Ishaan Adhikari",
 //     date: "2/11/2026",
-//     image: "/images/first.png",
+//     doctor_image: "/doctor_images/first.png",
 //     status: "Pending",
 //   },
 // ];
