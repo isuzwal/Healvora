@@ -264,7 +264,7 @@ export function ChartAreaInteractive() {
                 <div className="flex items-center gap-1.5  ">
                   <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
                     <Image
-                      src={doc.image || " "}
+                      src={doc.doctor_image || " "}
                       alt="Doctor"
                       fill
                       loading="lazy"
