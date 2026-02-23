@@ -2,6 +2,7 @@ import { AppSidebar } from "@/components/ui/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { SiteHeader } from "@/components/ui/site-header";
 import { UserAppSdideBar } from "@/components/ui/user-app-sidebar";
+import { UserHeader } from "@/components/ui/user.header";
 
 export default function DashboardLayout({
   children,
@@ -19,7 +20,7 @@ export default function DashboardLayout({
     >
       <UserAppSdideBar variant="inset" />
       <SidebarInset>
-        <SiteHeader />
+        <UserHeader />
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
             {children}
