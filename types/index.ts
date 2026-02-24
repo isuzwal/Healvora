@@ -11,6 +11,7 @@ export enum Qualifications {
 export enum Status {
   PENDING = "pending",
   SUCCESS = "success",
+  CANCELLED="cancel"
 }
 
 export enum Gender {

@@ -1,3 +1,69 @@
+// Backend booking types
+import { Status, Gender, } from ".";
+
+
+export interface IBooking {
+  userId:string;
+  doctor_id: string;
+  appointment_time?: Date;
+  appointment_date?: Date;
+  patient_name: string;
+  gender: Gender;
+  age: number;
+  department?: string;
+  status?: Status;
+  notes: string;
+  cancellation_reason?: string;
+  cancelled_at?: Date;
+  cancelled_by?: string;
+}
+
+// Sample bookings for the currently logged-in user
+export const userBookings: IBooking[] = [
+ 
+  {
+    userId: "65d4e1f2c1a4b2d3e4f5a6b7",
+    doctor_id: "65d4e1f2c1a4b2d3e4f5a6c9",
+    appointment_time: new Date("2026-02-25T14:00:00Z"),
+    appointment_date: new Date("2026-02-25"),
+    patient_name: "Current User",
+    gender: Gender.MALE,
+    age: 29,
+    department:"NEUROLOGY",
+    status: Status.PENDING,
+    notes: "Consultation",
+  },
+  {
+    userId: "65d4e1f2c1a4b2d3e4f5a6b7",
+    doctor_id:"65d4e1f2c1a4b2d3e4f5a6d0",
+    appointment_time: new Date("2026-02-26T09:00:00Z"),
+    appointment_date: new Date("2026-02-26"),
+    patient_name: "Current User",
+    gender: Gender.MALE,
+    age: 29,
+    department:"ORTHOPEDICS",
+    status: Status.CANCELLED,
+    notes: "Follow-up",
+    cancellation_reason: "Scheduling conflict",
+    cancelled_at: new Date("2026-02-25T18:00:00Z"),
+    cancelled_by: "user",
+  },
+   {
+    userId: "65d4e1f2c1a4b2d3e4f5a6b7",
+    doctor_id:"65d4e1f2c1a4b2d3e4f5a6d0",
+    appointment_time: new Date("2026-02-26T09:00:00Z"),
+    appointment_date: new Date("2026-02-27"),
+    patient_name: "Current User",
+    gender: Gender.MALE,
+    age: 29,
+    department:"ORTHOPEDICS",
+    status: Status.SUCCESS,
+    notes: "Follow-up",
+    cancellation_reason: "Scheduling conflict",
+    cancelled_at: new Date("2026-02-25T18:00:00Z"),
+    cancelled_by: "user",
+  },
+];
 import { CompliancesData, DoctorBasicInfo, PatientType } from ".";
 
 export const patientdata: PatientType[] = [
