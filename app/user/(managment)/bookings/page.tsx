@@ -1,5 +1,11 @@
 "use client";
-import { DropdownMenuGroup } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { patientdata, userBookings } from "@/types/demo.data";
 import { Filter, Search, Trash2 } from "lucide-react";
@@ -31,11 +37,39 @@ export default function Page() {
                 focus-visible:border-transparent placeholder:px-1.5 placeholder:text-neutral-700 placeholder:text-[12px] "
                 />
               </label>
-              <button className=" group border-[1.5px] rounded-md duration-300 ease-in-out transition-all flex gap-0.5 items-center  px-2 py-0.5 cursor-pointer bg-neutral-100 hover:bg-neutral-50 border-neutral-200  justify-center  h-6 w-6">
-                <span className=" rounded-md flex justify-center items-center">
-                  <Filter className="size-3.5  group-hover:text-neutral-400 text-neutral-500 duration-300 ease-in-out transition-all " />
-                </span>
-              </button>
+              <DropdownMenu>
+                <DropdownMenuGroup>
+                  <DropdownMenuGroup>
+                    <DropdownMenuTrigger asChild>
+                      <button className=" group border-[1.5px] rounded-md duration-300 ease-in-out transition-all flex gap-0.5 items-center  px-2 py-0.5 cursor-pointer bg-neutral-100 hover:bg-neutral-50 border-neutral-200  justify-center  h-6 w-6">
+                        <span className=" rounded-md flex justify-center items-center">
+                          <Filter className="size-3.5  group-hover:text-neutral-400 text-neutral-500 duration-300 ease-in-out transition-all " />
+                        </span>
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="border mr-6  p-1.5 ">
+                      <DropdownMenuItem
+                        onClick={() => setBookings("")}
+                        className="w-full border-transparent p-1 text-[12px]  duration-300 cursor-pointer transition-all ease-in-out hover:bg-green-400  rounded-md hover:text-white"
+                      >
+                        Success
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => setBookings("")}
+                        className="w-full border-transparent p-1 text-[12px]  duration-300 cursor-pointer transition-all ease-in-out hover:bg-yellow-300  rounded-md hover:text-white"
+                      >
+                        Pending
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => setBookings("")}
+                        className="w-full border-transparent p-1 text-[12px]  duration-300 cursor-pointer transition-all ease-in-out hover:bg-red-400  rounded-md hover:text-white"
+                      >
+                        Cancel
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenuGroup>
+                </DropdownMenuGroup>
+              </DropdownMenu>
             </div>
           </div>
           <div className=" rounded-xl border border-neutral-100  w-full">
