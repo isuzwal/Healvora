@@ -55,7 +55,7 @@ export function UserChat() {
       }
     });
     return Object.values(grouped);
-  }, [userBookings]);
+  }, []);
 
   const isMobile = useIsMobile();
   const [timeRange, setTimeRange] = React.useState("90d");
@@ -131,20 +131,21 @@ export function UserChat() {
               <Bar
                 dataKey="Bookings"
                 fill="green"
-                activeBar={{ fill: "pink", stroke: "blue" }}
-                radius={[10, 10, 0, 0]}
+                activeBar={{ fill: "green", stroke: "green" }}
+                radius={[8, 8, 0, 0]}
+                className=""
               />
               <Bar
                 dataKey="Pending"
                 fill="yellow"
-                activeBar={{ fill: "gold", stroke: "purple" }}
-                radius={[10, 10, 0, 0]}
+                activeBar={{ fill: "yellow", stroke: "yellow" }}
+                radius={[8, 8, 0, 0]}
               />
               <Bar
                 dataKey="Cancelled"
                 fill="red"
-                activeBar={{ fill: "gold", stroke: "purple" }}
-                radius={[10, 10, 0, 0]}
+                activeBar={{ fill: "red", stroke: "red" }}
+                radius={[8, 8, 0, 0]}
               />
             </div>
             <RechartsDevtools />
