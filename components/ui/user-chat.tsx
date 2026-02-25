@@ -2,8 +2,7 @@
 
 import * as React from "react";
 import { CartesianGrid, XAxis } from "recharts";
-import { BarChart, Bar, YAxis, Tooltip, Legend } from "recharts";
-import { RechartsDevtools } from "@recharts/devtools";
+import { BarChart, Bar } from "recharts";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
@@ -13,73 +12,49 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 
-import { useMemo } from "react";
 import { ChartNoAxesCombined } from "lucide-react";
 
 import { userBookings } from "@/types/demo.data";
+import {
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "./chart";
 
 export const description = "An interactive area chart";
 
 export function UserChat() {
-  // Prepare chart data for BarChart: group by date and count statuses
-  const chartData = useMemo(() => {
-    const grouped: Record<
-      string,
-      { name: string; Bookings: number; Pending: number; Cancelled: number }
-    > = {};
-    userBookings.forEach((booking) => {
-      // Always convert date to string for key and name
-      const dateObj = booking.appointment_date;
-      const dateKey =
-        dateObj instanceof Date ? dateObj.toISOString().split("T")[0] : "";
-      if (!grouped[dateKey]) {
-        grouped[dateKey] = {
-          name: dateKey,
-          Bookings: 0,
-          Pending: 0,
-          Cancelled: 0,
-        };
-      }
-      const status =
-        typeof booking.status === "string" ? booking.status.toLowerCase() : "";
-      if (status === "success") {
-        grouped[dateKey].Bookings += 1;
-      } else if (status === "pending") {
-        grouped[dateKey].Pending += 1;
-      } else if (
-        status === "cancelled" ||
-        status === "cancel" ||
-        status === "cancle"
-      ) {
-        grouped[dateKey].Cancelled += 1;
-      }
-    });
-    return Object.values(grouped);
+  const chartData = React.useMemo(() => {
+    const total = userBookings.length;
+    const pending = userBookings.filter((b) => b.status === "Pending").length;
+    const cancel = userBookings.filter((b) => b.status === "Cancel").length;
+
+    return [
+      {
+        name: "Bookings",
+        Bookings: total,
+        Pending: pending,
+        Cancel: cancel,
+      },
+    ];
   }, []);
 
-  const isMobile = useIsMobile();
-  const [timeRange, setTimeRange] = React.useState("90d");
-
-  React.useEffect(() => {
-    if (isMobile) {
-      setTimeRange("7d");
-    }
-  }, [isMobile]);
-
-  const filteredData = chartData.filter((item) => {
-    const date = new Date(item.name);
-    const referenceDate = new Date("2024-06-30");
-    let daysToSubtract = 90;
-    if (timeRange === "30d") {
-      daysToSubtract = 30;
-    } else if (timeRange === "7d") {
-      daysToSubtract = 7;
-    }
-    const startDate = new Date(referenceDate);
-    startDate.setDate(startDate.getDate() - daysToSubtract);
-    return date >= startDate;
-  });
-
+  const ChatConfig = {
+    bookings: {
+      label: "Bookings",
+      color: "green",
+    },
+    pending: {
+      label: "Pending",
+      color: "yellow",
+    },
+    cancel: {
+      label: "Cancel",
+      color: "red",
+    },
+  };
   return (
     <div className="grid grid-cols-1  lg:grid-cols-3  gap-2 w-full p-0 ">
       <Card className="@container/card  col-span-3">
@@ -106,50 +81,23 @@ export function UserChat() {
           </div>
         </CardHeader>
         <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-          <BarChart
-            style={{
-              width: "100%",
-
-              maxHeight: "70vh",
-              aspectRatio: 1.618,
-            }}
-            responsive
-            data={filteredData}
-            margin={{
-              top: 5,
-              right: 0,
-              left: 0,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis width="auto" />
-            <Tooltip />
-            <Legend />
-            <div className="">
-              <Bar
-                dataKey="Bookings"
-                fill="green"
-                activeBar={{ fill: "green", stroke: "green" }}
-                radius={[8, 8, 0, 0]}
-                className=""
+          <ChartContainer config={ChatConfig} className="min-h-28 w-full">
+            <BarChart accessibilityLayer data={chartData} className="w-full">
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                tickFormatter={(value) => value.slice(0, 3)}
               />
-              <Bar
-                dataKey="Pending"
-                fill="yellow"
-                activeBar={{ fill: "yellow", stroke: "yellow" }}
-                radius={[8, 8, 0, 0]}
-              />
-              <Bar
-                dataKey="Cancelled"
-                fill="red"
-                activeBar={{ fill: "red", stroke: "red" }}
-                radius={[8, 8, 0, 0]}
-              />
-            </div>
-            <RechartsDevtools />
-          </BarChart>
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <ChartLegend content={<ChartLegendContent />} />
+              <Bar dataKey={"Bookings"} fill="green" radius={4} />
+              <Bar dataKey={"Pending"} fill="yellow" radius={4} />
+              <Bar dataKey={"Cancel"} fill="red" radius={4} />
+            </BarChart>
+          </ChartContainer>
         </CardContent>
       </Card>
     </div>
