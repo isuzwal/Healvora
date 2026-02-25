@@ -93,9 +93,9 @@ export function UserChat() {
               />
               <ChartTooltip content={<ChartTooltipContent />} />
               <ChartLegend content={<ChartLegendContent />} />
-              <Bar dataKey={"Bookings"} fill="green" radius={4} />
-              <Bar dataKey={"Pending"} fill="yellow" radius={4} />
-              <Bar dataKey={"Cancel"} fill="red" radius={4} />
+              <Bar dataKey="Bookings" fill="var(--color-bookings)" radius={4} />
+              <Bar dataKey="Pending" fill="var(--color-pending)" radius={4} />
+              <Bar dataKey="Cancel" fill="var(--color-cancel)" radius={4} />
             </BarChart>
           </ChartContainer>
         </CardContent>
