@@ -34,7 +34,6 @@ export const UserLoginPage = () => {
         body: JSON.stringify(data),
       });
       const result = await response.json();
-      console.log("Result", result.token);
       if (!response.ok) {
         toast(result.message || "Fail to login !");
       } else {
@@ -48,8 +47,7 @@ export const UserLoginPage = () => {
         form.reset();
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong", {
+      toast.error(`${error}`, {
         className: "bg-red-600 text-white border-none",
       });
     } finally {
@@ -135,7 +133,7 @@ export const UserLoginPage = () => {
                 </Link>
               </span>
               <Link
-                href="/forgot-password"
+                href="/send-otp"
                 className="text-neutral-500 hover:text-neutral-700"
               >
                 Forgot password?

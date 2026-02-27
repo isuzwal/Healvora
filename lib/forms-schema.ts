@@ -151,3 +151,9 @@ export const complainceScheam=z.object({
  }),
 
 })
+// 
+export const EmailScheam=z.object({
+  email:z.string().email({
+        message:"Please enter a valid email address"
+    }),
+})

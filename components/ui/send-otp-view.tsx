@@ -1,10 +1,55 @@
-import { ArrowLeft, Key, Mail } from "lucide-react";
-import { Card, CardContent, CardTitle } from "./card";
-import { Label } from "./label";
+"use client";
+import { ArrowLeft, Key, Loader, Mail } from "lucide-react";
+import { Card, CardTitle } from "./card";
+import { z } from "zod";
 import { Input } from "./input";
 import Link from "next/link";
+import { useState } from "react";
+import { BACKENDAPI } from "@/types/url";
+import { toast } from "sonner";
+import { EmailScheam } from "@/lib/forms-schema";
 
-export const ForgotPassword = () => {
+export const SendOTP = () => {
+  const [email, setEmail] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  // api call here
+  const handelOtpSend = async (email: z.output<typeof EmailScheam>) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${BACKENDAPI}/api/v1/user/opt-send`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(email),
+      });
+      const result = await res.json();
+      if (!res.ok) {
+        toast(result.message || "Fail to login !");
+      } else {
+        toast.success(result.message, {
+          className: "bg-green-600 text-white border-none",
+        });
+        setEmail("");
+      }
+    } catch (error) {
+      toast.error(`${error}` || "Something went wrong", {
+        className: "bg-red-600 text-white border-none",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleSubmit = () => {
+    const result = EmailScheam.safeParse({ email });
+    if (!result.success) {
+      toast.error(result.error.issues[0]?.message);
+      return;
+    }
+    handelOtpSend(result.data);
+  };
+
   return (
     <div className="h-screen flex justify-center  items-center ">
       <div className="">
@@ -32,6 +77,8 @@ export const ForgotPassword = () => {
                 <Mail className="  size-4 text-neutral-500" />
                 <Input
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="eg:healvora@gamil.com"
                   className="w-full h-6  rounded-md text-[12px] text-neutral-700   focus:outline-none focus:ring-0 focus-visible:ring-0
                 focus-visible:border-transparent placeholder:px-1.5 placeholder:text-neutral-700 placeholder:text-[12px] "
@@ -39,8 +86,21 @@ export const ForgotPassword = () => {
               </label>
             </div>
             <div className="w-full  ">
-              <button className="px-4 py-1 text-[14px]  w-full   justify-center text-white cursor-pointer  rounded-lg shadow-[inset_0_1px_1px_rgba(180,250,235,0.5),inset_0_-1px_2px_rgba(180,250,235,0.5)] flex items-center duration-300 ease-in-out transition-all hover:bg-primary/80  bg-primary border border-green-300 font-sans font-medium">
-                Send password otp{" "}
+              <button
+                disabled={loading}
+                onClick={handleSubmit}
+                className={`px-4 py-1 text-[14px]  w-full   justify-center text-white   rounded-lg shadow-[inset_0_1px_1px_rgba(180,250,235,0.5),inset_0_-1px_2px_rgba(180,250,235,0.5)] flex items-center duration-300 ease-in-out transition-all 
+                ${loading ? "cursor-not-allowed bg-primary/40" : "cursor-pointer   hover:bg-primary/80  bg-primary border border-green-300 font-sans "}
+               font-sans font-medium`}
+              >
+                {loading ? (
+                  <span className="flex items-center gap-1.5">
+                    Sending password otp{" "}
+                    <Loader className="size-3.5 animate-spin " />
+                  </span>
+                ) : (
+                  "Send password otp"
+                )}
               </button>
               <Link
                 href="/login"
