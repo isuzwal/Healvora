@@ -157,3 +157,28 @@ export const EmailScheam=z.object({
         message:"Please enter a valid email address"
     }),
 })
+// password change scheama 
+export const ChangePasswordScheam=z.object({
+  email:z.string().email({
+        message:"Please enter a valid email address"
+    }),
+    opt:z.number({
+      message:"Please enter number "
+    }),
+    newPassword:z.string()
+    .min(6, {
+      message: "Password must be at least 6 characters",
+    })
+    .refine((pw) => /[A-Z]/.test(pw), {
+      message: "Password must include at least one uppercase letter",
+    })
+    .refine((pw) => /[a-z]/.test(pw), {
+      message: "Password must include at least one lowercase letter",
+    })
+    .refine((pw) => /[0-9]/.test(pw), {
+      message: "Password must include at least one number",
+    })
+    .refine((pw) => /[!@#$%^&*]/.test(pw), {
+      message: "Password must include at least one special character",
+    }),
+})
