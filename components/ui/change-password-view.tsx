@@ -26,6 +26,7 @@ export const ChangePasswordSection = () => {
 
   const handelOtpSend = async (data: z.output<typeof ChangePasswordScheam>) => {
     setLoading(true);
+
     try {
       const newdata = {
         ...data,
@@ -47,6 +48,7 @@ export const ChangePasswordSection = () => {
           className: "bg-green-600 text-white border-none",
         });
         router.push("/login");
+        form.reset();
       }
     } catch (error) {
       toast.error(`${error}` || "Something went wrong", {

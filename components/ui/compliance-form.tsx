@@ -1,5 +1,5 @@
 "use client";
-import { complainceScheam } from "@/lib/forms-schema";
+import { complianceSchema } from "@/lib/forms-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Headset, Loader } from "lucide-react";
 import { useState } from "react";
@@ -9,20 +9,60 @@ import { Card } from "./card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "./field";
 import { Input } from "./input";
 import { Textarea } from "./textarea";
+import { toast } from "sonner";
+import { BACKENDAPI } from "@/types/url";
+import { useRouter } from "next/navigation";
 
 export const ComplianceFrom = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const form = useForm({
-    resolver: zodResolver(complainceScheam),
+    resolver: zodResolver(complianceSchema),
     defaultValues: {
       compliance_title: "",
-      compliance_iusses: "",
+      compliance_issues: "",
     },
   });
-  const handleSubmit = async (data: z.output<typeof complainceScheam>) => {
+  const router = useRouter();
+  const handleSubmit = async (data: z.output<typeof complianceSchema>) => {
     setLoading(true);
-    console.log("Compliance data", data);
+    const token = localStorage.getItem("user_token");
+    if (!token) {
+      toast.error("You must login first!", {
+        className: "bg-red-600 text-white border-none",
+      });
+      router.push("/login");
+      return;
+    }
+    try {
+      const response = await fetch(`${BACKENDAPI}/api/v1/user/compliance`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        toast.error(result.message || "Fail to submit the complaince", {
+          className: "bg-red-600 text-white border-none",
+        });
+      } else {
+        toast.success("Thank for your compalince", {
+          className: "bg-green-600 text-white border-none",
+        });
+        router.push("/");
+        form.reset();
+      }
+    } catch (error) {
+      toast.error(`${error}`, {
+        className: "bg-red-600 text-white border-none",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <div className=" w-full  min-h-screen ">
       <div className="max-w-4xl  w-full py-10 mx-auto text-center">
@@ -81,7 +121,7 @@ export const ComplianceFrom = () => {
 
                 <FieldGroup>
                   <Controller
-                    name="compliance_iusses"
+                    name="compliance_issues"
                     control={form.control}
                     render={({ field, fieldState }) => (
                       <Field

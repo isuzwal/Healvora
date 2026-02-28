@@ -142,13 +142,18 @@ export const DoctorSchema=z.object({
     .max(120, "Enter year experience"),
 })
 // Complainces  Form 
-export const complainceScheam=z.object({
- compliance_title:z.string().min(3,{
-  message:"Compliance Title  need 3 letter"
+export const complianceSchema=z.object({
+ compliance_title:z.string().trim().min(3,{
+  message:"Compliance title must be at 3 characters"
  }),
- compliance_iusses:z.string().min(6,{
-  message:"Describe your  problem  please"
- }),
+ compliance_issues: z.string()
+  .trim()
+  .min(6,{
+    message:"Please describe your problem properly"
+  })
+  .refine((val) => /[a-zA-Z]/.test(val), {
+    message: "Issue must contain letters",
+  }),
 
 })
 // 

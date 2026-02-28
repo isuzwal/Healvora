@@ -13,7 +13,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 export const SendOTP = () => {
   const [loading, setLoading] = useState(false);
-
   const form = useForm<z.output<typeof EmailScheam>>({
     resolver: zodResolver(EmailScheam),
     defaultValues: {
@@ -23,6 +22,7 @@ export const SendOTP = () => {
 
   const handelOtpSend = async (data: z.output<typeof EmailScheam>) => {
     setLoading(true);
+
     try {
       const res = await fetch(`${BACKENDAPI}/api/v1/user/opt-send`, {
         method: "POST",
