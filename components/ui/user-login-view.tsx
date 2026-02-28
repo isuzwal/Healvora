@@ -35,7 +35,9 @@ export const UserLoginPage = () => {
       });
       const result = await response.json();
       if (!response.ok) {
-        toast(result.message || "Fail to login !");
+        toast.error(result.message || "Password or Email is Invalid", {
+          className: "bg-red-600 text-white border-none",
+        });
       } else {
         if (result.token) {
           localStorage.setItem("user_token", result.token);

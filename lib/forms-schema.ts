@@ -162,9 +162,9 @@ export const ChangePasswordScheam=z.object({
   email:z.string().email({
         message:"Please enter a valid email address"
     }),
-    opt:z.number({
-      message:"Please enter number "
-    }),
+     otp: z.string()
+        .length(6, { message: "OTP must be 6 digits" })
+        .regex(/^\d+$/, { message: "OTP must contain only numbers" }),
     newPassword:z.string()
     .min(6, {
       message: "Password must be at least 6 characters",

@@ -10,6 +10,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./input-otp";
 import { Card } from "./card";
+import { toast } from "sonner";
+import { BACKENDAPI } from "@/types/url";
 
 export const ChangePasswordSection = () => {
   const [show, setShow] = useState(false);
@@ -17,10 +19,43 @@ export const ChangePasswordSection = () => {
 
   const form = useForm<z.output<typeof ChangePasswordScheam>>({
     resolver: zodResolver(ChangePasswordScheam),
-    defaultValues: { email: "", newPassword: "", opt: undefined },
+    defaultValues: { email: "", newPassword: "", otp: "" },
   });
 
   const router = useRouter();
+
+  const handelOtpSend = async (data: z.output<typeof ChangePasswordScheam>) => {
+    setLoading(true);
+    try {
+      const newdata = {
+        ...data,
+        otp: Number(data.otp),
+      };
+      const res = await fetch(`${BACKENDAPI}/api/v1/user/verifcation`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(newdata),
+      });
+      const result = await res.json();
+      if (!res.ok) {
+        toast(result.message || "Fail to  rest-password !");
+      } else {
+        toast.success(result.message, {
+          className: "bg-green-600 text-white border-none",
+        });
+        router.push("/login");
+      }
+    } catch (error) {
+      toast.error(`${error}` || "Something went wrong", {
+        className: "bg-red-600 text-white border-none",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="flex justify-center  items-center min-h-screen w-full">
       <Card className="font-medium p-2 max-w-sm   shadow-none border-transparent  w-full">
@@ -33,8 +68,8 @@ export const ChangePasswordSection = () => {
           </p>
         </div>
         <form
-          id="login-form"
-          //   onSubmit={form.handleSubmit("")}
+          id="password-change"
+          onSubmit={form.handleSubmit(handelOtpSend)}
           className="space-y-2"
         >
           <FieldGroup>
@@ -92,7 +127,7 @@ export const ChangePasswordSection = () => {
           </FieldGroup>
           <FieldGroup>
             <Controller
-              name="opt"
+              name="otp"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid} className="gap-1">
@@ -101,7 +136,8 @@ export const ChangePasswordSection = () => {
                     <InputOTP
                       id="disabled"
                       maxLength={6}
-                      value={field.value?.toString() || ""}
+                      value={field.value || ""}
+                      onChange={field.onChange}
                       className=" "
                     >
                       <InputOTPGroup className=" w-full  bg-slate-100  border-slate-200">
