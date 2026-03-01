@@ -1,3 +1,4 @@
+import { IBooking } from "./demo.data";
 
 
 export enum Qualifications {
@@ -83,3 +84,17 @@ complaince_status?: ComplinacesStatus;
 
 
   
+export interface User{
+  _id:string
+  profile_image:string,
+  username:string,
+  email:string,
+ 
+}
+export interface UserState {
+  user: User | null;
+  loading: boolean;
+  error: string | null;
+  fetchUser: () => Promise<void>;
+  logout: () => void;
+}

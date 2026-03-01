@@ -1,14 +1,22 @@
-import { AppSidebar } from "@/components/ui/app-sidebar";
+"use client";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { SiteHeader } from "@/components/ui/site-header";
 import { UserAppSdideBar } from "@/components/ui/user-app-sidebar";
 import { UserHeader } from "@/components/ui/user.header";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem("user_token");
+    if (!token) {
+      router.push("/login");
+    }
+  }, []);
   return (
     <SidebarProvider
       style={

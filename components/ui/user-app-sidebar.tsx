@@ -20,10 +20,6 @@ export function UserAppSdideBar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const userlink = {
-    user: {
-      name: "isuzwal",
-      email: "isuzwal@gamil.com",
-    },
     navMain: [
       {
         title: "Dashboard",

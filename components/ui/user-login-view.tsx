@@ -45,7 +45,7 @@ export const UserLoginPage = () => {
         toast.success("Login successfully", {
           className: "bg-green-600 text-white border-none",
         });
-        router.push("/");
+        router.push("/user");
         form.reset();
       }
     } catch (error) {
