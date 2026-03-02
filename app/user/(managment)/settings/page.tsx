@@ -12,6 +12,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import Image from "next/image";
 import { BACKENDAPI } from "@/types/url";
 import { toast } from "sonner";
@@ -58,42 +66,7 @@ export default function Page() {
         />
         <Separator />
 
-        <section className="grid gap-6 lg:grid-cols-[220px_1fr]">
-          <div className="space-y-3">
-            <div>
-              <h2 className="text-lg font-semibold text-destructive">
-                Danger zone
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                This action cannot be undone.
-              </p>
-            </div>
-            <Button
-              variant="destructive"
-              className="w-full lg:w-auto text-white cursor-pointer"
-            >
-              Delete account
-            </Button>
-          </div>
-          <Card className="border-destructive/40">
-            <CardHeader>
-              <CardTitle>Delete your account</CardTitle>
-              <CardDescription>
-                Permanently remove your profile, bookings, and saved records.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <p className="text-sm text-muted-foreground">
-                Before deleting, download any invoices or medical documents you
-                need to keep.
-              </p>
-              <div className="rounded-lg border border-dashed border-destructive/40 bg-destructive/5 p-4 text-sm">
-                You will lose access to appointments, messages, and personal
-                history.
-              </div>
-            </CardContent>
-          </Card>
-        </section>
+        <DeleteAccount />
       </div>
     </div>
   );
@@ -437,5 +410,166 @@ const PasswordChange = ({
         </CardContent>
       </Card>
     </section>
+  );
+};
+// delete account section
+const DeleteAccount = () => {
+  const [isOpen, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [confirmText, setConfirmText] = useState("");
+
+  const handleDeleteAccount = async () => {
+    if (confirmText !== "DELETE") {
+      toast.error('Please type "DELETE" to confirm', {
+        className: "bg-red-600 text-white border-none",
+      });
+      return;
+    }
+
+    setLoading(true);
+    const token = localStorage.getItem("user_token");
+
+    try {
+      const response = await fetch(`${BACKENDAPI}/api/v1/user/delete-account`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        toast.error(result.message || "Failed to delete account", {
+          className: "bg-red-600 text-white border-none",
+        });
+      } else {
+        toast.success("Account deleted successfully!", {
+          className: "bg-green-600 text-white border-none",
+        });
+
+        localStorage.removeItem("user_token");
+        window.location.href = "/";
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(`${error}` || "Failed to delete account", {
+        className: "bg-red-600 text-white border-none",
+      });
+    } finally {
+      setLoading(false);
+      setOpen(false);
+      setConfirmText("");
+    }
+  };
+
+  return (
+    <>
+      <section className="grid gap-6 lg:grid-cols-[220px_1fr]">
+        <div className="space-y-3">
+          <div>
+            <h2 className="text-lg font-semibold text-destructive">
+              Danger zone
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              This action cannot be undone.
+            </p>
+          </div>
+          <Button
+            onClick={() => setOpen(true)}
+            variant="destructive"
+            className="w-full lg:w-auto text-white cursor-pointer"
+          >
+            Delete account
+          </Button>
+        </div>
+        <Card className="border-destructive/40">
+          <CardHeader>
+            <CardTitle>Delete your account</CardTitle>
+            <CardDescription>
+              Permanently remove your profile, bookings, and saved records.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-sm text-muted-foreground">
+              Before deleting, download any invoices or medical documents you
+              need to keep.
+            </p>
+            <div className="rounded-lg border border-dashed border-destructive/40 bg-destructive/5 p-4 text-sm">
+              You will lose access to appointments, messages, and personal
+              history.
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      <Dialog open={isOpen} onOpenChange={setOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="text-destructive">
+              Delete Account Confirmation
+            </DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove all your data from our servers.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="confirm">
+                Type <span className="font-bold text-destructive">DELETE</span>{" "}
+                to confirm
+              </Label>
+              <Input
+                id="confirm"
+                value={confirmText}
+                onChange={(e) => setConfirmText(e.target.value)}
+                placeholder="Type DELETE here"
+                className="border-destructive/40 focus:border-destructive"
+              />
+            </div>
+            <div className="rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-sm">
+              <p className="font-semibold text-destructive mb-1">
+                You will lose:
+              </p>
+              <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                <li>All your appointments and bookings</li>
+                <li>Medical history and records</li>
+                <li>Messages and communications</li>
+                <li>Profile and personal information</li>
+              </ul>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setOpen(false);
+                setConfirmText("");
+              }}
+              disabled={loading}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={handleDeleteAccount}
+              disabled={loading || confirmText !== "DELETE"}
+              className="text-white"
+            >
+              {loading ? (
+                <>
+                  Deleting...
+                  <Loader className="ml-2 h-4 w-4 animate-spin" />
+                </>
+              ) : (
+                "Delete Account"
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
