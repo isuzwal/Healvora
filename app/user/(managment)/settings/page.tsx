@@ -23,9 +23,11 @@ export default function Page() {
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-
   const [loading, setLoading] = useState<boolean>(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
+  const [newPassword, setNewPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+
   const { user } = useUserStore();
   return (
     <div className="w-full px-4 py-10 sm:px-6 lg:px-10">
@@ -46,59 +48,14 @@ export default function Page() {
 
         <Separator />
 
-        <section className="grid gap-6 lg:grid-cols-[220px_1fr]">
-          <div className="space-y-3">
-            <div>
-              <h2 className="text-lg font-semibold">Change password</h2>
-              <p className="text-sm text-muted-foreground">
-                Protect your account with a strong password.
-              </p>
-            </div>
-            <Button className="w-full lg:w-auto text-white cursor-pointer">
-              Update password
-            </Button>
-          </div>
-          <Card>
-            <CardHeader>
-              <CardTitle>Password update</CardTitle>
-              <CardDescription>
-                Choose a new password you have not used before.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-5">
-              <div className="space-y-2">
-                <Label htmlFor="currentPassword">Current password</Label>
-                <Input
-                  id="currentPassword"
-                  type="password"
-                  placeholder="Enter current password"
-                />
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="newPassword">New password</Label>
-                  <Input
-                    id="newPassword"
-                    type="password"
-                    placeholder="Create new password"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword">Confirm new password</Label>
-                  <Input
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="Repeat new password"
-                  />
-                </div>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Use at least 8 characters, including a number and symbol.
-              </p>
-            </CardContent>
-          </Card>
-        </section>
-
+        <PasswordChange
+          newPassword={newPassword}
+          currentPassword={currentPassword}
+          setNewPassword={setNewPassword}
+          setCurrentPassword={setCurrentPassword}
+          loading={loading}
+          setLoading={setLoading}
+        />
         <Separator />
 
         <section className="grid gap-6 lg:grid-cols-[220px_1fr]">
@@ -229,7 +186,7 @@ const ProfileSection = ({
           profileImage: uploadImageUrl,
         }),
       });
-      console.log("Data", username, email, uploadImageUrl);
+
       const result = await response.json();
       if (!response.ok) {
         toast.error(result.message || "Failed to update profile", {
@@ -356,6 +313,127 @@ const ProfileSection = ({
               </div>
             </div>
           </form>
+        </CardContent>
+      </Card>
+    </section>
+  );
+};
+
+interface PasswordProps {
+  currentPassword: string;
+  setCurrentPassword: (value: string) => void;
+  newPassword: string;
+  setNewPassword: (value: string) => void;
+  loading: boolean;
+  setLoading: (value: boolean) => void;
+}
+// password change
+const PasswordChange = ({
+  currentPassword,
+  newPassword,
+  setCurrentPassword,
+  setNewPassword,
+  loading,
+  setLoading,
+}: PasswordProps) => {
+  const handlePasswordChange = async () => {
+    setLoading(true);
+
+    const token = localStorage.getItem("user_token");
+
+    try {
+      const response = await fetch(
+        `${BACKENDAPI}/api/v1/user/change-password`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            oldPassword: currentPassword,
+            newPassword: newPassword,
+          }),
+        },
+      );
+
+      const result = await response.json();
+      if (!response.ok) {
+        toast.error(result.message || "Failed change the password", {
+          className: "bg-red-600 text-white border-none",
+        });
+      } else {
+        toast.success("Password change  successfully!", {
+          className: "bg-green-600 text-white border-none",
+        });
+      }
+      setCurrentPassword("");
+      setNewPassword("");
+    } catch (error) {
+      console.error(error);
+      toast.error(`${error}` || "Fiail to change password ", {
+        className: "bg-red-600 text-white border-none",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+  return (
+    <section className="grid gap-6 lg:grid-cols-[220px_1fr]">
+      <div className="space-y-3">
+        <div>
+          <h2 className="text-lg font-semibold">Change password</h2>
+          <p className="text-sm text-muted-foreground">
+            Protect your account with a strong password.
+          </p>
+        </div>
+        <Button
+          onClick={handlePasswordChange}
+          className={`flex    items-center justify-center gap-2 rounded-md bg-primary text-white font-medium transition hover:bg-primary/90 disabled:opacity-70 ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
+        >
+          {loading ? (
+            <>
+              Updating password
+              <Loader className="size-3.5 animate-spin" />
+            </>
+          ) : (
+            "Update password"
+          )}
+        </Button>
+      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Password update</CardTitle>
+          <CardDescription>
+            Choose a new password you have not used before.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-5">
+          <div className="space-y-2">
+            <Label htmlFor="currentPassword">Current password</Label>
+            <Input
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              id="currentPassword"
+              type="password"
+              placeholder="Enter current password"
+            />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="newPassword">New password</Label>
+              <Input
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                id="newPassword"
+                type="password"
+                placeholder="Create new password"
+              />
+            </div>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Use at least 8 characters, including a number and symbol.
+          </p>
         </CardContent>
       </Card>
     </section>
