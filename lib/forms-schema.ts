@@ -187,3 +187,13 @@ export const ChangePasswordScheam=z.object({
       message: "Password must include at least one special character",
     }),
 })
+
+export  const  updateProfileScheam=z.object({
+  profileImage:z.string(),
+  username:z.string().min(3,{
+    message:"User name is requird"
+  }),
+   email:z.string().email({
+        message:"Please enter a valid email address"
+    }),
+})

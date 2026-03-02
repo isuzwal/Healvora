@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,137 +13,35 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+import { BACKENDAPI } from "@/types/url";
+import { toast } from "sonner";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import z from "zod";
+import { updateProfileScheam } from "@/lib/forms-schema";
+import { Loader } from "lucide-react";
 
 export default function Page() {
-  const [isEditingProfile, setIsEditingProfile] = React.useState(false);
-  const [profileImageUrl, setProfileImageUrl] = React.useState<string | null>(
-    null,
-  );
-
-  React.useEffect(() => {
-    return () => {
-      if (profileImageUrl) {
-        URL.revokeObjectURL(profileImageUrl);
-      }
-    };
-  }, [profileImageUrl]);
-
-  const handleProfileImageChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file = event.target.files?.[0];
-    if (!file) {
-      setProfileImageUrl(null);
-      return;
-    }
-
-    const nextUrl = URL.createObjectURL(file);
-    setProfileImageUrl((currentUrl) => {
-      if (currentUrl) {
-        URL.revokeObjectURL(currentUrl);
-      }
-      return nextUrl;
-    });
-  };
-
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [selcetedFile, setSelectedFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   return (
     <div className="w-full px-4 py-10 sm:px-6 lg:px-10">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-10">
-        <section className="grid gap-6 lg:grid-cols-[240px_1fr]">
-          <div className="space-y-2 ">
-            <div>
-              <h2 className="text-lg font-semibold">Profile information</h2>
-              <p className="text-sm text-muted-foreground">
-                Keep your public details accurate for appointments.
-              </p>
-            </div>
-            <div className="flex flex-col gap-1 lg:flex-row">
-              <Button
-                variant="outline"
-                className="w-full lg:w-auto cursor-pointer"
-                onClick={() => setIsEditingProfile(true)}
-              >
-                Edit profile
-              </Button>
-              <Button
-                className="w-full lg:w-auto text-white cursor-pointer"
-                disabled={!isEditingProfile}
-                onClick={() => setIsEditingProfile(false)}
-              >
-                Update profile
-              </Button>
-            </div>
-          </div>
-          <Card>
-            <CardHeader>
-              <CardTitle>Profile details</CardTitle>
-              <CardDescription>
-                Update your name, email, and contact details.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-5">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                {profileImageUrl ? (
-                  <div className="h-20 w-20 overflow-hidden rounded-full border">
-                    <Image
-                      src={profileImageUrl}
-                      alt="Profile preview"
-                      className="h-full w-full object-cover"
-                      fill
-                    />
-                  </div>
-                ) : (
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full border bg-muted text-sm font-medium text-muted-foreground">
-                    Avatar
-                  </div>
-                )}
-                <div className="space-y-2">
-                  <Label htmlFor="profileImage">Profile image</Label>
-                  <Input
-                    id="profileImage"
-                    type="file"
-                    accept="image/*"
-                    disabled={!isEditingProfile}
-                    onChange={handleProfileImageChange}
-                    className=" cursor-pointer"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Upload a square image (JPG or PNG), max 2MB.
-                  </p>
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName">First name</Label>
-                  <Input
-                    id="firstName"
-                    placeholder="Ava"
-                    disabled={!isEditingProfile}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName">Last name</Label>
-                  <Input
-                    id="lastName"
-                    placeholder="Johnson"
-                    disabled={!isEditingProfile}
-                  />
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email address</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="ava@healvora.com"
-                    disabled={!isEditingProfile}
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
+        <ProfileSection
+          edit={isEditingProfile}
+          setEdit={setIsEditingProfile}
+          profileImage={profileImageUrl}
+          previewImage={previewImage}
+          setPreviewImage={setPreviewImage}
+          slectedFile={selcetedFile}
+          setSelectedFile={setSelectedFile}
+          setProfileImageEdit={setProfileImageUrl}
+          loading={loading}
+          setLoading={setLoading}
+        />
 
         <Separator />
 
@@ -242,3 +140,255 @@ export default function Page() {
     </div>
   );
 }
+
+interface ProfileProps {
+  edit: boolean; // Edit Profile  true for false
+  setEdit: (value: boolean) => void; // store the sate
+  previewImage: string | null; //  previewImageUrl
+  setPreviewImage: (value: string | null) => void; // store for  previewImage
+  slectedFile: File | null; // file uplod
+  setSelectedFile: (value: File | null) => void;
+  profileImage: string | null; // for the backend profileImageurl
+  setProfileImageEdit: (value: string | null) => void; // store profileImage from backend
+  loading: boolean;
+  setLoading: (value: boolean) => void;
+}
+
+const ProfileSection = ({
+  edit,
+  setEdit,
+  profileImage,
+  setProfileImageEdit,
+  slectedFile,
+  setSelectedFile,
+  previewImage,
+  setPreviewImage,
+  loading,
+  setLoading,
+}: ProfileProps) => {
+  const token = localStorage.getItem("user_token");
+  // Handle preview image url and send to backend get url  back
+  const handleProfileImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (file) {
+      setSelectedFile(file);
+      setPreviewImage(URL.createObjectURL(file));
+    }
+    await UplaodFile(file);
+  };
+  // api call heer for image url from the backend
+  const UplaodFile = async (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      const response = await fetch(`${BACKENDAPI}/api/v1/user/user-image`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+      if (!response.ok) {
+        return toast.error("Fail to   update image ");
+      }
+      const data = await response.json();
+      setProfileImageEdit(data.url);
+    } catch (error) {
+      toast.error(`${error}` || "Fail to upload image ");
+      console.error("Upload failed:", error);
+      return null;
+    }
+  };
+  const form = useForm<z.output<typeof updateProfileScheam>>({
+    resolver: zodResolver(updateProfileScheam),
+    defaultValues: { email: "", username: "", profileImage: "" },
+  });
+  // upadate  user profile
+  const handleProfileUpdate = async (
+    data: z.output<typeof updateProfileScheam>,
+  ) => {
+    setLoading(true);
+    const update_data = { ...data, profileImage: data.profileImage };
+    try {
+      const response = await fetch(`${BACKENDAPI}/api/v1/user/update-profile`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(update_data),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        toast.error(result.message || "Failed to update profile", {
+          className: "bg-red-600 text-white border-none",
+        });
+      } else {
+        toast.success("Profile updated successfully!", {
+          className: "bg-green-600 text-white border-none",
+        });
+        setProfileImageEdit(result.profileImage || null);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(`${error}` || "Fail to upload image ", {
+        className: "bg-red-600 text-white border-none",
+      });
+    }
+  };
+
+  const imageToShow = previewImage ?? profileImage ?? "/images/first.png";
+  return (
+    <section className="grid gap-6 lg:grid-cols-[240px_1fr]">
+      <div className="space-y-2 ">
+        <div>
+          <h2 className="text-lg font-semibold">Profile information</h2>
+          <p className="text-sm text-muted-foreground">
+            Keep your public details accurate for appointments.
+          </p>
+        </div>
+        <div className="flex flex-col gap-1 lg:flex-row ">
+          <Button
+            variant="outline"
+            className="w-full lg:w-auto cursor-pointer"
+            onClick={() => setEdit(true)}
+          >
+            Edit profile
+          </Button>
+          <Button
+            type="submit"
+            form="profile-form"
+            className=" cursor-pointer  flex items-center justify-center gap-2 rounded-md bg-primary text-white font-medium transition hover:bg-primary/90 disabled:opacity-70"
+            disabled={!edit}
+            onClick={() => {
+              setEdit(false);
+            }}
+          >
+            {loading ? (
+              <>
+                Updating your profile{" "}
+                <Loader className="h-4 w-4 animate-spin" />
+              </>
+            ) : (
+              "Update profile"
+            )}
+          </Button>
+        </div>
+      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Profile details</CardTitle>
+          <CardDescription>
+            Update your name, email, and contact details.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-5">
+          <form
+            id="profile-form"
+            onSubmit={form.handleSubmit(handleProfileUpdate)}
+            className="space-y-5"
+          >
+            {/* Profile Image + Upload */}
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+              {imageToShow ? (
+                <div className="h-20 w-20 relative overflow-hidden rounded-full border">
+                  <Image
+                    src={imageToShow}
+                    alt="Profile preview"
+                    className="h-full w-full object-cover"
+                    fill
+                  />
+                </div>
+              ) : (
+                <div className="flex h-20 w-20 items-center justify-center rounded-full border bg-muted text-sm font-medium text-muted-foreground">
+                  Avatar
+                </div>
+              )}
+
+              <div className="space-y-2">
+                <Label htmlFor="profileImage">Profile image</Label>
+                <Controller
+                  name="profileImage"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <>
+                      <Input
+                        {...field}
+                        id="profileImage"
+                        type="file"
+                        accept="image/*"
+                        disabled={!edit}
+                        onChange={(e) => {
+                          handleProfileImageChange(e);
+                          field.onChange(e.target.files?.[0] || null);
+                        }}
+                        className="cursor-pointer"
+                      />
+                      {fieldState.error && (
+                        <p className="text-xs text-red-500">
+                          {fieldState.error.message}
+                        </p>
+                      )}
+                    </>
+                  )}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Upload a square image (JPG or PNG), max 2MB.
+                </p>
+              </div>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="username">First name</Label>
+                <Controller
+                  name="username"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <>
+                      <Input
+                        {...field}
+                        id="username"
+                        placeholder="Ava"
+                        disabled={!edit}
+                      />
+                      {fieldState.error && (
+                        <p className="text-xs text-red-500">
+                          {fieldState.error.message}
+                        </p>
+                      )}
+                    </>
+                  )}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email address</Label>
+                <Controller
+                  name="email"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <>
+                      <Input
+                        {...field}
+                        id="email"
+                        type="email"
+                        placeholder="ava@healvora.com"
+                        disabled={!edit}
+                      />
+                      {fieldState.error && (
+                        <p className="text-xs text-red-500">
+                          {fieldState.error.message}
+                        </p>
+                      )}
+                    </>
+                  )}
+                />
+              </div>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </section>
+  );
+};
