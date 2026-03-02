@@ -178,10 +178,7 @@ export const UserRegisterPage = () => {
               Terms
             </Link>{" "}
             &{" "}
-            <Link
-              href="/privacy-policy"
-              className="text-primary hover:underline"
-            >
+            <Link href="/policy" className="text-primary hover:underline">
               Privacy Policy
             </Link>
           </p>

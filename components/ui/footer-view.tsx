@@ -273,7 +273,7 @@ export const Footer = () => {
             </p>
             <div className="flex gap-4 justify-center items-center text-neutral-600 font-sans text-[14px] font-medium">
               <Link
-                href="/privacy-policy"
+                href="/policy"
                 className=" duration-300 hover:text-neutral-400 ease-in-out transition-all"
               >
                 Pivacy Policy
