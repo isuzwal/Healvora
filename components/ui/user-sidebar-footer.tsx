@@ -61,7 +61,7 @@ export function UserSidebarFooter() {
                 <div className="flex gap-1.5 items-center w-full text-sm leading-tight">
                   <div className="relative w-6 h-6 rounded-full overflow-hidden">
                     <Image
-                      src={user?.profile_image || "/images/first.png"}
+                      src={user?.image || "/images/first.png"}
                       alt="user-profile"
                       fill
                       loading="lazy"

@@ -86,7 +86,7 @@ complaince_status?: ComplinacesStatus;
   
 export interface User{
   _id:string
-  profile_image:string,
+  image:string,
   username:string,
   email:string,
  

@@ -188,12 +188,9 @@ export const ChangePasswordScheam=z.object({
     }),
 })
 
-export  const  updateProfileScheam=z.object({
-  profileImage:z.string(),
-  username:z.string().min(3,{
-    message:"User name is requird"
-  }),
-   email:z.string().email({
-        message:"Please enter a valid email address"
-    }),
-})
+// Zod schema for RHF
+export const updateProfileSchema = z.object({
+  profileImage: z.string().optional(), // just the URL, not the file
+  username: z.string().min(3, { message: "Username is required" }),
+  email: z.string().email({ message: "Please enter a valid email address" }),
+});

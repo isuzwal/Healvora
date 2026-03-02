@@ -22,7 +22,7 @@ export function UserHeader() {
           <div className="flex relative rounded-full justify-center items-center overflow-hidden w-6.5 h-6.5 border-2 border-neutral-300 shadow">
             <Image
               fill
-              src={user?.profile_image || "/images/first.png"}
+              src={user?.image || "/images/first.png"}
               alt="Profile-Image"
               className="object-cover w-full h-full"
               loading="lazy"
