@@ -100,7 +100,7 @@ const ProfileSection = ({
   setLoading,
   admin,
 }: ProfileProps) => {
-  const [username, setUsername] = useState("");
+  const [adminName, setAdminame] = useState("");
   const [email, setEmail] = useState("");
 
   // Handle preview image url and send to backend get url  back
@@ -136,7 +136,6 @@ const ProfileSection = ({
       setUploadImageUrl(data.url);
       setProfileImageEdit(data.url);
     } catch (error) {
-      console.error(error);
       toast.error(`${error}` || "Fail to upload image");
     }
   };
@@ -146,20 +145,27 @@ const ProfileSection = ({
     setLoading(true);
 
     const token = localStorage.getItem("admin_token");
-
+    if (!adminName.trim() && !email) {
+      toast.error("Form can't be empty");
+      setLoading(false);
+      return;
+    }
     try {
-      const response = await fetch(`${BACKENDAPI}/api/v1/user/update-profile`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `${BACKENDAPI}/api/v1/admin/update-admin-profile`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            adminName,
+            email,
+            admin_image: uploadImageUrl,
+          }),
         },
-        body: JSON.stringify({
-          username,
-          email,
-          profileImage: uploadImageUrl,
-        }),
-      });
+      );
 
       const result = await response.json();
       if (!response.ok) {
@@ -201,7 +207,7 @@ const ProfileSection = ({
           <Button
             type="submit"
             form="profile-form"
-            className={`flex    items-center justify-center gap-2 rounded-md bg-primary text-white font-medium transition hover:bg-primary/90 disabled:opacity-70 ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
+            className={`flex  items-center w-full lg:w-auto justify-center gap-1 z-10 rounded-md bg-primary text-white font-medium transition hover:bg-primary/90 disabled:opacity-70 ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
             disabled={!edit}
           >
             {loading ? (
@@ -245,8 +251,13 @@ const ProfileSection = ({
               ) : (
                 <div className="h-20 w-20 relative overflow-hidden rounded-full border">
                   <Image
-                    src={profileImage ? "" : "/images/first.png"}
+                    src={
+                      profileImage && admin?.admin_image
+                        ? admin?.admin_image
+                        : "/images/first.png"
+                    }
                     alt="Profile preview"
+                    loading="lazy"
                     className="h-full w-full object-cover"
                     fill
                   />
@@ -269,13 +280,13 @@ const ProfileSection = ({
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="username">First name</Label>
+                <Label htmlFor="adminname">First name</Label>
                 <Input
-                  id="username"
+                  id="adminname"
                   placeholder="Ava"
-                  value={username || admin?.adminName}
+                  value={adminName || admin?.adminName}
                   disabled={!edit}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setAdminame(e.target.value)}
                 />
               </div>
               <div className="space-y-2">

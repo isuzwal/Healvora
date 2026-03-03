@@ -135,7 +135,6 @@ const ProfileSection = ({
       setUploadImageUrl(data.url); // ← save URL here
       setProfileImageEdit(data.url); // ← optional, if you want to update preview
     } catch (error) {
-      console.error(error);
       toast.error(`${error}` || "Fail to upload image");
     }
   };
@@ -145,7 +144,11 @@ const ProfileSection = ({
     setLoading(true);
 
     const token = localStorage.getItem("user_token");
-
+    if (!username.trim() || !email) {
+      toast.error("Form can't be empty");
+      setLoading(false);
+      return;
+    }
     try {
       const response = await fetch(`${BACKENDAPI}/api/v1/user/update-profile`, {
         method: "PUT",
@@ -180,7 +183,7 @@ const ProfileSection = ({
       setLoading(false);
     }
   };
-  const imageToShow = previewImage ?? user?.image ?? "/images/first.png";
+
   return (
     <section className="grid gap-6 lg:grid-cols-[240px_1fr]">
       <div className="space-y-2 ">
@@ -236,7 +239,11 @@ const ProfileSection = ({
               {user?.image ? (
                 <div className="h-20 w-20 relative overflow-hidden rounded-full border">
                   <Image
-                    src={imageToShow}
+                    src={
+                      profileImage && user.image
+                        ? user.email
+                        : "/image/first.png"
+                    }
                     alt="Profile preview"
                     className="h-full w-full object-cover"
                     fill
