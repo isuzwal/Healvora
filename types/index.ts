@@ -98,3 +98,17 @@ export interface UserState {
   fetchUser: () => Promise<void>;
   logout: () => void;
 }
+//admin 
+export interface Admin {
+ _id:string,
+ adminName:string,
+ admin_image:string
+ eamil:string,
+}
+export interface AdminState {
+  admin: Admin | null;
+  loading: boolean;
+  error: string | null;
+  fetchAdmindata: () => Promise<void>;
+  logoutAdmin: () => void;
+}

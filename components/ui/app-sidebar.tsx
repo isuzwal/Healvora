@@ -18,6 +18,7 @@ import {
   TriangleAlert,
   Video,
   Brain,
+  SettingsIcon,
 } from "lucide-react";
 import { NavMain } from "./nav-main";
 import { IconCreditCard } from "@tabler/icons-react";
@@ -68,6 +69,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       title: "Meetings",
       url: "/admin/dashboard/meeting",
       icon: <Video />,
+    },
+    {
+      title: "Settings",
+      url: "/admin/dashboard/setting",
+      icon: <SettingsIcon />,
     },
   ];
   return (

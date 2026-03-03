@@ -48,8 +48,7 @@ export const AdminLoginPage = () => {
         form.reset();
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong", {
+      toast.error(`${error}` || "Something went wrong", {
         className: "bg-red-600 text-white border-none",
       });
     } finally {
@@ -130,11 +129,11 @@ export const AdminLoginPage = () => {
                   href="/admin-register"
                   className="text-primary hover:underline"
                 >
-                  Create account
+                  Create admin account
                 </Link>
               </span>
               <Link
-                href="/forgot-password"
+                href="/admin-forgot-password"
                 className="text-neutral-500 hover:text-neutral-700"
               >
                 Forgot password?
