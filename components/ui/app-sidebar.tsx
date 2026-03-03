@@ -27,10 +27,6 @@ import Link from "next/link";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const mainlink = {
-    user: {
-      name: "isuzwal",
-      email: "isuzwal@gamil.com",
-    },
     navMain: [
       {
         title: "Dashboard",

@@ -26,6 +26,7 @@ import { toast } from "sonner";
 import { Loader } from "lucide-react";
 import { useUserStore } from "@/store/useUserStore";
 import { User } from "@/types";
+import Link from "next/link";
 
 export default function Page() {
   const [isEditingProfile, setIsEditingProfile] = useState(false);
@@ -209,8 +210,7 @@ const ProfileSection = ({
           >
             {loading ? (
               <>
-                Updating your profile{" "}
-                <Loader className="siz-3.5 animate-spin" />
+                Updating profile <Loader className="siz-3.5 animate-spin" />
               </>
             ) : (
               "Update profile"
@@ -241,7 +241,7 @@ const ProfileSection = ({
                   <Image
                     src={
                       profileImage && user.image
-                        ? user.email
+                        ? user.image
                         : "/image/first.png"
                     }
                     alt="Profile preview"
@@ -320,7 +320,11 @@ const PasswordChange = ({
     setLoading(true);
 
     const token = localStorage.getItem("user_token");
-
+    if (!currentPassword.trim() || !newPassword.trim()) {
+      toast.error("Input box can't be empty");
+      setLoading(false);
+      return;
+    }
     try {
       const response = await fetch(
         `${BACKENDAPI}/api/v1/user/change-password`,
@@ -413,6 +417,13 @@ const PasswordChange = ({
           </div>
           <p className="text-sm text-muted-foreground">
             Use at least 8 characters, including a number and symbol.
+            <Link
+              href="/send-otp"
+              target="_blank"
+              className="text-primary underline hover:text-neutral-700"
+            >
+              Forgot password?
+            </Link>
           </p>
         </CardContent>
       </Card>

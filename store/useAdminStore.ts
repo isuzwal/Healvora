@@ -10,6 +10,7 @@ import {create} from "zustand"
      try{
        set({loading:true,error:null});
        const data=await adminAccount();
+      
        set({admin:data.data ,loading:false})
      }catch(error){
        const message=error  instanceof Error ?error.message : "Something went wrong ";

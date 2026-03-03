@@ -27,6 +27,7 @@ import { Loader } from "lucide-react";
 
 import { Admin } from "@/types";
 import { useAdminStore } from "@/store/useAdminStore";
+import Link from "next/link";
 
 export default function Page() {
   const [isEditingProfile, setIsEditingProfile] = useState(false);
@@ -193,7 +194,7 @@ const ProfileSection = ({
         <div>
           <h2 className="text-lg font-semibold">Profile information</h2>
           <p className="text-sm text-muted-foreground">
-            Keep your public details accurate for appointments.
+            Keep your public details accurate .
           </p>
         </div>
         <div className="flex flex-col gap-1 lg:flex-row">
@@ -207,13 +208,12 @@ const ProfileSection = ({
           <Button
             type="submit"
             form="profile-form"
-            className={`flex  items-center w-full lg:w-auto justify-center gap-1 z-10 rounded-md bg-primary text-white font-medium transition hover:bg-primary/90 disabled:opacity-70 ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
+            className={`flex  items-center w-full lg:w-auto justify-center gap-1 rounded-md bg-primary text-white font-medium transition hover:bg-primary/90 disabled:opacity-70 ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
             disabled={!edit}
           >
             {loading ? (
               <>
-                Updating your profile{" "}
-                <Loader className="siz-3.5 animate-spin" />
+                Updating profile <Loader className="siz-3.5 animate-spin" />
               </>
             ) : (
               "Update profile"
@@ -295,7 +295,7 @@ const ProfileSection = ({
                   id="email"
                   type="email"
                   placeholder="ava@healvora.com"
-                  value={email || admin?.eamil}
+                  value={email || admin?.email}
                   disabled={!edit}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -328,11 +328,15 @@ const PasswordChange = ({
   const handlePasswordChange = async () => {
     setLoading(true);
 
-    const token = localStorage.getItem("user_token");
-
+    const token = localStorage.getItem("admin_token");
+    if (!currentPassword.trim() || !newPassword.trim()) {
+      toast.error("Input box can't be empty");
+      setLoading(false);
+      return;
+    }
     try {
       const response = await fetch(
-        `${BACKENDAPI}/api/v1/user/change-password`,
+        `${BACKENDAPI}/api/v1/admin/admin-change-password`,
         {
           method: "POST",
           headers: {
@@ -420,7 +424,14 @@ const PasswordChange = ({
             </div>
           </div>
           <p className="text-sm text-muted-foreground">
-            Use at least 8 characters, including a number and symbol.
+            Use at least 8 characters, including a number and symbol.{" "}
+            <Link
+              href="/admin-send-otp"
+              target="_blank"
+              className="text-primary underline hover:text-neutral-700"
+            >
+              Forgot password?
+            </Link>
           </p>
         </CardContent>
       </Card>
@@ -442,7 +453,7 @@ const DeleteAccount = () => {
     }
 
     setLoading(true);
-    const token = localStorage.getItem("user_token");
+    const token = localStorage.getItem("admin_token");
 
     try {
       const response = await fetch(`${BACKENDAPI}/api/v1/admin/delete-admin`, {
@@ -462,7 +473,7 @@ const DeleteAccount = () => {
           className: "bg-green-600 text-white border-none",
         });
 
-        localStorage.removeItem("user_token");
+        localStorage.removeItem("admin_token");
         window.location.href = "/";
       }
     } catch (error) {

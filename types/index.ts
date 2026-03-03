@@ -103,7 +103,7 @@ export interface Admin {
  _id:string,
  adminName:string,
  admin_image:string
- eamil:string,
+ email:string,
 }
 export interface AdminState {
   admin: Admin | null;

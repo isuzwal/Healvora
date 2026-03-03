@@ -4,7 +4,6 @@ import * as React from "react";
 import { CartesianGrid, XAxis } from "recharts";
 import { BarChart, Bar } from "recharts";
 
-import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Card,
   CardContent,
