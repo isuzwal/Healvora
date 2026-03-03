@@ -26,7 +26,7 @@ export const AdminChangePasswordSection = () => {
 
   const handelOtpSend = async (data: z.output<typeof ChangePasswordScheam>) => {
     setLoading(true);
-
+    const token = localStorage.getItem("admin_token");
     try {
       const newdata = {
         ...data,
@@ -36,6 +36,7 @@ export const AdminChangePasswordSection = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
 
         body: JSON.stringify(newdata),
@@ -47,7 +48,8 @@ export const AdminChangePasswordSection = () => {
         toast.success(result.message, {
           className: "bg-green-600 text-white border-none",
         });
-        router.push("/login");
+        localStorage.removeItem("admin_token");
+        router.push("/admin-login");
         form.reset();
       }
     } catch (error) {
