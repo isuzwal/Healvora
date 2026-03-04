@@ -106,40 +106,44 @@ export const AdminLoginScheam=z.object({
 
 // Doctor From
 export const DoctorSchema=z.object({
-  doctorName:z.string().min(3,{
-    message:"Doctor name is requird"
+  doctorName:z.string().min(1, { message:"Doctor name is required" }).min(3, {
+    message:"Doctor name must be at least 3 characters"
   }),
-  doctor_image:z.string(),
-  email:z.string().email({
+  doctor_image:z.string().min(1, { message:"Doctor image is required" }),
+  email:z.string().min(1, { message:"Email is required" }).email({
      message:"Please enter a valid email address"
   }),
   age:z.coerce
     .number()
-    .int()
-    .min(0, "Age  must be postive")
-    .max(60, "Enter  age"),
-  gender:z.nativeEnum(Gender),
-  phone:z.string().min(10, "Phone number is required")
-    .max(10, "Invalid phone number"),
-  specialization:z.string().min(3,{
-    message:"Write your specilazation"
+    .min(18, "Age must be at least 18 years")
+    .max(70, "Age must not exceed 70 years"),
+  gender:z.nativeEnum(Gender, { message: "Please select a valid gender" }),
+  phone:z.string().min(1, { message:"Phone number is required" })
+    .regex(/^\d{10}$/, { message: "Phone number must be exactly 10 digits" }),
+  specialization:z.string().min(1, { message:"Specialization is required" }).min(3,{
+    message:"Specialization must be at least 3 characters"
   }),
-  address:z.string().min(5,{
-  message:"Please fill the address"
+  address:z.string().min(1, { message:"Address is required" }).min(5,{
+    message:"Address must be at least 5 characters"
   }),
-  qualifications: z.array(z.nativeEnum(Qualifications)),
-  department:z.string(),
-  bio:z.string().min(3,{
-    message:"Please write bio "
+  qualifications: z.array(z.nativeEnum(Qualifications), { message:"Please select at least one qualification" }).min(1, { message:"At least one qualification is required" }),
+  department:z.string().min(1, { message:"Department is required" }),
+  bio:z.string().min(1, { message:"Bio is required" }).min(3,{
+    message:"Bio must be at least 3 characters"
   }),
-  language_spoken:z.array(z.nativeEnum(LanguageSpoken)),
-  consultationFee: z.string()
-    .min(0, "Enter consultation fee")
-    .max(120, "Enter consultation fee"),
-     isAvailable: z.coerce.boolean().default(true),
-    experienceYears: z.string()
-    .min(0, "Enter year experience")
-    .max(120, "Enter year experience"),
+  language_spoken:z.array(z.nativeEnum(LanguageSpoken), {
+    message:"Please select valid languages"
+  }).min(1, { message:"At least one language must be selected" }),
+  consultationFee: z.string().min(1, { message:"Consultation fee is required" })
+    .regex(/^\d+$/, { message: "Consultation fee must be a valid number" })
+    .refine((fee) => Number(fee) > 0, { message: "Consultation fee must be greater than 0" })
+    .refine((fee) => Number(fee) <= 10000, { message: "Consultation fee must not exceed 10000" }),
+  isAvailable: z.coerce.boolean().default(true),
+ experienceYears: z.coerce
+  .number()
+  .min(0, { message: "Experience years must be 0 or greater" })
+  .max(60, { message: "Experience must not exceed 60" }),
+    
 })
 // Complainces  Form 
 export const complianceSchema=z.object({
