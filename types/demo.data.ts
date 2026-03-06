@@ -1,4 +1,5 @@
 // Backend booking types
+
 import { Status, Gender, } from ".";
 
 
@@ -64,7 +65,7 @@ export const userBookings: IBooking[] = [
     cancelled_by: "user",
   },
 ];
-import { CompliancesData, DoctorBasicInfo, PatientType } from ".";
+import { PatientType } from ".";
 
 export const patientdata: PatientType[] = [
   {
@@ -220,74 +221,74 @@ export const patientdata: PatientType[] = [
 ];
 
   // doctor  demo data list
- export const doctordata: DoctorBasicInfo[] = [
-  {
-    doctorName: "Dr. Aayush Sharma",
-    department: "Cardiology",
-    doctor_image: "/images/third.png",
-    isAvailable: "Available",
-  },
-   {
-    doctorName: "Dr. Kabir Joshi",
-    department: "Oncology",
-    doctor_image: "/images/first.png",
-    isAvailable: "Unavailable",
-  },
-  {
-    doctorName: "Dr. Priya Mehta",
-    department: "Neurology",
-    doctor_image: "/images/lady.png",
-    isAvailable: "Available",
-  },
-  {
-    doctorName: "Dr. Rohan Verma",
-    department: "Orthopedics",
-     doctor_image: "/images/first.png",
-    isAvailable: "Available",
-  },
-   {
-    doctorName: "Dr. Suman Koirala",
-    department: "General Surgery",
-    doctor_image: "/images/doctor-3.png",
-    isAvailable: "Leave",
-  },
-  {
-    doctorName: "Dr. Sneha Kapoor",
-    department: "Pediatrics",
-    doctor_image: "/images/doctor-3.png",
-    isAvailable: "Available",
-  },
+//  export const doctordata: DoctorBasicInfo[] = [
+//   {
+//     doctorName: "Dr. Aayush Sharma",
+//     department: "Cardiology",
+//     doctor_image: "/images/third.png",
+//     isAvailable: "Available",
+//   },
+//    {
+//     doctorName: "Dr. Kabir Joshi",
+//     department: "Oncology",
+//     doctor_image: "/images/first.png",
+//     isAvailable: "Unavailable",
+//   },
+//   {
+//     doctorName: "Dr. Priya Mehta",
+//     department: "Neurology",
+//     doctor_image: "/images/lady.png",
+//     isAvailable: "Available",
+//   },
+//   {
+//     doctorName: "Dr. Rohan Verma",
+//     department: "Orthopedics",
+//      doctor_image: "/images/first.png",
+//     isAvailable: "Available",
+//   },
+//    {
+//     doctorName: "Dr. Suman Koirala",
+//     department: "General Surgery",
+//     doctor_image: "/images/doctor-3.png",
+//     isAvailable: "Leave",
+//   },
+//   {
+//     doctorName: "Dr. Sneha Kapoor",
+//     department: "Pediatrics",
+//     doctor_image: "/images/doctor-3.png",
+//     isAvailable: "Available",
+//   },
   
-  {
-    doctorName: "Dr. Arjun Singh",
-    department: "Dermatology",
-    doctor_image: "/images/first.png",
-    isAvailable: "Available",
-  },
-  {
-    doctorName: "Dr. Nisha Thapa",
-    department: "Gynecology",
-       doctor_image: "/images/lady.png",
-    isAvailable: "Available",
-  },
+//   {
+//     doctorName: "Dr. Arjun Singh",
+//     department: "Dermatology",
+//     doctor_image: "/images/first.png",
+//     isAvailable: "Available",
+//   },
+//   {
+//     doctorName: "Dr. Nisha Thapa",
+//     department: "Gynecology",
+//        doctor_image: "/images/lady.png",
+//     isAvailable: "Available",
+//   },
 
  
  
-  {
-    doctorName: "Dr. Meera Rai",
-    department: "ENT (Otolaryngology)",
-    doctor_image: "/images/lady.png",
-    isAvailable: "Unavailable",
-  },
-  {
-    doctorName: "Dr. Vikram Adhikari",
-    department: "Psychiatry",
-  doctor_image: "/images/third.png",
-    isAvailable: "Unavailable",
-  },
+//   {
+//     doctorName: "Dr. Meera Rai",
+//     department: "ENT (Otolaryngology)",
+//     doctor_image: "/images/lady.png",
+//     isAvailable: "Unavailable",
+//   },
+//   {
+//     doctorName: "Dr. Vikram Adhikari",
+//     department: "Psychiatry",
+//   doctor_image: "/images/third.png",
+//     isAvailable: "Unavailable",
+//   },
 
  
-];
+// ];
 
   // Compliances data
 //  export const compliancesdata: CompliancesData[] = [
@@ -337,13 +338,6 @@ export const patientdata: PatientType[] = [
 //   },
 // ];
 
-  // filter out the sucess list
-  export const totalappointment=patientdata.filter((pat)=>pat.status==="Success");
-  export const pendingPatienst=patientdata.filter((pat)=>pat.status==="Pending")
- // filter out for the doctor avaible 
- export const isAvailable=doctordata.filter((doc)=>doc.isAvailable==="Available")
- export const UnAvailable=doctordata.filter((doc)=>doc.isAvailable==="Unavailable")
- export const Leave=doctordata.filter((doc)=>doc.isAvailable==="Leave")
 
  const totalPatients = patientdata.length;
 

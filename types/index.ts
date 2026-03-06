@@ -33,9 +33,10 @@ export interface IUser{
     password:string;
 }
 
-type  IsAvailable="Available" | "Unavailable"|"Leave"
+
 // Dcotor From Details
 export  interface IDoctor{
+   id:string;
     doctorName:string;
     doctor_image?:string
     email:string;
@@ -50,7 +51,7 @@ export  interface IDoctor{
     consultationFee:string;
     bio?:string;
     language_spoken:LanguageSpoken[];
-    isAvailable:IsAvailable;
+    isAvailable:boolean;
 }
 export type DoctorBasicInfo=Pick<IDoctor, "doctorName" | "doctor_image"  |"department" | "isAvailable" >
 
@@ -111,4 +112,13 @@ export interface AdminState {
   error: string | null;
   fetchAdmindata: () => Promise<void>;
   logoutAdmin: () => void;
+}
+
+export interface DoctorState{
+  doctor:IDoctor[]
+  loading: boolean;
+  error: string | null;
+   fetched: boolean;
+  fetchDoctor: () => Promise<void>;
+  deletedoctor: (id:string) => void;
 }
