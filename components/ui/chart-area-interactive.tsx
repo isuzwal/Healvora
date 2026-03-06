@@ -36,8 +36,14 @@ export function ChartAreaInteractive() {
   const { doctor, loading, fetchDoctor } = userDoctorList();
 
   React.useEffect(() => {
-    fetchDoctor();
+    if (!doctor.length) {
+      fetchDoctor();
+    }
   }, []);
+
+  //filter out doctor
+  const IsAvailable = doctor.filter((doc) => doc.isAvailable);
+  const UnAvailable = doctor.filter((doc) => !doc.isAvailable);
 
   const chartData = useMemo(() => {
     const grouped: Record<
@@ -214,47 +220,32 @@ export function ChartAreaInteractive() {
             Doctor&apos;s Timetable
           </h1>
         </CardTitle>
-        <div className=" mt-2 grid grid-cols-1 gap-2  sm:grid-cols-3 ">
-          <div className=" py-2  px-2 rounded-xl border bg-green-100/30 border-green-100/30 shadow-xs">
+        <div className=" mt-2 grid grid-cols-1 gap-2  sm:grid-cols-2 ">
+          <div className=" py-2  px-2 rounded-xl border bg-green-100 border-green-100 shadow-xs">
             <h1 className="text-[14px] text-neutral-700 font-semibold font-sans">
               Available
             </h1>
             <div>
               <p className="flex gap-1.5 items-center mt-2">
-                <strong className="text-lg  text-emerald-600">
-                  {/* {isAvailable.length} */}
+                <strong className="text-[18px]  text-emerald-600">
+                  {IsAvailable.length}
                 </strong>
-                <span className="text-[12px] font-medium text-neutral-500">
+                <span className="text-[12px] font-medium text-neutral-900">
                   Total
                 </span>
               </p>
             </div>
           </div>
-          <div className=" py-2  px-2 rounded-xl border bg-red-100/30 border-red-100/30 shadow-xs">
+          <div className=" py-2  px-2 rounded-xl border bg-red-100 border-red-100 shadow-xs">
             <h1 className="text-[14px] text-neutral-700 font-semibold font-sans">
               Unavailable
             </h1>
             <div>
               <p className="flex gap-1.5 items-center mt-2">
-                <strong className="text-lg  text-red-400">
-                  {/* {UnAvailable.length} */}
+                <strong className="text-[18px]  text-red-400">
+                  {UnAvailable?.length || 0}
                 </strong>
-                <span className="text-[14px] font-medium text-neutral-500">
-                  Total
-                </span>
-              </p>
-            </div>
-          </div>
-          <div className=" py-2  px-2 rounded-xl border bg-orange-100/30  border-orange-100/30 shadow-xs">
-            <h1 className="text-[14px] text-neutral-700 font-semibold font-sans">
-              Leave
-            </h1>
-            <div>
-              <p className="flex gap-1.5 items-center mt-2">
-                <strong className="text-lg  text-orange-500">
-                  {/* {Leave.length} */}
-                </strong>
-                <span className="text-[14px] font-medium text-neutral-500">
+                <span className="text-[12px] font-medium text-neutral-900">
                   Total
                 </span>
               </p>
@@ -263,7 +254,7 @@ export function ChartAreaInteractive() {
         </div>
         <div className="  w-full mt-2 py-2 px-2  ">
           <h1 className="text-md font-semibold font-sans">List of Doctor</h1>
-          <div className="overflow-y-auto max-h-52 no-scrollbar w-full">
+          <div className="overflow-y-auto max-h-52 m-2 no-scrollbar w-full">
             {loading
               ? Array.from({ length: 6 }).map((_, i) => (
                   <DoctorListSkeleton key={i} />
@@ -271,7 +262,7 @@ export function ChartAreaInteractive() {
               : doctor.map((doc, i) => (
                   <div
                     key={i}
-                    className="w-full flex justify-between items-center p-2"
+                    className="w-full border m-1 bg-neutral-50 rounded-lg border-neutral-100  flex justify-between items-center p-2"
                   >
                     <div className="flex items-center gap-1.5">
                       <div className="relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">

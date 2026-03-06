@@ -118,7 +118,7 @@ export interface DoctorState{
   doctor:IDoctor[]
   loading: boolean;
   error: string | null;
-   fetched: boolean;
+
   fetchDoctor: () => Promise<void>;
   deletedoctor: (id:string) => void;
 }

@@ -24,29 +24,23 @@ import { persist } from "zustand/middleware";
  }))
  // doctor list
 export const userDoctorList = create<DoctorState>()(
-  persist(
-    (set, get) => ({
+    (set) => ({
       doctor: [],
       loading: false,
       error: null,
-      fetched: false,
+     
 
       fetchDoctor: async () => {
-        const { fetched } = get();
-
         // Prevent duplicate API calls
-        if (fetched) return;
-
         try {
           set({ loading: true, error: null });
-
           const res = await DoctorList();
-
           set({
             doctor: res.data,
             loading: false,
-            fetched: true,
+           
           });
+       
         } catch (error) {
           const message =
             error instanceof Error
@@ -66,12 +60,6 @@ export const userDoctorList = create<DoctorState>()(
         }));
       },
     }),
-    {
-      name: "doctor-storage",
-      partialize: (state) => ({
-        doctor: state.doctor,
-        fetched: state.fetched,
-      }),
-    }
-  )
+    
+  
 );
