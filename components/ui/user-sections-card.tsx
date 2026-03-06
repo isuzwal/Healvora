@@ -1,27 +1,15 @@
-import { IconTrendingUp } from "@tabler/icons-react";
-
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
-  CardAction,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  CalendarDays,
-  CircleCheck,
-  Clock,
-  CreditCard,
-  HeartHandshake,
-  Users,
-  XCircle,
-} from "lucide-react";
+import { CircleCheck, Clock, Users, XCircle } from "lucide-react";
 import {
   patientdata,
-  successPercentageFormatted,
-  totalappointment,
+
+  // totalappointment,
 } from "@/types/demo.data";
 
 export function UserSectionCards() {
@@ -67,7 +55,7 @@ export function UserSectionCards() {
               Booking Completed
             </CardDescription>
             <CardTitle className="text-2xl  px-4 flex gap-2 items-center  font-semibold tabular-nums @[250px]/card:text-3xl">
-              {totalappointment.length}
+              {/* {totalappointment.length} */}
             </CardTitle>
           </CardHeader>
           <CardFooter className="flex    flex-col p-2 text-sm gap-1">
@@ -111,7 +99,7 @@ export function UserSectionCards() {
               </span>
             </CardDescription>
             <CardTitle className="text-2xl  px-4  font-semibold tabular-nums @[250px]/card:text-3xl">
-              {totalappointment.length}
+              {/* {totalappointment.length} */}
             </CardTitle>
           </CardHeader>
           <CardFooter className="flex  flex-col p-2 text-sm gap-1">

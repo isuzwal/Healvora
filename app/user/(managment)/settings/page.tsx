@@ -33,6 +33,7 @@ export default function Page() {
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [passwordloading, setPasswordLoading] = useState<boolean>(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
   const [newPassword, setNewPassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
@@ -62,8 +63,8 @@ export default function Page() {
           currentPassword={currentPassword}
           setNewPassword={setNewPassword}
           setCurrentPassword={setCurrentPassword}
-          loading={loading}
-          setLoading={setLoading}
+          loading={passwordloading}
+          setLoading={setPasswordLoading}
         />
         <Separator />
 
@@ -145,11 +146,7 @@ const ProfileSection = ({
     setLoading(true);
 
     const token = localStorage.getItem("user_token");
-    if (!username.trim() || !email) {
-      toast.error("Form can't be empty");
-      setLoading(false);
-      return;
-    }
+
     try {
       const response = await fetch(`${BACKENDAPI}/api/v1/user/update-profile`, {
         method: "PUT",
@@ -176,7 +173,6 @@ const ProfileSection = ({
         setProfileImageEdit(result.profileImage || null);
       }
     } catch (error) {
-      console.error(error);
       toast.error(`${error}` || "Fail to upload image ", {
         className: "bg-red-600 text-white border-none",
       });
@@ -239,11 +235,7 @@ const ProfileSection = ({
               {user?.image ? (
                 <div className="h-20 w-20 relative overflow-hidden rounded-full border">
                   <Image
-                    src={
-                      profileImage && user.image
-                        ? user.image
-                        : "/image/first.png"
-                    }
+                    src={user.image || "/images/first.png"}
                     alt="Profile preview"
                     className="h-full w-full object-cover"
                     fill

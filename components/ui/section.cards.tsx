@@ -13,7 +13,7 @@ import { CalendarDays, CreditCard, HeartHandshake, Users } from "lucide-react";
 import {
   patientdata,
   successPercentageFormatted,
-  totalappointment,
+  // totalappointment,
 } from "@/types/demo.data";
 
 export function SectionCards() {
@@ -65,7 +65,7 @@ export function SectionCards() {
               Total Appointment
             </CardDescription>
             <CardTitle className="text-2xl flex gap-2 items-center  font-semibold tabular-nums @[250px]/card:text-3xl">
-              {totalappointment.length}
+              {/* {totalappointment.length} */}
             </CardTitle>
             <CardAction>
               <Badge
@@ -120,7 +120,7 @@ export function SectionCards() {
               Total Treatements
             </CardDescription>
             <CardTitle className="text-2xl   font-semibold tabular-nums @[250px]/card:text-3xl">
-              {totalappointment.length}
+              {/* {totalappointment.length} */}
             </CardTitle>
             <CardAction>
               <Badge

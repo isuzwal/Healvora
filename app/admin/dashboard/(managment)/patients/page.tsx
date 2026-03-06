@@ -9,19 +9,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   patientdata,
-  pendingPatienst,
   pendingPercentageFormatted,
   successPercentageFormatted,
-  totalappointment,
+  // totalappointment,
 } from "@/types/demo.data";
 import Image from "next/image";
 import {
   CalendarDays,
-  CreditCard,
   Disc,
   EllipsisVertical,
   Filter,
-  HeartHandshake,
   List,
   Users,
 } from "lucide-react";
@@ -100,7 +97,7 @@ export default function Page() {
                 Success patients
               </CardDescription>
               <CardTitle className="text-2xl px-4 flex gap-2 items-center  font-semibold tabular-nums @[250px]/card:text-3xl">
-                {totalappointment.length}
+                {/* {totalappointment.length} */}
               </CardTitle>
               <CardAction>
                 <Badge
@@ -130,7 +127,7 @@ export default function Page() {
                 Pending patients
               </CardDescription>
               <CardTitle className="text-2xl px-4  font-semibold tabular-nums @[250px]/card:text-3xl">
-                {pendingPatienst.length}
+                {/* {pendingPatienst.length} */}
               </CardTitle>
               <CardAction>
                 <Badge

@@ -21,16 +21,24 @@ import { useMemo } from "react";
 import { ChartNoAxesCombined, Timer } from "lucide-react";
 import Image from "next/image";
 import {
-  doctordata,
-  isAvailable,
-  Leave,
+  // doctordata,
+  // isAvailable,
+  // Leave,
   patientdata,
-  UnAvailable,
+  // UnAvailable,
 } from "@/types/demo.data";
+import { userDoctorList } from "@/store/useAdminStore";
+import { DoctorListSkeleton } from "./doctor-skeleton";
 
 export const description = "An interactive area chart";
 
 export function ChartAreaInteractive() {
+  const { doctor, loading, fetchDoctor } = userDoctorList();
+
+  React.useEffect(() => {
+    fetchDoctor();
+  }, []);
+
   const chartData = useMemo(() => {
     const grouped: Record<
       string,
@@ -214,7 +222,7 @@ export function ChartAreaInteractive() {
             <div>
               <p className="flex gap-1.5 items-center mt-2">
                 <strong className="text-lg  text-emerald-600">
-                  {isAvailable.length}
+                  {/* {isAvailable.length} */}
                 </strong>
                 <span className="text-[12px] font-medium text-neutral-500">
                   Total
@@ -229,7 +237,7 @@ export function ChartAreaInteractive() {
             <div>
               <p className="flex gap-1.5 items-center mt-2">
                 <strong className="text-lg  text-red-400">
-                  {UnAvailable.length}
+                  {/* {UnAvailable.length} */}
                 </strong>
                 <span className="text-[14px] font-medium text-neutral-500">
                   Total
@@ -244,7 +252,7 @@ export function ChartAreaInteractive() {
             <div>
               <p className="flex gap-1.5 items-center mt-2">
                 <strong className="text-lg  text-orange-500">
-                  {Leave.length}
+                  {/* {Leave.length} */}
                 </strong>
                 <span className="text-[14px] font-medium text-neutral-500">
                   Total
@@ -255,46 +263,49 @@ export function ChartAreaInteractive() {
         </div>
         <div className="  w-full mt-2 py-2 px-2  ">
           <h1 className="text-md font-semibold font-sans">List of Doctor</h1>
-          <div className=" overflow-y-auto max-h-52 no-scrollbar  w-full   ">
-            {doctordata.slice(0, 5).map((doc, i) => (
-              <div
-                key={i}
-                className="w-full flex  justify-between items-center  p-2"
-              >
-                <div className="flex items-center gap-1.5  ">
-                  <div className=" relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
-                    <Image
-                      src={doc.doctor_image || " "}
-                      alt="Doctor"
-                      fill
-                      loading="lazy"
-                      className="object-cover w-full h-full rounded-full"
-                    />
-                  </div>
-                  <div className="flex flex-col  items-start justify-start mt-1.5 ">
-                    <span className="text-[14px]  font-sans font-semibold">
-                      {doc.doctorName}
-                    </span>
-                    <p className="text-neutral-600 font-sans font-light text-[12px]">
-                      {doc.department}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center px-4">
-                  <span
-                    className={`font-medium text-white text-[10px] px-2.5 rounded-lg ${
-                      doc.isAvailable === "Available"
-                        ? "bg-emerald-500 border-emerald-300"
-                        : doc.isAvailable === "Leave"
-                          ? "bg-yellow-400 border-yellow-300"
-                          : "bg-red-500 border-red-400"
-                    }`}
+          <div className="overflow-y-auto max-h-52 no-scrollbar w-full">
+            {loading
+              ? Array.from({ length: 6 }).map((_, i) => (
+                  <DoctorListSkeleton key={i} />
+                ))
+              : doctor.map((doc, i) => (
+                  <div
+                    key={i}
+                    className="w-full flex justify-between items-center p-2"
                   >
-                    {doc.isAvailable}
-                  </span>
-                </div>
-              </div>
-            ))}
+                    <div className="flex items-center gap-1.5">
+                      <div className="relative overflow-hidden flex justify-center items-center w-8 h-8 rounded-full">
+                        <Image
+                          src={doc?.doctor_image || " "}
+                          alt="Doctor"
+                          fill
+                          loading="lazy"
+                          className="object-cover w-full h-full rounded-full"
+                        />
+                      </div>
+
+                      <div className="flex flex-col items-start justify-start mt-1.5">
+                        <span className="text-[14px] font-sans font-semibold">
+                          {doc.doctorName}
+                        </span>
+
+                        <p className="text-neutral-600 font-sans font-light text-[12px]">
+                          {doc.department}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center px-4">
+                      <span
+                        className={`font-medium text-white text-[10px] px-2.5 rounded-lg ${
+                          doc.isAvailable ? "bg-emerald-500" : "bg-red-500"
+                        }`}
+                      >
+                        {doc.isAvailable ? "Available" : "Unavailable"}
+                      </span>
+                    </div>
+                  </div>
+                ))}
           </div>
         </div>
       </div>

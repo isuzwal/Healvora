@@ -17,9 +17,7 @@ export function UserSidebarFooter() {
   const { user, fetchUser, loading, logout } = useUserStore();
 
   useEffect(() => {
-    setTimeout(() => {
-      fetchUser();
-    }, 2000);
+    fetchUser();
   }, []);
 
   const Logout = async () => {
