@@ -35,9 +35,9 @@ export default function Page() {
   }
   return (
     <div className="w-full min-h-screen flex justify-center py-6 px-3 bg-slate-50">
-      <div className="w-full max-w-6xl rounded-xl border border-slate-200 bg-white shadow-sm flex flex-col md:flex-row gap-4">
+      <div className="w-full max-w-6xl rounded-xl border border-slate-200 bg-white shadow-sm flex flex-col sm:flex-row gap-4">
         {/* Left Sidebar */}
-        <div className="p-4 sm:p-6 bg-slate-100 md:w-105">
+        <div className="p-4 sm:p-6 bg-slate-100 sm:w-72 md:w-100">
           <div className="text-center mb-6">
             <div className="inline-block mb-4">
               <div className="border w-24 h-24 sm:w-28 sm:h-28 relative rounded-full overflow-hidden shadow-sm">
