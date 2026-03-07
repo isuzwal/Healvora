@@ -47,15 +47,7 @@ export const getUser=async()=>{
 // get doctor list
 export const DoctorList=async()=>{
        try{
-    const token=localStorage.getItem("admin_token");
-        if(!token){
-       throw new Error("UNAUTHORIZED");
-        }
-        const response=await fetch(`${BACKENDAPI}/api/v1/admin/doctor-list`,{
-            headers:{
-                Authorization: `Bearer ${token}`,
-            }
-        });
+        const response=await fetch(`${BACKENDAPI}/api/v1/admin/doctor-list`);
         const data=await response.json();
         if(!response.ok){
             throw new Error(data.message || "Failed to fetch user");
@@ -65,3 +57,17 @@ export const DoctorList=async()=>{
          throw error; 
     }
  }
+// get doctor by id
+export const DoctorId=async(id:string)=>{
+    try{
+        const response=await fetch(`${BACKENDAPI}/api/v1/admin/doctor/${id}`)
+        const data=await response.json();
+        if(!response.ok){
+            throw new Error(data.message || "Failed to fetch user");
+        }
+        return data;
+   }catch(error){
+    console.log("Error",error)
+         throw error; 
+    }
+}

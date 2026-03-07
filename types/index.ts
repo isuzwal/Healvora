@@ -36,7 +36,7 @@ export interface IUser{
 
 // Dcotor From Details
 export  interface IDoctor{
-   id:string;
+   _id:string;
     doctorName:string;
     doctor_image?:string
     email:string;
@@ -52,6 +52,8 @@ export  interface IDoctor{
     bio?:string;
     language_spoken:LanguageSpoken[];
     isAvailable:boolean;
+    rating:string;
+    total_consultaions:number
 }
 export type DoctorBasicInfo=Pick<IDoctor, "doctorName" | "doctor_image"  |"department" | "isAvailable" >
 
@@ -121,4 +123,10 @@ export interface DoctorState{
 
   fetchDoctor: () => Promise<void>;
   deletedoctor: (id:string) => void;
+}
+export interface DoctorIdState{
+   doctor:IDoctor | null ;
+   loading:boolean;
+   error:string | null ,
+   fetchDoctorId:(id:string)=>Promise<void>;
 }

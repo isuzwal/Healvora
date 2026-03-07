@@ -488,7 +488,7 @@ export function AddDoctorSidebar() {
             </Field>
           </div>
 
-          <div className="w-full grid-cols-1  sm:grid-cols-2 grid">
+          <div className="w-full grid-cols-1   grid">
             <Field className=" p-2">
               <Controller
                 name="specialization"
@@ -510,7 +510,8 @@ export function AddDoctorSidebar() {
                 )}
               ></Controller>
             </Field>
-
+          </div>
+          <div className="w-full grid-cols-1   grid">
             <Field className=" p-2">
               <Controller
                 name="bio"

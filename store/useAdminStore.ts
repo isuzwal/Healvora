@@ -1,7 +1,7 @@
-import { adminAccount, DoctorList } from "@/lib/api";
-import { AdminState, DoctorState } from "@/types";
+import { adminAccount, DoctorId, DoctorList } from "@/lib/api";
+import { AdminState, DoctorIdState, DoctorState } from "@/types";
 import {create} from "zustand"
-import { persist } from "zustand/middleware";
+
  export const useAdminStore=create<AdminState>((set)=>({
     admin:null,
     loading:false,
@@ -10,7 +10,7 @@ import { persist } from "zustand/middleware";
      try{
        set({loading:true,error:null});
        const data=await adminAccount();
-      
+       
        set({admin:data.data ,loading:false})
      }catch(error){
        const message=error  instanceof Error ?error.message : "Something went wrong ";
@@ -29,12 +29,12 @@ export const userDoctorList = create<DoctorState>()(
       loading: false,
       error: null,
      
-
       fetchDoctor: async () => {
         // Prevent duplicate API calls
         try {
           set({ loading: true, error: null });
           const res = await DoctorList();
+          
           set({
             doctor: res.data,
             loading: false,
@@ -56,10 +56,38 @@ export const userDoctorList = create<DoctorState>()(
 // delete doctor 
       deletedoctor: (id: string) => {
         set((state) => ({
-          doctor: state.doctor.filter((doc) => doc.id !== id),
+          doctor: state.doctor.filter((doc) => doc._id !== id),
         }));
       },
     }),
     
-  
 );
+// get Doctor ById
+export const useDoctorId=create<DoctorIdState >()((set)=>({
+      doctor: null,
+      loading: false,
+      error: null,
+
+      fetchDoctorId:async(id:string) =>{
+          try {
+          set({ loading: true, error: null });
+          const res = await DoctorId (id);
+          console.log("Data",res.data)
+          set({
+            doctor: res.data,
+            loading: false,
+           
+          });
+        } catch (error) {
+          const message =
+            error instanceof Error
+              ? error.message
+              : "Something went wrong";
+          set({
+            error: message,
+            loading: false,
+          });
+        }
+      },
+})  
+)

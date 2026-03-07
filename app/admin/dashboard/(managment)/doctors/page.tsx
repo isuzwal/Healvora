@@ -8,13 +8,15 @@ import { Separator } from "@/components/ui/separator";
 import { userDoctorList } from "@/store/useAdminStore";
 import { DoctorSkeleton } from "@/components/ui/doctor-skeleton";
 import { useEffect } from "react";
+import Link from "next/link";
 
 export default function Page() {
   const { doctor, loading, fetchDoctor } = userDoctorList();
 
   useEffect(() => {
     fetchDoctor();
-  }, []);
+  }, [fetchDoctor]);
+
   return (
     <div className="flex h-screen w-full ">
       <div className="font-medium  w-full py-6 px-4">
@@ -40,9 +42,10 @@ export default function Page() {
             </div>
           ) : (
             <div className="w-full  border border-neutral-100  rounded-lg bg-white  ">
-              {doctor?.map((data, i) => (
-                <div
-                  key={i}
+              {doctor?.map((data) => (
+                <Link
+                  href={`/admin/dashboard/doctors/${data._id}`}
+                  key={data._id}
                   className="flex flex-col gap-1  hover:bg-neutral-200 duration-300 ease-in-out transition-all cursor-pointer"
                 >
                   <div className="px-2 w-full  flex   justify-between ">
@@ -78,7 +81,7 @@ export default function Page() {
                     </div>
                   </div>
                   <Separator className="mt-0.5" />
-                </div>
+                </Link>
               ))}
             </div>
           )}
