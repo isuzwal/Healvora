@@ -3,6 +3,7 @@ import { ArrowRight, Brain } from "lucide-react";
 import Image from "next/image";
 import { TextAnimate } from "./text-animate";
 import { motion, Variants } from "motion/react";
+import Link from "next/link";
 
 export const HeroSection = () => {
   const word = `Comprehensive, compassionate healthcare services designed to support
@@ -84,10 +85,13 @@ export const HeroSection = () => {
             variants={itemVariants}
             className="flex   flex-col sm:flex-row mt-4 gap-4  max-w-2xl w-full justify-center items-center"
           >
-            <button className="flex  justify-center group text-sm items-center  cursor-pointer gap-1.5 rounded-lg px-6 py-1.5  font-medium dark:hover:text-neutral-300 duration-300 ease-in-out transition-all  text-neutral-100 bg-primary border border-primary/70 hover:bg-primary/80">
+            <Link
+              href="/reserve-appointment"
+              className="flex  justify-center group text-sm items-center  cursor-pointer gap-1.5 rounded-lg px-6 py-1.5  font-medium dark:hover:text-neutral-300 duration-300 ease-in-out transition-all  text-neutral-100 bg-primary border border-primary/70 hover:bg-primary/80"
+            >
               Book Appointment{" "}
               <ArrowRight className=" group-hover:translate-x-2 duration-300  ease-in-out transition-all  size-4.5" />
-            </button>
+            </Link>
             <div className="flex sm:mt-0 mt-2  justify-center   items-center px-2   max-w-[20rem] w-full">
               <div className="relative flex max-w-22  w-full  items-center ">
                 <div className=" absolute z-30 left-0 w-7 h-7    overflow-hidden flex justify-center items-center rounded-full ">
