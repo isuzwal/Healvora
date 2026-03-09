@@ -5,7 +5,6 @@ import { userDoctorList } from "@/store/useAdminStore";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-
 export default function Page() {
   const { doctor, loading, fetchDoctor } = userDoctorList();
   const router = useRouter();
@@ -49,7 +48,7 @@ export default function Page() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-4">
             {doctor.map((doc) => (
               <DoctorDetailsSidebar key={doc._id} doctor={doc} />
             ))}

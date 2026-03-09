@@ -201,17 +201,13 @@ export const updateProfileSchema = z.object({
 //zod schema for Booking
 export const BookingSchema=z.object({
     doctorId: z.string(),
-
-  patient_name: z.string().min(2),
-
-  age: z.number().min(0).max(120),
-
-  gender: z.enum(["male", "female", "other"]),
-
-  notes: z.string().min(3),
-
-  appointment_date: z.coerce.date(),
-
-  appointment_time: z.string(),
-
+   patient_name: z.string().min(2,{message:"Patient name is required"}),
+   age: z.number({message:"Please enter age"}),
+   gender:z.nativeEnum(Gender, { message: "Please select a valid gender" }),
+   notes: z.string().min(3,{
+    message:"Please describe your problme"
+   }),
+   appointment_date: z.string({message:"Date is required"}),
+   appointment_time: z.string(),
+  consultationFee:z.string()
 })

@@ -249,7 +249,7 @@ export function AddDoctorSidebar() {
                       onChange={(e) => field.onChange(Number(e.target.value))}
                       name={field.name}
                       ref={field.ref}
-                      placeholder="Enter age"
+                      placeholder="Enter a  age"
                       className="h-8    placeholder:text-neutral-600 placeholder:text-[12px] placeholder:tracking-tighter placeholder:font-sans  rounded-lg border-neutral-300 focus:outline-0 focus:ring-0 "
                     />
                     {fieldState.invalid && (

@@ -59,25 +59,15 @@ export type DoctorBasicInfo=Pick<IDoctor, "doctorName" | "doctor_image"  |"depar
 
 
 export interface BookingData{
-  userId: string;
   doctorId: string;
   patient_name: string;
   age: number;
   gender: Gender;
-  status: Status;
-  consultationFee: number;
-  bookingCharge?: number;
-  paymentStatus?: "pending" | "partial" | "paid";
-  remainingAmount?: number;
   notes: string;
-  appointment_date?: Date;
+  appointment_date: Date;
   appointment_time: string;
-  cancellation_reason?: string;
-  cancelled_at?: Date;
-  cancelled_by?: "user" | "doctor" | "admin";
-  department: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+   consultationFee:string;
+
 }
 export type PatientType = {
   patientId: string;
