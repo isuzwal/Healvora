@@ -162,7 +162,7 @@ export const Footer = () => {
                 Doctor Recommendation
               </Link>
               <Link
-                href="#"
+                href="/reserve-appointment"
                 className="text-[14px] font-medium hover:text-neutral-400 duration-300 ease-in-out transition-all text-neutral-700 font-sans"
               >
                 Appointments

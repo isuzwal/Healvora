@@ -36,7 +36,7 @@ export interface IUser{
 
 // Dcotor From Details
 export  interface IDoctor{
-   _id:string;
+    _id:string;
     doctorName:string;
     doctor_image?:string
     email:string;
@@ -58,14 +58,26 @@ export  interface IDoctor{
 export type DoctorBasicInfo=Pick<IDoctor, "doctorName" | "doctor_image"  |"department" | "isAvailable" >
 
 
-export interface Booking{
-     name:string,
-     gender:Gender
-     age:number,
-     appointment_date?:Date,
-     department:string,
-     status:Status
-     problem:string
+export interface BookingData{
+  userId: string;
+  doctorId: string;
+  patient_name: string;
+  age: number;
+  gender: Gender;
+  status: Status;
+  consultationFee: number;
+  bookingCharge?: number;
+  paymentStatus?: "pending" | "partial" | "paid";
+  remainingAmount?: number;
+  notes: string;
+  appointment_date?: Date;
+  appointment_time: string;
+  cancellation_reason?: string;
+  cancelled_at?: Date;
+  cancelled_by?: "user" | "doctor" | "admin";
+  department: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 export type PatientType = {
   patientId: string;
