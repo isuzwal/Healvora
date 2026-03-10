@@ -36,7 +36,7 @@ export function DoctorDetailsSidebar({ doctor }: { doctor: IDoctor | null }) {
     resolver: zodResolver(BookingSchema),
     defaultValues: {
       patient_name: "",
-      consultationFee: "",
+      consultationFee: 0,
       doctorId: "",
       age: 0,
       gender: Gender.MALE,
@@ -50,9 +50,10 @@ export function DoctorDetailsSidebar({ doctor }: { doctor: IDoctor | null }) {
     docotorId?: string,
     consultationFee?: string,
   ) => {
-    if (!docotorId) return;
+    if (!docotorId || !consultationFee) return;
+    setShowBooking(false);
     form.setValue("doctorId", docotorId);
-    form.setValue("consultationFee", consultationFee || "");
+    form.setValue("consultationFee", Number(consultationFee));
     setShowBooking(true);
     setLoading(true);
     try {
@@ -87,9 +88,8 @@ export function DoctorDetailsSidebar({ doctor }: { doctor: IDoctor | null }) {
     };
   }, [showBooking]);
   //api call
-  const onSubmit: SubmitHandler<z.infer<typeof BookingSchema>> = async (
-    data,
-  ) => {
+
+  const onSubmit = async (data: z.infer<typeof BookingSchema>) => {
     setBookingLoading(true);
     try {
       const token = localStorage.getItem("user_token");
@@ -101,13 +101,17 @@ export function DoctorDetailsSidebar({ doctor }: { doctor: IDoctor | null }) {
         },
         body: JSON.stringify(data),
       });
+      const result = await res.json();
       if (!res.ok) {
-        return toast.error("Fail to resever your appointment", {
-          className: "bg-green-600 text-white border-none",
-        });
+        return toast.warning(
+          result.message || "Fail to resever your appointment",
+          {
+            className: "bg-green-600 text-white border-none",
+          },
+        );
       }
       toast.success(
-        "Appointment request submitted. Please wait for admin approval. Confirmation will be sent to your email.",
+        `Appointment request submitted.Check your email for confirmation.`,
       );
       setShowBooking(false);
     } catch (error) {
@@ -185,6 +189,7 @@ export function DoctorDetailsSidebar({ doctor }: { doctor: IDoctor | null }) {
           </button>
         </div>
       </aside>
+
       {showBooking && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-xl">

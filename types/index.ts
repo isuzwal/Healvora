@@ -66,7 +66,7 @@ export interface BookingData{
   notes: string;
   appointment_date: Date;
   appointment_time: string;
-   consultationFee:string;
+  consultationFee:number;
 
 }
 export type PatientType = {
