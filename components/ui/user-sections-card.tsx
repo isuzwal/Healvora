@@ -1,3 +1,4 @@
+"use client";
 import {
   Card,
   CardDescription,
@@ -6,13 +7,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CircleCheck, Clock, Users, XCircle } from "lucide-react";
-import {
-  patientdata,
-
-  // totalappointment,
-} from "@/types/demo.data";
+import { useUserStore } from "@/store/useUserStore";
 
 export function UserSectionCards() {
+  const { bookings } = useUserStore();
+
+  const list = Array.isArray(bookings) ? bookings : [];
+  const total = list.length;
+  const success = list.filter((b) => b.status === "success").length;
+  const pending = list.filter((b) => b.status === "pending").length;
+  const cancel = list.filter((b) => b.status === "cancel").length;
+
   return (
     <div>
       <div className="w-full px-4  py-1 flex flex-col justify-start items-start">
@@ -34,7 +39,7 @@ export function UserSectionCards() {
               Total Bookings
             </CardDescription>
             <CardTitle className="text-2xl px-4  font-semibold  text-neutral-800">
-              {patientdata.length}
+              {total}
             </CardTitle>
           </CardHeader>
           <CardFooter className="flex   flex-col p-2 text-sm gap-1">
@@ -55,7 +60,7 @@ export function UserSectionCards() {
               Booking Completed
             </CardDescription>
             <CardTitle className="text-2xl  px-4 flex gap-2 items-center  font-semibold tabular-nums @[250px]/card:text-3xl">
-              {/* {totalappointment.length} */}
+              {success || 0}
             </CardTitle>
           </CardHeader>
           <CardFooter className="flex    flex-col p-2 text-sm gap-1">
@@ -76,7 +81,7 @@ export function UserSectionCards() {
               Bookings Pending
             </CardDescription>
             <CardTitle className="text-2xl px-4  font-semibold tabular-nums @[250px]/card:text-3xl">
-              2
+              {pending}
             </CardTitle>
           </CardHeader>
           <CardFooter className="flex  flex-col p-2 text-sm gap-1">
@@ -99,7 +104,7 @@ export function UserSectionCards() {
               </span>
             </CardDescription>
             <CardTitle className="text-2xl  px-4  font-semibold tabular-nums @[250px]/card:text-3xl">
-              {/* {totalappointment.length} */}
+              {cancel || 0}
             </CardTitle>
           </CardHeader>
           <CardFooter className="flex  flex-col p-2 text-sm gap-1">

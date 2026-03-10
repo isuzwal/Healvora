@@ -7,15 +7,74 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { patientdata, userBookings } from "@/types/demo.data";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useUserStore } from "@/store/useUserStore";
 import { Filter, Search, Trash2 } from "lucide-react";
-import Image from "next/image";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function Page() {
   const [searchbookings, setBookings] = useState("");
+  const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
+  const [selectedBookingId, setSelectedBookingId] = useState<string | null>(
+    null,
+  );
+  const [cancelReason, setCancelReason] = useState("");
+
+  const { bookings, loading } = useUserStore();
+  const list = Array.isArray(bookings) ? bookings : [];
+
+  const handleCancelClick = (bookingId: string) => {
+    setSelectedBookingId(bookingId);
+    setCancelDialogOpen(true);
+  };
+
+  const handleConfirmCancel = () => {
+    // TODO: Add API call to cancel booking here, using cancelReason
+    setCancelDialogOpen(false);
+    setSelectedBookingId(null);
+    setCancelReason("");
+  };
+
+  const handleCloseDialog = () => {
+    setCancelDialogOpen(false);
+    setSelectedBookingId(null);
+    setCancelReason("");
+  };
+
   return (
     <div className="w-full   min-h-screen flex  bg-neutral-100  ">
+      {cancelDialogOpen && (
+        <Dialog open={cancelDialogOpen} onOpenChange={setCancelDialogOpen}>
+          <DialogContent>
+            <h2 className="text-lg font-semibold mb-3">Cancel Booking?</h2>
+            <p className="mb-4 text-sm text-neutral-700">
+              Are you sure you want to cancel this booking?
+            </p>
+            <Textarea
+              value={cancelReason}
+              onChange={(e) => setCancelReason(e.target.value)}
+              placeholder="Enter cancellation reason..."
+              className="mb-4"
+            />
+            <div className="flex gap-2">
+              <button
+                className="px-2 py-1.5  cursor-pointer rounded bg-red-500 text-white font-medium w-full"
+                onClick={handleConfirmCancel}
+              >
+                Confirm Cancel
+              </button>
+              <button
+                className="px-2 py-1.5  cursor-pointer rounded bg-neutral-300 text-neutral-800 font-medium w-full"
+                onClick={handleCloseDialog}
+              >
+                Close
+              </button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
       <div className="w-full p-1.5 ">
         <div className="  py-4 px-2 rounded-lg items-center bg-white ">
           <div className="flex justify-between  ">
@@ -97,49 +156,86 @@ export default function Page() {
                   </thead>
 
                   <tbody>
-                    {userBookings.map((user) => (
-                      <tr
-                        // onClick={() => handlenavgiation(patient.patientId)}
-                        key={user.userId}
-                        className="border-t  hover:bg-neutral-200/80 cursor-pointer duration-300  transition-all ease-in-out border-neutral-100 text-[13px] text-neutral-700"
-                      >
-                        <td className="p-2.5 flex gap-1.5 items-center  justify-start text-left ">
-                          {user.userId?.slice(0, 4)}
-                        </td>
-                        <td className="p-2 text-center">{user.department}</td>
-                        <td className="p-2 text-center">
-                          {user.appointment_date &&
-                            new Date(user.appointment_date).toLocaleDateString(
-                              "en-US",
-                              {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric",
-                              },
-                            )}
-                        </td>
-                        <td className="p-2 text-center">
-                          <span
-                            className={`px-2 py-0.5 rounded-md text-[12px] ${
-                              user.status === "Success"
-                                ? "bg-green-400 text-white"
-                                : user.status === "Cancel"
-                                  ? "bg-red-500 text-white"
-                                  : "bg-yellow-100 text-yellow-700"
-                            }`}
+                    {loading
+                      ? Array.from({ length: 6 }).map((_, i) => (
+                          <tr key={i} className="border-t border-neutral-100">
+                            <td className="p-2.5">
+                              <Skeleton className="h-4 w-32" />
+                            </td>
+
+                            <td className="p-2 text-center">
+                              <div className="flex justify-center">
+                                <Skeleton className="h-4 w-24" />
+                              </div>
+                            </td>
+
+                            <td className="p-2 text-center">
+                              <div className="flex justify-center">
+                                <Skeleton className="h-4 w-28" />
+                              </div>
+                            </td>
+
+                            <td className="p-2 text-center">
+                              <div className="flex justify-center">
+                                <Skeleton className="h-5 w-16 rounded-md" />
+                              </div>
+                            </td>
+
+                            <td className="p-2 text-center flex justify-center">
+                              <Skeleton className="h-6 w-6 rounded-md" />
+                            </td>
+                          </tr>
+                        ))
+                      : list.map((resver) => (
+                          <tr
+                            key={resver?.userId}
+                            className="border-t hover:bg-neutral-200/80 cursor-pointer duration-300 border-neutral-100 text-[13px] text-neutral-700"
                           >
-                            {user.status}
-                          </span>
-                        </td>
-                        <td className="p-2 text-center  justify-center flex ">
-                          {user.status === "Pending" && (
-                            <button className=" flex  items-center  justify-center   rounded-md border-2 border-red-200 text-[12px] cursor-pointer bg-red-200 text-white hover:bg-red-100 transition-all w-6 h-6">
-                              <Trash2 className="size-3.5 text-red-500" />
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
+                            <td className="p-2.5 flex gap-1.5 items-center">
+                              {resver.userId?.slice(0, 16)}
+                            </td>
+
+                            <td className="p-2 text-center">
+                              {resver.doctorId.department}
+                            </td>
+
+                            <td className="p-2 text-center">
+                              {resver.appointment_date &&
+                                new Date(
+                                  resver.appointment_date,
+                                ).toLocaleDateString("en-US", {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                })}
+                            </td>
+
+                            <td className="p-2 text-center">
+                              <span
+                                className={`px-2 py-0.5 rounded-md text-[12px] ${
+                                  resver.status === "success"
+                                    ? "bg-green-400 text-white"
+                                    : resver.status === "cancel"
+                                      ? "bg-red-500 text-white"
+                                      : "bg-yellow-100 text-yellow-700"
+                                }`}
+                              >
+                                {resver.status}
+                              </span>
+                            </td>
+
+                            <td className="p-2 text-center flex justify-center">
+                              {resver.status === "pending" && (
+                                <button
+                                  className="flex items-center justify-center rounded-md border-2 border-red-200 text-[12px] cursor-pointer bg-red-200 text-white hover:bg-red-100 transition-all w-6 h-6"
+                                  onClick={() => handleCancelClick(resver._id)}
+                                >
+                                  <Trash2 className="size-3.5 text-red-500" />
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
                   </tbody>
                 </table>
               </div>

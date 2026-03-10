@@ -1,3 +1,6 @@
+:root {
+  --color-bookings: #2563eb;
+}
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";

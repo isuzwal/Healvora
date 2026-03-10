@@ -1,4 +1,4 @@
-import { adminAccount, DoctorId, DoctorList } from "@/lib/api";
+import { adminAccount, DoctorId, DoctorList } from "@/lib/admin-api/api";
 import { AdminState, DoctorIdState, DoctorState } from "@/types";
 import {create} from "zustand"
 

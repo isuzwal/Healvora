@@ -1,6 +1,3 @@
-
-
-
 export enum Qualifications {
   MBBS = "MBBS",
   MD = "MD",
@@ -10,9 +7,9 @@ export enum Qualifications {
 
 
 export enum Status {
-  PENDING = "Pending",
-  SUCCESS = "Success",
-  CANCELLED="Cancel"
+  PENDING = "pending",
+  SUCCESS = "success",
+  CANCELLED="cancel"
 }
 
 export enum Gender {
@@ -87,8 +84,29 @@ compliance_iusses:string;
 complaince_status?: ComplinacesStatus;
 }
 
+export interface Bookingdata {
+  _id: string;
+  userId: string;
+  doctorId: {
+    _id: string;
+    department: string;
+  };
+  patient_name: string;
+  age: number;
+  gender: Gender;
+  status: Status;
+  consultationFee: number;
+  bookingCharge: number;
+  paymentStatus: string;
+  remainingAmount: number;
+  notes: string;
+  appointment_date: string;
+  appointment_time: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
 
-  
 export interface User{
   _id:string
   image:string,
@@ -100,7 +118,9 @@ export interface UserState {
   user: User | null;
   loading: boolean;
   error: string | null;
+  bookings:Bookingdata | null ,
   fetchUser: () => Promise<void>;
+  getBookingsList:()=>Promise<void>;
   logout: () => void;
 }
 //admin 
@@ -131,4 +151,23 @@ export interface DoctorIdState{
    loading:boolean;
    error:string | null ,
    fetchDoctorId:(id:string)=>Promise<void>;
+}
+
+export interface IBooking {
+  userId:string;
+  doctorId:{
+    department:string,
+    _id:string
+  },
+  appointment_time?: Date;
+  appointment_date?: Date;
+  patient_name: string;
+  gender: Gender;
+  age: number;
+  
+  status?: Status;
+  notes: string;
+  cancellation_reason?: string;
+  cancelled_at?: Date;
+  cancelled_by?: string;
 }

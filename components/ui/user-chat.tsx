@@ -13,7 +13,6 @@ import {
 
 import { ChartNoAxesCombined } from "lucide-react";
 
-import { userBookings } from "@/types/demo.data";
 import {
   ChartContainer,
   ChartLegend,
@@ -22,27 +21,38 @@ import {
   ChartTooltipContent,
 } from "./chart";
 
+import { useUserStore } from "@/store/useUserStore";
+
 export const description = "An interactive area chart";
 
 export function UserChat() {
+  const { bookings } = useUserStore();
+
   const chartData = React.useMemo(() => {
-    const total = userBookings.length;
-    const pending = userBookings.filter((b) => b.status === "Pending").length;
-    const cancel = userBookings.filter((b) => b.status === "Cancel").length;
+    const list = Array.isArray(bookings) ? bookings : [];
+    const total = list.length;
+    const success = list.filter((b) => b.status === "success").length;
+    const pending = list.filter((b) => b.status === "pending").length;
+    const cancel = list.filter((b) => b.status === "cancel").length;
 
     return [
       {
-        name: "Bookings",
-        Bookings: total,
+        month: "Current",
+        Total: total,
+        Success: success,
         Pending: pending,
         Cancel: cancel,
       },
     ];
-  }, []);
+  }, [bookings]);
 
   const ChatConfig = {
-    bookings: {
-      label: "Bookings",
+    total: {
+      label: "Total",
+      color: "blue",
+    },
+    success: {
+      label: "Success",
       color: "green",
     },
     pending: {
@@ -68,11 +78,14 @@ export function UserChat() {
           </CardDescription>
           <div className="flex gap-2 items-center">
             <span className="  flex gap-1.5 items-center  text-[12px]  font-sans font-medium">
-              <span className="w-1.5 h-1.5 rounded-md bg-emerald-300" />{" "}
-              Bookings
+              <span className="w-1.5 h-1.5 rounded-md bg-blue-400" /> Total
+              bookings
             </span>
             <span className="  flex gap-1.5 items-center  text-[12px]  font-sans font-medium">
-              <span className="w-1.5 h-1.5 rounded-md bg-yellow-300" /> Pending
+              <span className="w-1.5 h-1.5 rounded-md bg-emerald-400" /> Sucess
+            </span>
+            <span className="  flex gap-1.5 items-center  text-[12px]  font-sans font-medium">
+              <span className="w-1.5 h-1.5 rounded-md bg-yellow-400" /> Pending
             </span>
             <span className=" flex  gap-1.5 items-center text-neutral-600 font-sans text-[12px] font-medium">
               <span className="w-1.5 h-1.5 rounded-md bg-red-400" /> Cancelled
@@ -92,7 +105,8 @@ export function UserChat() {
               />
               <ChartTooltip content={<ChartTooltipContent />} />
               <ChartLegend content={<ChartLegendContent />} />
-              <Bar dataKey="Bookings" fill="var(--color-bookings)" radius={4} />
+              <Bar dataKey="Total" fill="var(--color-total)" radius={4} />
+              <Bar dataKey="Success" fill="var(--color-success)" radius={4} />
               <Bar dataKey="Pending" fill="var(--color-pending)" radius={4} />
               <Bar dataKey="Cancel" fill="var(--color-cancel)" radius={4} />
             </BarChart>

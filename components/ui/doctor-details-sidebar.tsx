@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Gender, IDoctor } from "@/types";
 import { useEffect, useRef, useState } from "react";
-import { DoctorId } from "@/lib/api";
+import { DoctorId } from "@/lib/admin-api/api";
 
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 

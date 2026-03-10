@@ -2,6 +2,7 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { UserAppSdideBar } from "@/components/ui/user-app-sidebar";
 import { UserHeader } from "@/components/ui/user.header";
+import { useUserStore } from "@/store/useUserStore";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -11,6 +12,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const { getBookingsList } = useUserStore();
+
+  useEffect(() => {
+    getBookingsList();
+  }, []);
+
   useEffect(() => {
     const token = localStorage.getItem("user_token");
     if (!token) {
