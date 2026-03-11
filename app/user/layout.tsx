@@ -16,7 +16,7 @@ export default function DashboardLayout({
 
   useEffect(() => {
     getBookingsList();
-  }, []);
+  }, [getBookingsList]);
 
   useEffect(() => {
     const token = localStorage.getItem("user_token");

@@ -188,7 +188,7 @@ export default function Page() {
                         ))
                       : list.map((resver) => (
                           <tr
-                            key={resver?.userId}
+                            key={resver._id}
                             className="border-t hover:bg-neutral-200/80 cursor-pointer duration-300 border-neutral-100 text-[13px] text-neutral-700"
                           >
                             <td className="p-2.5 flex gap-1.5 items-center">
