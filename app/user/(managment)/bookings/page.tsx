@@ -9,10 +9,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useUserStore } from "@/store/useUserStore";
-import { Filter, Search, Trash2 } from "lucide-react";
+import { Filter, Loader, Search, Trash2 } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { BACKENDAPI } from "@/types/url";
+import { toast } from "sonner";
 
 export default function Page() {
   const [searchbookings, setBookings] = useState("");
@@ -21,6 +23,7 @@ export default function Page() {
     null,
   );
   const [cancelReason, setCancelReason] = useState("");
+  const [Isloading, setLoading] = useState(false);
 
   const { bookings, loading } = useUserStore();
   const list = Array.isArray(bookings) ? bookings : [];
@@ -30,11 +33,35 @@ export default function Page() {
     setCancelDialogOpen(true);
   };
 
-  const handleConfirmCancel = () => {
-    // TODO: Add API call to cancel booking here, using cancelReason
-    setCancelDialogOpen(false);
-    setSelectedBookingId(null);
-    setCancelReason("");
+  const handleConfirmCancel = async () => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("user_token");
+      const res = await fetch(
+        `${BACKENDAPI}/api/v1/user/cancel-resever/${selectedBookingId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ cancel_reason: cancelReason }),
+        },
+      );
+      const result = await res.json();
+      if (!res.ok) {
+        setLoading(false);
+        return toast.warning(result.message || "Try again ");
+      }
+      toast.success(result.message);
+      setCancelDialogOpen(false);
+      setSelectedBookingId(null);
+      setCancelReason("");
+    } catch (error) {
+      toast.error(`${error}` || "Fail to cancel your Reservation");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCloseDialog = () => {
@@ -63,7 +90,13 @@ export default function Page() {
                 className="px-2 py-1.5  cursor-pointer rounded bg-red-500 text-white font-medium w-full"
                 onClick={handleConfirmCancel}
               >
-                Confirm Cancel
+                {Isloading ? (
+                  <span>
+                    Confirm Cancel <Loader className="size-3.5  animate-spin" />
+                  </span>
+                ) : (
+                  <>Confirm Cancel</>
+                )}
               </button>
               <button
                 className="px-2 py-1.5  cursor-pointer rounded bg-neutral-300 text-neutral-800 font-medium w-full"
