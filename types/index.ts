@@ -148,6 +148,7 @@ export interface DoctorState{
 }
 export interface DoctorIdState{
    doctor:IDoctor | null ;
+  totalConsultations:number,
    loading:boolean;
    error:string | null ,
    fetchDoctorId:(id:string)=>Promise<void>;
@@ -170,4 +171,36 @@ export interface IBooking {
   cancellation_reason?: string;
   cancelled_at?: Date;
   cancelled_by?: string;
+}
+export interface BookingProps{
+  _id:string
+  doctorId:{
+    _id:string,
+    doctorName:string,
+    department:string
+  }
+  userId:{
+
+    _id:string,
+    username:string,
+    email:string,
+    image:string
+  }
+
+  patient_name:string,
+  age:number,
+  gender:string,
+  status:string,
+  paymentStatus:string
+  notes:string,
+  remainingAmount:number
+  appointment_date:string
+  appointment_time:string
+}
+export interface BookingList{
+  bookings:BookingProps[]
+  loading: boolean;
+  error: string | null;
+  fetchBookings: () => Promise<void>;
+ 
 }

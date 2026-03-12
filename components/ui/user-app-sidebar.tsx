@@ -53,7 +53,7 @@ export function UserAppSdideBar({
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <Link href="/admin/dashboard" className="flex gap-2 items-center">
+              <Link href="/user" className="flex gap-2 items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

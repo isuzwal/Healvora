@@ -1,6 +1,7 @@
 import { adminAccount, DoctorId, DoctorList } from "@/lib/admin-api/api";
-import { AdminState, DoctorIdState, DoctorState } from "@/types";
+import { AdminState, BookingList, DoctorIdState, DoctorState } from "@/types";
 import {create} from "zustand"
+import { getAllBookings } from "@/lib/admin-api/api";
 
  export const useAdminStore=create<AdminState>((set)=>({
     admin:null,
@@ -23,7 +24,8 @@ import {create} from "zustand"
     }
  }))
  // doctor list
-export const userDoctorList = create<DoctorState>()(
+export const userDoctorList = create<DoctorState>()
+(
     (set) => ({
       doctor: [],
       loading: false,
@@ -38,6 +40,7 @@ export const userDoctorList = create<DoctorState>()(
           set({
             doctor: res.data,
             loading: false,
+          
            
           });
        
@@ -53,7 +56,7 @@ export const userDoctorList = create<DoctorState>()(
           });
         }
       },
-// delete doctor 
+  // delete doctor 
       deletedoctor: (id: string) => {
         set((state) => ({
           doctor: state.doctor.filter((doc) => doc._id !== id),
@@ -62,19 +65,39 @@ export const userDoctorList = create<DoctorState>()(
     }),
     
 );
+    
+  // admin bookings list
+  export const useAdminBookings = create<BookingList>((set) => ({
+    bookings: [],
+    loading: false,
+    error: null,
+    fetchBookings: async () => { 
+      try {
+        set({ loading: true, error: null });
+        const res = await getAllBookings();
+        set({ bookings: res.data, loading: false });
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Something went wrong";
+        set({ error: message, loading: false });
+      }
+    },
+  
+  }))
+
 // get Doctor ById
 export const useDoctorId=create<DoctorIdState >()((set)=>({
       doctor: null,
       loading: false,
       error: null,
-
+      totalConsultations:0,
       fetchDoctorId:async(id:string) =>{
           try {
           set({ loading: true, error: null });
           const res = await DoctorId (id);
-          console.log("Data",res.data)
+          
           set({
             doctor: res.data,
+            totalConsultations:res.totalConsultations,
             loading: false,
            
           });

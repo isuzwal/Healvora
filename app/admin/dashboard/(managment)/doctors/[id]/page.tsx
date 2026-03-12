@@ -3,7 +3,6 @@
 import { useDoctorId } from "@/store/useAdminStore";
 import {
   Briefcase,
-  ChevronRight,
   DollarSign,
   Globe,
   GraduationCap,
@@ -11,7 +10,6 @@ import {
   Mail,
   MapPin,
   Phone,
-  Star,
   Users,
 } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -20,7 +18,7 @@ import Image from "next/image";
 import { DoctorProfileSkeleton } from "@/components/ui/doctor-profile-skeleton";
 export default function Page() {
   // will pass the id to function here
-  const { doctor, loading, fetchDoctorId } = useDoctorId();
+  const { doctor, loading, fetchDoctorId, totalConsultations } = useDoctorId();
 
   const params = useParams<{ id: string }>();
   const id = params.id;
@@ -111,22 +109,7 @@ export default function Page() {
               </div>
 
               <span className="font-semibold text-xs text-neutral-700">
-                {doctor?.total_consultaions || 0}
-              </span>
-            </div>
-            <div className="bg-white p-2 rounded-lg border border-slate-200 flex items-center justify-between ">
-              <div className="flex items-center gap-3">
-                <div className="w-7 h-7 bg-yellow-50 border border-yellow-100 text-yellow-500 rounded-md flex items-center justify-center">
-                  <Star className="size-4" />
-                </div>
-
-                <span className="text-xs font-medium text-neutral-600">
-                  Rating
-                </span>
-              </div>
-
-              <span className="font-semibold text-xs text-neutral-700">
-                {doctor?.rating || 0}
+                {totalConsultations}
               </span>
             </div>
           </div>

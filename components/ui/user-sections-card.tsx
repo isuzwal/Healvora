@@ -57,7 +57,7 @@ export function UserSectionCards() {
               <span className="w-6 h-6 bg-green-100 border-green-200 text-green-400 border-[1.5px] rounded-md  flex justify-center items-center">
                 <CircleCheck className="size-4" />
               </span>
-              Booking Completed
+              Booking Success
             </CardDescription>
             <CardTitle className="text-2xl  px-4 flex gap-2 items-center  font-semibold tabular-nums @[250px]/card:text-3xl">
               {success || 0}

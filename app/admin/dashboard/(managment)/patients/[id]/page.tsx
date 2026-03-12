@@ -1,6 +1,5 @@
 "use client";
 
-import { IconProgress } from "@tabler/icons-react";
 import { useParams } from "next/navigation";
 
 export default function Page() {
