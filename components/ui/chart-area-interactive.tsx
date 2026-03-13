@@ -20,20 +20,15 @@ import {
 import { useMemo } from "react";
 import { ChartNoAxesCombined, Timer } from "lucide-react";
 import Image from "next/image";
-import {
-  // doctordata,
-  // isAvailable,
-  // Leave,
-  patientdata,
-  // UnAvailable,
-} from "@/types/demo.data";
-import { userDoctorList } from "@/store/useAdminStore";
+
+import { useAdminBookings, userDoctorList } from "@/store/useAdminStore";
 import { DoctorListSkeleton } from "./doctor-skeleton";
 
 export const description = "An interactive area chart";
 
 export function ChartAreaInteractive() {
   const { doctor, loading, fetchDoctor } = userDoctorList();
+  const { bookings } = useAdminBookings();
 
   React.useEffect(() => {
     if (!doctor.length) {
@@ -51,26 +46,32 @@ export function ChartAreaInteractive() {
       { date: string; admission: number; discharge: number }
     > = {};
 
-    patientdata.forEach((patient) => {
-      if (!grouped[patient.date]) {
-        grouped[patient.date] = {
-          date: patient.date,
+    bookings.forEach((patient) => {
+      const date = new Date(patient.appointment_date)
+        .toISOString()
+        .split("T")[0]; // clean date
+
+      if (!grouped[date]) {
+        grouped[date] = {
+          date,
           admission: 0,
           discharge: 0,
         };
       }
 
-      // Admission = total patients
-      grouped[patient.date].admission += 1;
+      // total booking
+      grouped[date].admission += 1;
 
-      // Discharge = only Success
-      if (patient.status === "Success") {
-        grouped[patient.date].discharge += 1;
+      // success booking
+      if (patient.status === "success") {
+        grouped[date].discharge += 1;
       }
     });
 
-    return Object.values(grouped);
-  }, []);
+    return Object.values(grouped).sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
+  }, [bookings]);
 
   const chartConfig = {
     admission: {
@@ -79,7 +80,7 @@ export function ChartAreaInteractive() {
     },
     discharge: {
       label: "Discharge",
-      color: "var(--primary)",
+      color: "var(--popover-foreground)",
     },
   } satisfies ChartConfig;
 

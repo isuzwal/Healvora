@@ -55,27 +55,7 @@ export  interface IDoctor{
 export type DoctorBasicInfo=Pick<IDoctor, "doctorName" | "doctor_image"  |"department" | "isAvailable" >
 
 
-export interface BookingData{
-  doctorId: string;
-  patient_name: string;
-  age: number;
-  gender: Gender;
-  notes: string;
-  appointment_date: Date;
-  appointment_time: string;
-  consultationFee:number;
 
-}
-export type PatientType = {
-  patientId: string;
-  name: string;
-  image:string,
-  gender: "Male" | "Female";
-  age: number;
-  date: string;
-  department: string;
-  status: "Pending" | "Success";
-};
 
 type ComplinacesStatus = "Pending" | "Resolve";
 export interface CompliancesData {
@@ -102,8 +82,8 @@ export interface Bookingdata {
   notes: string;
   appointment_date: string;
   appointment_time: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   __v: number;
 }
 
@@ -154,24 +134,7 @@ export interface DoctorIdState{
    fetchDoctorId:(id:string)=>Promise<void>;
 }
 
-export interface IBooking {
-  userId:string;
-  doctorId:{
-    department:string,
-    _id:string
-  },
-  appointment_time?: Date;
-  appointment_date?: Date;
-  patient_name: string;
-  gender: Gender;
-  age: number;
-  
-  status?: Status;
-  notes: string;
-  cancellation_reason?: string;
-  cancelled_at?: Date;
-  cancelled_by?: string;
-}
+
 export interface BookingProps{
   _id:string
   doctorId:{

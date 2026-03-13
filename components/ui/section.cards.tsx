@@ -9,18 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Clock,
-  CreditCard,
-  HeartHandshake,
-  Users,
-  XCircle,
-} from "lucide-react";
-import {
-  patientdata,
-  successPercentageFormatted,
-  // totalappointment,
-} from "@/types/demo.data";
+import { Clock, HeartHandshake, Users, XCircle } from "lucide-react";
+
 import { useAdminBookings } from "@/store/useAdminStore";
 export function SectionCards() {
   const { bookings, loading } = useAdminBookings();
