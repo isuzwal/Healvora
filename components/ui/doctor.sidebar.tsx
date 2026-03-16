@@ -8,33 +8,32 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-
-
 import { Users, LayoutDashboardIcon, Settings } from "lucide-react";
 import { NavMain } from "./nav-main";
 
 import Link from "next/link";
-import { UserSidebarFooter } from "./user-sidebar-footer";
 
-export function UserAppSdideBar({
+import { DoctorSidebarFooter } from "./doctor.footer";
+
+export function DoctorAppSdideBar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const userlink = {
     navMain: [
       {
         title: "Dashboard",
-        url: "/user",
+        url: `/doctor`,
         icon: <LayoutDashboardIcon />,
       },
       {
-        title: "My bookings",
-        url: "/user/bookings",
+        title: "Appointments",
+        url: "/doctor/appointments",
         icon: <Users />,
       },
 
       {
         title: "Settings",
-        url: "/user/settings",
+        url: "/doctor/settings",
         icon: <Settings />,
       },
     ],
@@ -53,7 +52,7 @@ export function UserAppSdideBar({
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <Link href="/user" className="flex gap-2 items-center">
+              <Link href="/doctor" className="flex gap-2 items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -82,7 +81,7 @@ export function UserAppSdideBar({
         <NavMain items={userlink.navMain} />
       </SidebarContent>
       <SidebarFooter className="p-2">
-        <UserSidebarFooter />
+        <DoctorSidebarFooter />
       </SidebarFooter>
     </Sidebar>
   );

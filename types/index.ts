@@ -49,7 +49,7 @@ export  interface IDoctor{
     bio?:string;
     language_spoken:LanguageSpoken[];
     isAvailable:boolean;
-    rating:string;
+   
     total_consultaions:number
 }
 export type DoctorBasicInfo=Pick<IDoctor, "doctorName" | "doctor_image"  |"department" | "isAvailable" >

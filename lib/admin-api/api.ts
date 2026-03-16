@@ -52,6 +52,30 @@ export const DoctorId=async(id:string)=>{
     }
 }
 // get all bookings (admin)
+// get doctor profile by token
+export const getDoctorProfile = async () => {
+  try {
+    const token = localStorage.getItem("doctor_token");
+
+    if (!token) {
+     
+      throw new Error("UNAUTHORIZED");
+    }
+    const response = await fetch(`${BACKENDAPI}/api/v1/doctor/doctor-profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to fetch doctor profile");
+    }
+    
+    return data.data;
+  } catch (error) {
+    throw error;
+  }
+};
 export const getAllBookings = async () => {
   try {
     const token = localStorage.getItem("admin_token");

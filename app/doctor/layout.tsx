@@ -1,11 +1,11 @@
 "use client";
-
+import { DoctorAppSdideBar } from "@/components/ui/doctor.sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { UserAppSdideBar } from "@/components/ui/user-app-sidebar";
-import { UserHeader } from "@/components/ui/user.header";
-import { useUserStore } from "@/store/useUserStore";
+
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { DoctorHeader } from "@/components/ui/doctor.header";
+import { useDoctorStore } from "@/store/useDoctorStore";
 
 export default function DashboardLayout({
   children,
@@ -13,16 +13,15 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const { getBookingsList } = useUserStore();
+  const { fetchDoctor } = useDoctorStore();
 
   useEffect(() => {
-    getBookingsList();
-  }, [getBookingsList]);
-
+    fetchDoctor();
+  }, []);
   useEffect(() => {
-    const token = localStorage.getItem("user_token");
+    const token = localStorage.getItem("doctor_token");
     if (!token) {
-      router.push("/login");
+      router.push("/doctor-login");
     }
   }, []);
   return (
@@ -34,9 +33,9 @@ export default function DashboardLayout({
         } as React.CSSProperties
       }
     >
-      <UserAppSdideBar variant="inset" />
+      <DoctorAppSdideBar variant="inset" />
       <SidebarInset>
-        <UserHeader />
+        <DoctorHeader />
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
             {children}

@@ -42,6 +42,7 @@ export function AddDoctorSidebar() {
       email: "",
       phone: "",
       age: 0,
+      password: "",
       gender: Gender.MALE,
       specialization: "",
       qualifications: [],
@@ -92,10 +93,10 @@ export function AddDoctorSidebar() {
   const handleAddDoctor: SubmitHandler<z.infer<typeof DoctorSchema>> = async (
     data,
   ) => {
+    console.log("FORM DATA:", data);
     const token = localStorage.getItem("admin_token");
     setLoading(true);
-    console.log("While submting", data);
-    console.log(doctorform.formState.errors);
+
     try {
       const response = await fetch(`${BACKENDAPI}/api/v1/admin/add-doctor`, {
         method: "POST",
@@ -282,8 +283,30 @@ export function AddDoctorSidebar() {
               ></Controller>
             </Field>
           </div>
-          <div className="w-full grid-cols-1  sm:grid-cols-2 grid">
+          <div className="w-full grid-cols-1  items-center sm:grid-cols-2 grid">
             <Field className=" p-2">
+              <Controller
+                name="password"
+                control={doctorform.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid} className="gap-0.5">
+                    <FieldLabel className="text-neutral-800 font-sans tracking-tighter">
+                      Password
+                    </FieldLabel>
+                    <Input
+                      type="password"
+                      {...field}
+                      placeholder="Enter password for doctor account"
+                      className="h-8    placeholder:text-neutral-600 placeholder:text-[12px] placeholder:tracking-tighter placeholder:font-sans  rounded-lg border-neutral-300 focus:outline-0 focus:ring-0 "
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              ></Controller>
+            </Field>
+            <Field>
               <Controller
                 name="email"
                 control={doctorform.control}
@@ -305,29 +328,29 @@ export function AddDoctorSidebar() {
                 )}
               ></Controller>
             </Field>
-            <Field className=" p-2">
-              <Controller
-                name="address"
-                control={doctorform.control}
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid} className="gap-0.5">
-                    <FieldLabel className="text-neutral-800 font-sans tracking-tighter">
-                      Address
-                    </FieldLabel>
-                    <Input
-                      type="text"
-                      {...field}
-                      placeholder="Enter full address"
-                      className="h-8    placeholder:text-neutral-600 placeholder:text-[12px] placeholder:tracking-tighter placeholder:font-sans  rounded-lg border-neutral-300 focus:outline-0 focus:ring-0 "
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              ></Controller>
-            </Field>
           </div>
+          <Field className=" p-2">
+            <Controller
+              name="address"
+              control={doctorform.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid} className="gap-0.5">
+                  <FieldLabel className="text-neutral-800 font-sans tracking-tighter">
+                    Address
+                  </FieldLabel>
+                  <Input
+                    type="text"
+                    {...field}
+                    placeholder="Enter full address"
+                    className="h-8    placeholder:text-neutral-600 placeholder:text-[12px] placeholder:tracking-tighter placeholder:font-sans  rounded-lg border-neutral-300 focus:outline-0 focus:ring-0 "
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            ></Controller>
+          </Field>
           <div className="w-full grid-cols-1  sm:grid-cols-2 grid">
             <Field className=" p-2">
               <Controller

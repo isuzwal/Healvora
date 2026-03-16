@@ -24,8 +24,9 @@ import Image from "next/image";
 import { BACKENDAPI } from "@/types/url";
 import { toast } from "sonner";
 import { Loader } from "lucide-react";
-import { useUserStore } from "@/store/useUserStore";
-import { User } from "@/types";
+
+import { Admin } from "@/types";
+import { useAdminStore } from "@/store/useAdminStore";
 import Link from "next/link";
 
 export default function Page() {
@@ -33,12 +34,11 @@ export default function Page() {
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [passwordloading, setPasswordLoading] = useState<boolean>(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
   const [newPassword, setNewPassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
 
-  const { user } = useUserStore();
+  const { admin } = useAdminStore();
   return (
     <div className="w-full px-4 py-10 sm:px-6 lg:px-10">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-10">
@@ -53,7 +53,7 @@ export default function Page() {
           setProfileImageEdit={setProfileImageUrl}
           loading={loading}
           setLoading={setLoading}
-          user={user}
+          admin={admin}
         />
 
         <Separator />
@@ -63,8 +63,8 @@ export default function Page() {
           currentPassword={currentPassword}
           setNewPassword={setNewPassword}
           setCurrentPassword={setCurrentPassword}
-          loading={passwordloading}
-          setLoading={setPasswordLoading}
+          loading={loading}
+          setLoading={setLoading}
         />
         <Separator />
 
@@ -85,21 +85,23 @@ interface ProfileProps {
   setProfileImageEdit: (value: string | null) => void; // store profileImage from backend
   loading: boolean;
   setLoading: (value: boolean) => void;
-  user: User | null;
+  admin: Admin | null;
 }
 
 const ProfileSection = ({
   edit,
   setEdit,
+  profileImage,
   setProfileImageEdit,
   uploadImageUrl,
   setUploadImageUrl,
+  previewImage,
   setPreviewImage,
   loading,
   setLoading,
-  user,
+  admin,
 }: ProfileProps) => {
-  const [username, setUsername] = useState("");
+  const [adminName, setAdminame] = useState("");
   const [email, setEmail] = useState("");
 
   // Handle preview image url and send to backend get url  back
@@ -118,10 +120,10 @@ const ProfileSection = ({
   const UplaodFile = async (file: File) => {
     const formData = new FormData();
     formData.append("image", file);
-    const token = localStorage.getItem("user_token");
+    const token = localStorage.getItem("admin_token");
 
     try {
-      const response = await fetch(`${BACKENDAPI}/api/v1/user/user-image`, {
+      const response = await fetch(`${BACKENDAPI}/api/v1/admin/admin-image`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -132,8 +134,8 @@ const ProfileSection = ({
       if (!response.ok) throw new Error("Failed to upload image");
 
       const data = await response.json();
-      setUploadImageUrl(data.url); // ← save URL here
-      setProfileImageEdit(data.url); // ← optional, if you want to update preview
+      setUploadImageUrl(data.url);
+      setProfileImageEdit(data.url);
     } catch (error) {
       toast.error(`${error}` || "Fail to upload image");
     }
@@ -143,21 +145,28 @@ const ProfileSection = ({
   const onSubmit = async () => {
     setLoading(true);
 
-    const token = localStorage.getItem("user_token");
-
+    const token = localStorage.getItem("admin_token");
+    if (!adminName.trim() && !email) {
+      toast.error("Form can't be empty");
+      setLoading(false);
+      return;
+    }
     try {
-      const response = await fetch(`${BACKENDAPI}/api/v1/user/update-profile`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `${BACKENDAPI}/api/v1/admin/update-admin-profile`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            adminName,
+            email,
+            admin_image: uploadImageUrl,
+          }),
         },
-        body: JSON.stringify({
-          username,
-          email,
-          profileImage: uploadImageUrl,
-        }),
-      });
+      );
 
       const result = await response.json();
       if (!response.ok) {
@@ -178,14 +187,14 @@ const ProfileSection = ({
       setLoading(false);
     }
   };
-
+  const imageToShow = previewImage ?? admin?.admin_image ?? "/images/first.png";
   return (
     <section className="grid gap-6 lg:grid-cols-[240px_1fr]">
       <div className="space-y-2 ">
         <div>
           <h2 className="text-lg font-semibold">Profile information</h2>
           <p className="text-sm text-muted-foreground">
-            Keep your public details accurate for appointments.
+            Keep your public details accurate .
           </p>
         </div>
         <div className="flex flex-col gap-1 lg:flex-row">
@@ -199,7 +208,7 @@ const ProfileSection = ({
           <Button
             type="submit"
             form="profile-form"
-            className={`flex    items-center justify-center gap-2 rounded-md bg-primary text-white font-medium transition hover:bg-primary/90 disabled:opacity-70 ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
+            className={`flex  items-center w-full lg:w-auto justify-center gap-1 rounded-md bg-primary text-white font-medium transition hover:bg-primary/90 disabled:opacity-70 ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
             disabled={!edit}
           >
             {loading ? (
@@ -230,18 +239,28 @@ const ProfileSection = ({
           >
             {/* Profile Image + Upload */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-              {user?.image ? (
+              {admin?.admin_image ? (
                 <div className="h-20 w-20 relative overflow-hidden rounded-full border">
                   <Image
-                    src={user.image || "/images/first.png"}
+                    src={imageToShow}
                     alt="Profile preview"
                     className="h-full w-full object-cover"
                     fill
                   />
                 </div>
               ) : (
-                <div className="flex h-20 w-20 items-center justify-center rounded-full border bg-muted text-sm font-medium text-muted-foreground">
-                  Avatar
+                <div className="h-20 w-20 relative overflow-hidden rounded-full border">
+                  <Image
+                    src={
+                      profileImage && admin?.admin_image
+                        ? admin?.admin_image
+                        : "/images/first.png"
+                    }
+                    alt="Profile preview"
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                    fill
+                  />
                 </div>
               )}
               <div className="space-y-2">
@@ -261,13 +280,13 @@ const ProfileSection = ({
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="username">First name</Label>
+                <Label htmlFor="adminname">First name</Label>
                 <Input
-                  id="username"
+                  id="adminname"
                   placeholder="Ava"
-                  value={username || user?.username}
+                  value={adminName || admin?.adminName}
                   disabled={!edit}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setAdminame(e.target.value)}
                 />
               </div>
               <div className="space-y-2">
@@ -276,7 +295,7 @@ const ProfileSection = ({
                   id="email"
                   type="email"
                   placeholder="ava@healvora.com"
-                  value={email || user?.email}
+                  value={email || admin?.email}
                   disabled={!edit}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -309,7 +328,7 @@ const PasswordChange = ({
   const handlePasswordChange = async () => {
     setLoading(true);
 
-    const token = localStorage.getItem("user_token");
+    const token = localStorage.getItem("admin_token");
     if (!currentPassword.trim() || !newPassword.trim()) {
       toast.error("Input box can't be empty");
       setLoading(false);
@@ -317,7 +336,7 @@ const PasswordChange = ({
     }
     try {
       const response = await fetch(
-        `${BACKENDAPI}/api/v1/user/change-password`,
+        `${BACKENDAPI}/api/v1/admin/admin-change-password`,
         {
           method: "POST",
           headers: {
@@ -344,7 +363,6 @@ const PasswordChange = ({
       setCurrentPassword("");
       setNewPassword("");
     } catch (error) {
-      console.error(error);
       toast.error(`${error}` || "Fiail to change password ", {
         className: "bg-red-600 text-white border-none",
       });
@@ -406,9 +424,9 @@ const PasswordChange = ({
             </div>
           </div>
           <p className="text-sm text-muted-foreground">
-            Use at least 8 characters, including a number and symbol.
+            Use at least 8 characters, including a number and symbol.{" "}
             <Link
-              href="/send-otp"
+              href="/admin-send-otp"
               target="_blank"
               className="text-primary underline hover:text-neutral-700"
             >
@@ -435,10 +453,10 @@ const DeleteAccount = () => {
     }
 
     setLoading(true);
-    const token = localStorage.getItem("user_token");
+    const token = localStorage.getItem("admin_token");
 
     try {
-      const response = await fetch(`${BACKENDAPI}/api/v1/user/delete-account`, {
+      const response = await fetch(`${BACKENDAPI}/api/v1/admin/delete-admin`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -455,7 +473,7 @@ const DeleteAccount = () => {
           className: "bg-green-600 text-white border-none",
         });
 
-        localStorage.removeItem("user_token");
+        localStorage.removeItem("admin_token");
         window.location.href = "/";
       }
     } catch (error) {
