@@ -8,7 +8,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-import { Users, LayoutDashboardIcon, Settings } from "lucide-react";
+import { LayoutDashboardIcon, Settings } from "lucide-react";
 import { NavMain } from "./nav-main";
 
 import Link from "next/link";
@@ -24,11 +24,6 @@ export function DoctorAppSdideBar({
         title: "Dashboard",
         url: `/doctor`,
         icon: <LayoutDashboardIcon />,
-      },
-      {
-        title: "Appointments",
-        url: "/doctor/appointments",
-        icon: <Users />,
       },
 
       {

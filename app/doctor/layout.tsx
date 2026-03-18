@@ -18,6 +18,7 @@ export default function DashboardLayout({
   useEffect(() => {
     fetchDoctor();
   }, []);
+
   useEffect(() => {
     const token = localStorage.getItem("doctor_token");
     if (!token) {

@@ -20,7 +20,7 @@ export default function AppointmentsPage() {
           return dateA.getTime() - dateB.getTime();
         })
     : [];
-  console.log(sortedBookings);
+
   return (
     <div className="p-6 w-full">
       <div className="flex gap-1 items-center  ">
